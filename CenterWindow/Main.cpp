@@ -1,9 +1,8 @@
 #include "WindowClass.h"
 
-int WINAPI wWinMain(HINSTANCE hinst, HINSTANCE pre, LPWSTR szCmdLine, int cmd)
+int WINAPI wWinMain(HINSTANCE hinst, HINSTANCE prev, LPWSTR szCmdLine, int cmd)
 {
 	Window wd;
-
 	wd.setWindow(hinst);
 	wd.Run();
 
