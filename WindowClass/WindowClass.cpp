@@ -13,7 +13,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 bool Window::setWindow(HINSTANCE hinst)
 {
-	int a;
 	WNDCLASSEX wd;
 	ZeroMemory(&wd, sizeof(WNDCLASSEX));
 	wd.cbSize = sizeof(WNDCLASSEX);
