@@ -1,5 +1,7 @@
 #include "Timer.h"
 
+float g_fSecPerFrame = 0.0f;
+
 Timer::Timer()
 {
 	ZeroMemory(m_csBuffer, sizeof(TCHAR) * 256);
@@ -20,6 +22,7 @@ bool Timer::Frame()
 	DWORD dwCurrentTick = timeGetTime();
 	DWORD dwElapstedTick = dwCurrentTick - m_dwBeforeTick;
 	m_fSecPerFrame = dwElapstedTick / 1000.0f;
+	g_fSecPerFrame = m_fSecPerFrame;
 	m_fGameTime += m_fSecPerFrame;
 	m_fTimer += m_fSecPerFrame;
 	if (m_fTimer >= 1.0f)
@@ -36,7 +39,7 @@ bool Timer::Frame()
 bool Timer::Render()
 {
 	HDC hdc = GetDC(g_hWnd);
-	TextOut(hdc, 0, 0, m_csBuffer, wcslen(m_csBuffer));
+	TextOut(hdc, 0, 0, m_csBuffer, (int)wcslen(m_csBuffer));
 	SetBkColor(hdc, RGB(0, 0, 0));
 	SetTextColor(hdc, RGB(255, 255, 255));
 

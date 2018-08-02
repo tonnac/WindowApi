@@ -1,6 +1,14 @@
 #pragma once
 #include <windows.h>
 #include <tchar.h>
+#include <string>
+#include <map>
+#include <list>
+#include <assert.h>
+
+using C_STR = std::basic_string<char>;
+using W_STR = std::basic_string<wchar_t>;
+using T_STR = std::basic_string<TCHAR>;
 
 #pragma comment(lib,"winmm.lib")
 
@@ -27,3 +35,5 @@ public:
 
 
 extern HWND g_hWnd;
+extern HINSTANCE g_hInstance;
+extern float g_fSecPerFrame;

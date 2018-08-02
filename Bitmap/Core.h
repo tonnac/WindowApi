@@ -2,6 +2,7 @@
 #include "WindowClass.h"
 #include "Timer.h"
 #include "Input.h"
+#include "Bitmap.h"
 
 class Core : public Window
 {
