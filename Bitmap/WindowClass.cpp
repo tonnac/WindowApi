@@ -5,17 +5,11 @@ Window * g_pWindow = nullptr;
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	//LRESULT ret;
+	LRESULT ret;
 
-	//if (ret = g_pWindow->MsgProc(hwnd, msg, wparam, lparam))
-	//{
-	//	return ret;
-	//}
-	switch (msg)
+	if (ret = g_pWindow->MsgProc(hwnd, msg, wparam, lparam))
 	{
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
+		return ret;
 	}
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
@@ -90,6 +84,7 @@ bool Window::Run()
 			{
 				break;
 			}
+			I_Input.MsgEvent(msg);
 		}
 		else
 		{
@@ -121,6 +116,7 @@ LRESULT CALLBACK Window::MsgProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lpar
 		PostQuitMessage(0);
 		return 0;
 	}
+	return 0;
 }
 
 void Window::CenterWindow()

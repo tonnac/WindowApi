@@ -4,23 +4,31 @@ class Sample : public Core
 {
 private:
 public:
-	bool Init()
+	bool Init() override
 	{
 		return true;
 	}
-	bool Frame()
+	bool Frame() override
 	{
 		return true;
 	}
-	bool Render()
+	bool Render() override
 	{
 		if (I_Input.getKey(VK_LEFT) == KEYSTATE::KEY_PUSH)
 		{
 			MessageBox(nullptr, L"LEFT", L"PUSH", MB_OK);
 		}
+		if (I_Input.m_dwCurrentMouse[0] == KEYSTATE::KEY_PUSH)
+		{
+			MessageBox(nullptr, L"LEFTBUTTON", L"PUSH", MB_OK);
+		}
+		if (I_Input.m_dwCurrentMouse[0] == KEYSTATE::KEY_HOLD)
+		{
+			MessageBox(nullptr, L"LEFTBUTTON", L"HOLD", MB_OK);
+		}
 		return true;
 	}
-	bool Release()
+	bool Release() override
 	{
 		return true;
 	}

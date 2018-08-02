@@ -25,6 +25,11 @@ bool Input::Frame()
 			if (m_dwCurrentMouse[iButton] == KEYSTATE::KEY_UP)
 				m_dwCurrentMouse[iButton] = KEYSTATE::KEY_FREE;
 		}
+		if (m_dwBeforeMouse[iButton] == KEYSTATE::KEY_HOLD)
+		{
+			if (m_dwCurrentMouse[iButton] == KEYSTATE::KEY_UP)
+				m_dwCurrentMouse[iButton] = KEYSTATE::KEY_FREE;
+		}
 		m_dwBeforeMouse[iButton] = m_dwCurrentMouse[iButton];
 	}
 	return true;
@@ -42,9 +47,28 @@ KEYSTATE Input::getKey(DWORD sKey)
 {
 	return m_dwKeyState[sKey];
 }
-KEYSTATE Input::getMouse(DWORD sKey)
+void Input::MsgEvent(MSG msg)
 {
-	return m_dwCurrentMouse[sKey];
+	switch (msg.message)
+	{
+	case WM_LBUTTONDOWN:
+		m_dwCurrentMouse[0] = KEYSTATE::KEY_PUSH;
+		break;
+	case WM_LBUTTONUP:
+		m_dwCurrentMouse[0] = KEYSTATE::KEY_UP;
+		break;
+	case WM_MBUTTONDOWN:
+		m_dwCurrentMouse[1] = KEYSTATE::KEY_PUSH;
+		break;
+	case WM_MBUTTONUP:
+		m_dwCurrentMouse[1] = KEYSTATE::KEY_UP;
+		break;
+	case WM_RBUTTONDOWN:
+		m_dwCurrentMouse[2] = KEYSTATE::KEY_PUSH;
+		break;
+	case WM_RBUTTONUP:
+		m_dwCurrentMouse[2] = KEYSTATE::KEY_UP;
+	}
 }
 KEYSTATE Input::KeyCheck(DWORD sKey)
 {

@@ -16,6 +16,6 @@ public:
 	virtual bool		Frame();
 	virtual bool		Render();
 	virtual bool		Release();
-private:
+public:
 	Timer m_Timer;
 };

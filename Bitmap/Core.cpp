@@ -32,7 +32,7 @@ bool Core::GameRedner()
 {
 	Render();
 	m_Timer.Render();
-//	I_Input.Render();
+	I_Input.Render();
 	return true;
 }
 

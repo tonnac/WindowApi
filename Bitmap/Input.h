@@ -11,7 +11,8 @@ public:
 	bool			Release();
 public:
 	KEYSTATE		getKey(DWORD sKey);
-	KEYSTATE		getMouse(DWORD sKey);
+	KEYSTATE		m_dwCurrentMouse[3];
+	void			MsgEvent(MSG msg);
 private:
 	KEYSTATE		KeyCheck(DWORD sKey);
 private:
@@ -19,7 +20,6 @@ private:
 private:
 	KEYSTATE		m_dwKeyState[256];
 	KEYSTATE		m_dwBeforeMouse[3];
-	KEYSTATE		m_dwCurrentMouse[3];
 };
 
 #define I_Input Input::getInstance()
