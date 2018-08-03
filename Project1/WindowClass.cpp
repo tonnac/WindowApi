@@ -1,18 +1,16 @@
 #include "WindowClass.h"
 
 HWND g_hWnd = nullptr;
-HINSTANCE g_hInstance = nullptr;
 Window * g_pWindow = nullptr;
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	//assert(g_pWindow != nullptr);
-	LRESULT ret;
+	//LRESULT ret;
 
-	if (ret = g_pWindow->MsgProc(hwnd, msg, wparam, lparam))
-	{
-		return ret;
-	}
+	//if (ret = g_pWindow->MsgProc(hwnd, msg, wparam, lparam))
+	//{
+	//	return ret;
+	//}
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
 
@@ -29,7 +27,6 @@ bool Window::setWindow(HINSTANCE hinst)
 	wd.style = CS_HREDRAW | CS_VREDRAW;
 	wd.lpfnWndProc = WndProc;
 	wd.hInstance = hinst;
-//	g_hInstance = wd.hInstance;
 	wd.hIcon = LoadIcon(nullptr, IDI_ASTERISK);
 	wd.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wd.lpszMenuName = L"Win";
@@ -83,7 +80,7 @@ bool Window::Run()
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-			if(msg.message == WM_QUIT)
+			if (msg.message == WM_QUIT)
 			{
 				break;
 			}

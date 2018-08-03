@@ -20,11 +20,10 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{2B7338F8-1791-41AB-88C6-8579F1B4D7E4}</ProjectGuid>
+    <ProjectGuid>{F3DCFB8A-8D6E-413B-9CD7-CEF4B1E551DD}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Bitmap</RootNamespace>
+    <RootNamespace>Project1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <ProjectName>05_Bitmap</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -146,9 +145,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Bitmap.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="WindowClass.cpp" />
+    <ClCompile Include="WMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="Core.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Std.h" />
@@ -156,14 +159,7 @@
     <ClInclude Include="WindowClass.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bitmap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Core.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="WindowClass.cpp" />
-    <ClCompile Include="WMain.cpp" />
+    <Image Include="bitmap1.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
