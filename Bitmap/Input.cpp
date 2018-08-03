@@ -32,17 +32,19 @@ KEYSTATE Input::KeyCheck(DWORD dwKey)
 	SHORT Key = GetAsyncKeyState(dwKey);
 	if (Key & 0x8000)
 	{
-		m_ksKeyState[dwKey] = KEYSTATE::KEY_PUSH;
-	}
-	else if (Key & 0x8001)
-	{
-		m_ksKeyState[dwKey] = KEYSTATE::KEY_HOLD;
-	}
-	else if (Key & 0x0001)
-	{
-		m_ksKeyState[dwKey] = KEYSTATE::KEY_UP;
+		if (m_ksKeyState[dwKey] == KEYSTATE::KEY_UP ||
+			m_ksKeyState[dwKey] == KEYSTATE::KEY_FREE)
+			m_ksKeyState[dwKey] = KEYSTATE::KEY_PUSH;
+		else
+			m_ksKeyState[dwKey] = KEYSTATE::KEY_HOLD;
 	}
 	else
-		m_ksKeyState[dwKey] = KEYSTATE::KEY_FREE;
+	{
+		if (m_ksKeyState[dwKey] == KEYSTATE::KEY_HOLD ||
+			m_ksKeyState[dwKey] == KEYSTATE::KEY_PUSH)
+			m_ksKeyState[dwKey] = KEYSTATE::KEY_UP;
+		else
+			m_ksKeyState[dwKey] = KEYSTATE::KEY_FREE;
+	}
 	return m_ksKeyState[dwKey];
 }
