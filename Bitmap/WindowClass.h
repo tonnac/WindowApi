@@ -11,10 +11,9 @@ public:
 	bool					SetWindow();
 	bool					Run();
 private:
-	virtual bool			Init();
-	virtual bool			Frame();
-	virtual bool			Render();
-	virtual bool			Release();
+	virtual bool			GameInit();
+	virtual bool			GameRun();
+	virtual bool			GameRelease();
 private:
 	void					CenterWindow();
 private:

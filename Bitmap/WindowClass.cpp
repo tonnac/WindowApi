@@ -53,7 +53,7 @@ bool Window::SetWindow()
 }
 bool Window::Run()
 {
-	if (!Init())
+	if (!GameInit())
 	{
 		return false;
 	}
@@ -71,29 +71,25 @@ bool Window::Run()
 		}
 		else
 		{
-			Frame();
-			Render();
+			GameRun();			
 		}
 	}
-	return Release();
+	return GameRelease();
 }
 
-bool Window::Init()
+bool Window::GameInit()
 {
 	return true;
 }
-bool Window::Frame()
+bool Window::GameRun()
 {
 	return true;
 }
-bool Window::Render()
+bool Window::GameRelease()
 {
 	return true;
 }
-bool Window::Release()
-{
-	return true;
-}
+
 
 void Window::CenterWindow()
 {
