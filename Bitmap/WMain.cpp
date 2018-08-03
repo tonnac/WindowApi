@@ -11,11 +11,11 @@ public:
 	}
 	bool Frame()
 	{
-		if (m_Input.getKey(VK_LEFT) == KEYSTATE::KEY_PUSH)
+		if (I_Input.getKey(VK_LEFT) == KEYSTATE::KEY_PUSH)
 		{
 			MessageBox(nullptr, L"qwe", L"LEFT", MB_OK);
 		}
-		if (m_Input.getKey(VK_RIGHT) == KEYSTATE::KEY_HOLD)
+		if (I_Input.getKey(VK_RIGHT) == KEYSTATE::KEY_HOLD)
 		{
 			MessageBox(nullptr, L"qwe", L"RIGHT", MB_OK);
 		}

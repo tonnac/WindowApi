@@ -3,7 +3,7 @@
 bool Core::GameInit()
 {
 	m_Timer.Init();
-	m_Input.Init();
+	I_Input.Init();
 	Init();
 	return true;
 }
@@ -17,13 +17,13 @@ bool Core::GameRelease()
 {
 	Release();
 	m_Timer.Release();
-	m_Input.Release();
+	I_Input.Release();
 	return true;
 }
 bool Core::GameFrame()
 {
 	m_Timer.Frame();
-	m_Input.Frame();
+	I_Input.Frame();
 	Frame();
 	return true;
 }
@@ -31,7 +31,7 @@ bool Core::GameRender()
 {
 	Render();
 	m_Timer.Render();
-	m_Input.Render();
+	I_Input.Render();
 	return true;
 }
 

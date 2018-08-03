@@ -1,8 +1,9 @@
 #pragma once
 #include "Std.h"
 
-class Input
+class Input : public Singleton<Input>
 {
+	friend class Singleton<Input>;
 public:
 	bool				Init();
 	bool				Frame();
@@ -12,5 +13,9 @@ public:
 private:
 	KEYSTATE			KeyCheck(DWORD);
 private:
+	Input() {}
+private:
 	KEYSTATE			m_ksKeyState[256];
 };
+
+#define I_Input Input::getInstance()

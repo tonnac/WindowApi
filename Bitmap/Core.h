@@ -19,6 +19,4 @@ private:
 	virtual bool			Release();
 private:
 	Timer					m_Timer;
-protected:
-	Input					m_Input;
 };
