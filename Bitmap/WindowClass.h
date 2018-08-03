@@ -6,15 +6,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 class Window
 {
 public:
-	Window(HINSTANCE = 0);
+	void					SetInstance(HINSTANCE);
 public:
+	bool					SetWindow();
+	bool					Run();
+private:
 	virtual bool			Init();
 	virtual bool			Frame();
-	virtual bool			Redner();
+	virtual bool			Render();
 	virtual bool			Release();
 private:
 	void					CenterWindow();
 private:
+	int						m_iCmd;
 	MSG						m_mMsg;
 	WNDCLASSEX				m_wcWD;
 	HWND					m_hWnd;
