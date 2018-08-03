@@ -35,6 +35,8 @@ bool Timer::Frame()
 bool Timer::Render()
 {
 	HDC hdc = GetDC(g_hWnd);
+	SetBkColor(hdc, RGB(0, 0, 0));
+	SetTextColor(hdc, RGB(255, 255, 255));
 	TextOut(hdc, 0, 0, m_csBuffer, _tcslen(m_csBuffer));
 	ReleaseDC(g_hWnd,hdc);
 	return true;
