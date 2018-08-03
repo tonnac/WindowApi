@@ -1,26 +1,24 @@
 #pragma once
 #include "Std.h"
-#include "Input.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 
 class Window
 {
-	friend LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 public:
-	Window();
+	Window(HINSTANCE = 0);
 public:
-	bool				setWindow(HINSTANCE);
-	bool				Run();
+	virtual bool			Init();
+	virtual bool			Frame();
+	virtual bool			Redner();
+	virtual bool			Release();
 private:
-	virtual bool		GameInit();
-	virtual bool		GameRun();
-	virtual bool		GameRelease();
-	virtual LRESULT CALLBACK	MsgProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+	void					CenterWindow();
 private:
-	void				CenterWindow();
-private:
-	HWND				m_hWnd;
-	RECT				m_rtClient;
-	RECT				m_rtWindow;
+	MSG						m_mMsg;
+	WNDCLASSEX				m_wcWD;
+	HWND					m_hWnd;
+	HINSTANCE				m_hInstance;
+	RECT					m_rtClient;
+	RECT					m_rtWindow;
 };

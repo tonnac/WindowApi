@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{2B7338F8-1791-41AB-88C6-8579F1B4D7E4}</ProjectGuid>
+    <ProjectGuid>{1DC90F01-959E-4525-8F8F-0F06DDE6644E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Bitmap</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
@@ -146,24 +146,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Bitmap.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="Core.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="Std.h" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="WindowClass.h" />
+    <ClCompile Include="WindowClass.cpp" />
+    <ClCompile Include="wMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bitmap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Core.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="WindowClass.cpp" />
-    <ClCompile Include="WMain.cpp" />
+    <ClInclude Include="Std.h" />
+    <ClInclude Include="WindowClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
