@@ -1,7 +1,5 @@
 #pragma once
 #include "WindowClass.h"
-#include "Timer.h"
-#include "Input.h"
 #include "Bitmap.h"
 
 class Core : public Window
@@ -19,5 +17,4 @@ private:
 	virtual bool			Render();
 	virtual bool			Release();
 private:
-	Timer					m_Timer;
 };

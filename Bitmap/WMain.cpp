@@ -4,37 +4,46 @@
 class Sample : public Core
 {
 private:
+	Bitmap m_bBitmap;
 public:
 	bool Init()
 	{
+		m_bBitmap.Init();
+		
 		return true;
 	}
 	bool Frame()
 	{
-		if (I_Input.getKey(VK_LEFT) == KEYSTATE::KEY_PUSH)
+		if (I_Input.getKey('A') >= KEYSTATE::KEY_PUSH)
 		{
-			MessageBox(nullptr, L"qwe", L"LEFT", MB_OK);
+			m_bBitmap.m_kPos.x += (-1)*g_fSecPerFrame * 300.0f;
 		}
-		if (I_Input.getKey(VK_RIGHT) == KEYSTATE::KEY_HOLD)
+		if (I_Input.getKey('D') >= KEYSTATE::KEY_PUSH)
 		{
-			MessageBox(nullptr, L"qwe", L"RIGHT", MB_OK);
+			m_bBitmap.m_kPos.x += (1)*g_fSecPerFrame*300.0f;
 		}
-		if (I_Input.getMouse(VK_LBUTTON) == KEYSTATE::KEY_PUSH)
+		if (I_Input.getKey('W') >= KEYSTATE::KEY_PUSH)
 		{
-			MessageBox(nullptr, L"PUSH", L"LBUTTON", MB_OK);
+			m_bBitmap.m_kPos.y += (-1)*g_fSecPerFrame*300.0f;
 		}
-		if (I_Input.getMouse(VK_LBUTTON) == KEYSTATE::KEY_UP)
+		if (I_Input.getKey('S') >= KEYSTATE::KEY_PUSH)
 		{
-			MessageBox(nullptr, L"UP", L"LBUTTON", MB_OK);
+			m_bBitmap.m_kPos.y += (1)*g_fSecPerFrame*300.0f;
 		}
+		m_bBitmap.Frame();
 		return true;
 	}
 	bool Render()
 	{
+		HDC hdc = GetDC(g_hWnd);
+		m_bBitmap.LoadFile(L"bitmap1.bmp");
+		BitBlt(g_hOffScreenDC,m_bBitmap.m_kPos.x,m_bBitmap.m_kPos.y,m_bBitmap.m_bBmpInfo.bmWidth,m_bBitmap.m_bBmpInfo.bmHeight,m_bBitmap.m_hMemDC,0,0,SRCCOPY);
+		m_bBitmap.Render();
 		return true;
 	}
 	bool Release()
 	{
+		m_bBitmap.Release();
 		return true;
 	}
 };

@@ -1,7 +1,5 @@
 #include "Timer.h"
 
-float g_fSecPerFrame = 0.0f;
-
 Timer::Timer()
 {
 	ZeroMemory(m_csBuffer, sizeof(TCHAR) * 256);
@@ -23,7 +21,7 @@ bool Timer::Frame()
 {
 	DWORD dwCurrentTick = timeGetTime();
 	DWORD ElapstedTick = dwCurrentTick - m_dwBeforeTick;
-	m_fSecPerFrame = g_fSecPerFrame = ElapstedTick / 1000.0f;
+	m_fSecPerFrame = ElapstedTick / 1000.0f;
 	//if (m_fSecPerFrame < m_fInterval)
 	//{
 	//	Sleep(m_fInterval - m_fSecPerFrame);
@@ -43,8 +41,8 @@ bool Timer::Frame()
 }
 bool Timer::Render()
 {
-	SetBkColor(g_hOffScreenDC, RGB(0, 0, 0));
-	SetTextColor(g_hOffScreenDC, RGB(255, 255, 255));
+	SetBkColor(g_hOffScreenDC, RGB(0, 0, 255));
+	SetTextColor(g_hOffScreenDC, RGB(255, 0, 0));
 	TextOut(g_hOffScreenDC, 0, 0, m_csBuffer, _tcslen(m_csBuffer));
 	return true;
 }
