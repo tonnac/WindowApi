@@ -7,6 +7,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 class Window
 {
 public:
+	Window();
+public:
 	void					SetInstance(HINSTANCE);
 public:
 	bool					SetWindow();
@@ -15,6 +17,8 @@ private:
 	virtual bool			GameInit();
 	virtual bool			GameRun();
 	virtual bool			GameRelease();
+public:
+	virtual LRESULT CALLBACK MsgProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 private:
 	void					CenterWindow();
 private:

@@ -2,6 +2,10 @@
 #include <windows.h>
 #include <assert.h>
 #include <tchar.h>
+#include <string>
+
+
+using T_STR = std::basic_string<TCHAR>;
 
 enum class KEYSTATE
 {
@@ -26,4 +30,4 @@ public:
 
 #pragma comment(lib,"winmm.lib")
 
-extern HWND g_hWnd;
+extern HWND g_hWnd;			//Timer::Render()

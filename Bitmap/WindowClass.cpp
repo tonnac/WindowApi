@@ -1,19 +1,22 @@
 #include "WindowClass.h"
 
-HWND g_hWnd;
+HWND g_hWnd = nullptr;
+Window * g_pWindow = nullptr;
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	switch (msg)
+	LRESULT ret;
+	if (ret = g_pWindow->MsgProc(hwnd, msg, wparam, lparam))
 	{
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
+		return ret;
 	}
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
 
-
+Window::Window()
+{
+	g_pWindow = this;
+}
 void Window::SetInstance(HINSTANCE hinst)
 {
 	m_hInstance = hinst;
@@ -89,6 +92,17 @@ bool Window::GameRun()
 bool Window::GameRelease()
 {
 	return true;
+}
+
+LRESULT CALLBACK Window::MsgProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+{
+	switch (msg)
+	{
+	case WM_QUIT:
+		PostQuitMessage(0);
+		break;
+	}
+	return 0;
 }
 
 
