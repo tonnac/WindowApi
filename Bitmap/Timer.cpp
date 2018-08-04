@@ -8,6 +8,8 @@ Timer::Timer()
 	m_fTimer = 0.0f;
 	m_fSecPerFrame = 0.0f;
 	m_fGametime = 0.0f;
+	m_dwFPS = 60;
+	m_fInterval = (1000.0f / m_dwFPS) /1000.f;
 }
 
 bool Timer::Init()
@@ -20,6 +22,11 @@ bool Timer::Frame()
 	DWORD dwCurrentTick = timeGetTime();
 	DWORD ElapstedTick = dwCurrentTick - m_dwBeforeTick;
 	m_fSecPerFrame = ElapstedTick / 1000.0f;
+	//if (m_fSecPerFrame < m_fInterval)
+	//{
+	//	Sleep(m_fInterval - m_fSecPerFrame);
+	//	m_fSecPerFrame += m_fInterval - m_fSecPerFrame;
+	//}
 	m_fTimer += m_fSecPerFrame;
 	m_fGametime += m_fSecPerFrame;
 	if (m_fTimer >= 1.0f)

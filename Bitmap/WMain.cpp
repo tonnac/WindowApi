@@ -19,6 +19,14 @@ public:
 		{
 			MessageBox(nullptr, L"qwe", L"RIGHT", MB_OK);
 		}
+		if (I_Input.getMouse(VK_LBUTTON) == KEYSTATE::KEY_PUSH)
+		{
+			MessageBox(nullptr, L"PUSH", L"LBUTTON", MB_OK);
+		}
+		if (I_Input.getMouse(VK_LBUTTON) == KEYSTATE::KEY_UP)
+		{
+			MessageBox(nullptr, L"UP", L"LBUTTON", MB_OK);
+		}
 		return true;
 	}
 	bool Render()

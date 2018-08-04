@@ -1,5 +1,6 @@
 #pragma once
 #include "Std.h"
+#include "Input.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 

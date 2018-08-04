@@ -68,6 +68,7 @@ bool Window::Run()
 		{
 			TranslateMessage(&m_mMsg);
 			DispatchMessage(&m_mMsg);
+			I_Input.MsgEvent(m_mMsg);
 		}
 		else
 		{

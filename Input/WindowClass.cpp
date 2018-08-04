@@ -81,7 +81,6 @@ bool Window::Run()
 		}
 		else
 		{
-			Sleep(1);
 			GameRun();
 		}
 	}
