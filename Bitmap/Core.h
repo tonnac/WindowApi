@@ -13,11 +13,18 @@ public:
 private:
 	bool					GameFrame();
 	bool					GameRender();
+	bool					GamePreRender();
+	bool					GamePostRender();
 private:
 	virtual bool			Init();
 	virtual bool			Frame();
 	virtual bool			Render();
 	virtual bool			Release();
+private:
+//	HDC						m_hOffScreenDC;
+	HDC						m_hScreenDC;
+	HBITMAP					m_hOffBitmap;
+	HBRUSH					m_hBkbrush;
 private:
 	Timer					m_Timer;
 };

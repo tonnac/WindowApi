@@ -4,8 +4,6 @@ HWND g_hWnd = nullptr;
 Window * g_pWindow = nullptr;		//WndProc()
 HINSTANCE g_hInstance = nullptr;
 
-RECT g_rtClient;
-
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	LRESULT ret;
@@ -23,6 +21,10 @@ Window::Window()
 void Window::SetInstance(HINSTANCE hinst)
 {
 	m_hInstance = hinst;
+}
+RECT Window::getClient()
+{
+	return m_rtClient;
 }
 bool Window::SetWindow()
 {
@@ -53,10 +55,6 @@ bool Window::SetWindow()
 	assert(m_hWnd != nullptr);
 	g_hWnd = m_hWnd;
 	GetClientRect(m_hWnd, &m_rtClient);
-
-
-	g_rtClient = m_rtClient;
-
 	GetWindowRect(m_hWnd, &m_rtWindow);
 	CenterWindow();
 	return true;

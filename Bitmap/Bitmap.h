@@ -11,6 +11,11 @@ class Bitmap
 public:
 	Bitmap();
 public:
+	void				setOffset(float, float);
+	float				getPos(float = 0.0f);
+	BITMAP				getBmpInfo();
+	HDC&				getMemDC();
+public:
 	bool				LoadFile(T_STR);
 	bool				Init();
 	bool				Frame();
@@ -20,10 +25,8 @@ private:
 	T_STR				m_szFileName;
 	HBITMAP				m_hBitmap;
 	HBITMAP				m_hofbit;
-public:
 	BITMAP				m_bBmpInfo;
 	HDC					m_hMemDC;
 	KPOINT				m_kPos;
-private:
 	HBRUSH				m_hBkColor;
 };

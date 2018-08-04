@@ -9,35 +9,36 @@ public:
 	bool Init()
 	{
 		m_bBitmap.Init();
-		
+		m_bBitmap.LoadFile(L"bitmap1.bmp");
 		return true;
 	}
 	bool Frame()
 	{
 		if (I_Input.getKey('A') >= KEYSTATE::KEY_PUSH)
 		{
-			m_bBitmap.m_kPos.x += (-1)*g_fSecPerFrame * 300.0f;
+			m_bBitmap.setOffset((-1)*g_fSecPerFrame * 300.0f, 0);
 		}
 		if (I_Input.getKey('D') >= KEYSTATE::KEY_PUSH)
 		{
-			m_bBitmap.m_kPos.x += (1)*g_fSecPerFrame*300.0f;
+			m_bBitmap.setOffset((1)*g_fSecPerFrame * 300.0f, 0);
 		}
 		if (I_Input.getKey('W') >= KEYSTATE::KEY_PUSH)
 		{
-			m_bBitmap.m_kPos.y += (-1)*g_fSecPerFrame*300.0f;
+			m_bBitmap.setOffset(0, (-1)*g_fSecPerFrame * 300.0f);
 		}
 		if (I_Input.getKey('S') >= KEYSTATE::KEY_PUSH)
 		{
-			m_bBitmap.m_kPos.y += (1)*g_fSecPerFrame*300.0f;
+			m_bBitmap.setOffset(0, (1)*g_fSecPerFrame * 300.0f);
 		}
 		m_bBitmap.Frame();
 		return true;
 	}
 	bool Render()
 	{
-		HDC hdc = GetDC(g_hWnd);
+		BITMAP bBmpInfo = m_bBitmap.getBmpInfo();
+		HDC& hMemDC = m_bBitmap.getMemDC();
 		m_bBitmap.LoadFile(L"bitmap1.bmp");
-		BitBlt(g_hOffScreenDC,m_bBitmap.m_kPos.x,m_bBitmap.m_kPos.y,m_bBitmap.m_bBmpInfo.bmWidth,m_bBitmap.m_bBmpInfo.bmHeight,m_bBitmap.m_hMemDC,0,0,SRCCOPY);
+		BitBlt(g_hOffScreenDC,m_bBitmap.getPos(),m_bBitmap.getPos(1),68,79,hMemDC,46,62,SRCCOPY);
 		m_bBitmap.Render();
 		return true;
 	}

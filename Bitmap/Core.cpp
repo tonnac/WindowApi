@@ -1,7 +1,17 @@
 #include "Core.h"
 
+
 bool Core::GameInit()
 {
+	m_hScreenDC = GetDC(g_hWnd);
+	g_hOffScreenDC = CreateCompatibleDC(m_hScreenDC);
+	m_hOffBitmap = CreateCompatibleBitmap(m_hScreenDC, m_rtClient.right, m_rtClient.bottom);
+	SelectObject(g_hOffScreenDC, m_hOffBitmap);
+
+	COLORREF bkColor = RGB(255, 255, 153);
+	m_hBkbrush = CreateSolidBrush(bkColor);
+	SelectObject(g_hOffScreenDC, m_hBkbrush);
+
 	m_Timer.Init();
 	I_Input.Init();
 	Init();
@@ -18,6 +28,11 @@ bool Core::GameRelease()
 	Release();
 	m_Timer.Release();
 	I_Input.Release();
+
+	DeleteObject(m_hBkbrush);
+	DeleteObject(m_hOffBitmap);
+	DeleteDC(g_hOffScreenDC);
+	ReleaseDC(g_hWnd, m_hScreenDC);
 	return true;
 }
 bool Core::GameFrame()
@@ -29,9 +44,23 @@ bool Core::GameFrame()
 }
 bool Core::GameRender()
 {
-	m_Timer.Render();
-	I_Input.Render();
-	Render();
+	if (GamePreRender())
+	{
+		Render();
+		m_Timer.Render();
+		I_Input.Render();
+	}
+	GamePostRender();
+	return true;
+}
+bool Core::GamePreRender()
+{
+	PatBlt(g_hOffScreenDC, 0, 0, m_rtClient.right, m_rtClient.bottom, PATCOPY);
+	return true;
+}
+bool Core::GamePostRender()
+{
+	BitBlt(m_hScreenDC, 0, 0, m_rtClient.right, m_rtClient.bottom, g_hOffScreenDC, 0, 0, SRCCOPY);
 	return true;
 }
 

@@ -8,6 +8,24 @@ Bitmap::Bitmap()
 	m_kPos.y = 100;
 }
 
+void Bitmap::setOffset(float x, float y)
+{
+	m_kPos.x += x;
+	m_kPos.y += y;
+}
+float Bitmap::getPos(float fValue)
+{
+	return (fValue == 0.0f) ? m_kPos.x : m_kPos.y;
+}
+BITMAP Bitmap::getBmpInfo()
+{
+	return m_bBmpInfo;
+}
+HDC&	Bitmap::getMemDC()
+{
+	return m_hMemDC;
+}
+
 bool Bitmap::LoadFile(T_STR szFileName)
 {
 	HDC hdc = GetDC(g_hWnd);
@@ -26,27 +44,14 @@ bool Bitmap::LoadFile(T_STR szFileName)
 
 bool Bitmap::Init()
 {
-	HDC hdc = GetDC(g_hWnd);
-	g_hOffScreenDC = CreateCompatibleDC(hdc);
-	m_hofbit = CreateCompatibleBitmap(hdc, g_rtClient.right, g_rtClient.bottom);
-	SelectObject(g_hOffScreenDC, m_hofbit);
-
-	COLORREF bkColor = RGB(255, 255, 120);
-	m_hBkColor = CreateSolidBrush(bkColor);
-	SelectObject(g_hOffScreenDC, m_hBkColor);
-
-	ReleaseDC(g_hWnd, hdc);
 	return true;
 }
 bool Bitmap::Frame()
 {
-	PatBlt(g_hOffScreenDC, 0, 0, g_rtClient.right, g_rtClient.bottom, PATCOPY);
 	return true;
 }
 bool Bitmap::Render()
 {
-	HDC hdc = GetDC(g_hWnd);
-	BitBlt(hdc, 0,0, g_rtClient.right, g_rtClient.bottom, g_hOffScreenDC, 0, 0, SRCCOPY);
 	return true;
 }
 bool Bitmap::Release()

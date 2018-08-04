@@ -43,8 +43,8 @@ bool Timer::Frame()
 }
 bool Timer::Render()
 {
-	SetBkColor(g_hOffScreenDC, RGB(0, 0, 0));
-	SetTextColor(g_hOffScreenDC, RGB(255, 255, 255));
+	SetBkColor(g_hOffScreenDC, RGB(255, 255, 153));
+	SetTextColor(g_hOffScreenDC, RGB(255, 0, 255));
 	TextOut(g_hOffScreenDC, 0, 0, m_csBuffer, _tcslen(m_csBuffer));
 	return true;
 }

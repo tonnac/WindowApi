@@ -10,6 +10,7 @@ public:
 	Window();
 public:
 	void					SetInstance(HINSTANCE);
+	RECT					getClient();
 public:
 	bool					SetWindow();
 	bool					Run();
@@ -22,11 +23,12 @@ public:
 private:
 	void					CenterWindow();
 private:
-	int						m_iCmd;
+	int						m_iCmdShow;
 	MSG						m_mMsg;
 	WNDCLASSEX				m_wcWD;
 	HWND					m_hWnd;
 	HINSTANCE				m_hInstance;
+protected:
 	RECT					m_rtClient;
 	RECT					m_rtWindow;
 };
