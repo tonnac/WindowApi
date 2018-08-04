@@ -10,8 +10,8 @@ Bitmap::Bitmap()
 
 void Bitmap::setOffset(float x, float y)
 {
-	m_kPos.x += x;
-	m_kPos.y += y;
+	 m_kPos.x += x;
+	 m_kPos.y += y;
 }
 float Bitmap::getPos(float fValue)
 {
@@ -25,7 +25,6 @@ HDC&	Bitmap::getMemDC()
 {
 	return m_hMemDC;
 }
-
 bool Bitmap::LoadFile(T_STR szFileName)
 {
 	HDC hdc = GetDC(g_hWnd);

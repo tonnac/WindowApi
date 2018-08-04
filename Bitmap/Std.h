@@ -4,6 +4,7 @@
 #include <tchar.h>
 #include <string>
 
+#pragma comment(lib,"winmm.lib")
 
 using T_STR = std::basic_string<TCHAR>;
 
@@ -28,7 +29,6 @@ public:
 	}
 };
 
-#pragma comment(lib,"winmm.lib")
 
 extern HWND					g_hWnd;				//Timer::Render()
 extern HINSTANCE			g_hInstance;		//Bitmap::LoadFile() 

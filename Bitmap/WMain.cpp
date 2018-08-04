@@ -38,7 +38,8 @@ public:
 		BITMAP bBmpInfo = m_bBitmap.getBmpInfo();
 		HDC& hMemDC = m_bBitmap.getMemDC();
 		m_bBitmap.LoadFile(L"bitmap1.bmp");
-		BitBlt(g_hOffScreenDC,m_bBitmap.getPos(),m_bBitmap.getPos(1),68,79,hMemDC,46,62,SRCCOPY);
+		BitBlt(g_hOffScreenDC,(int)m_bBitmap.getPos(),(int)m_bBitmap.getPos(1),68,79,hMemDC,46,62,SRCCOPY);
+	//	StretchBlt(g_hOffScreenDC, m_bBitmap.getPos(), m_bBitmap.getPos(1), 68, 79, hMemDC, 46, 62, 68, 79, SRCCOPY);
 		m_bBitmap.Render();
 		return true;
 	}
