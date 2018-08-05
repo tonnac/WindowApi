@@ -1,26 +1,35 @@
 #pragma once
 #include "Std.h"
 
-class Input : public Singleton<Input>
+enum KEYSTATE
 {
-	friend class Singleton<Input>;
+	KEY_FREE,
+	KEY_PUSH,
+	KEY_HOLD,
+	KEY_UP
+};
+
+class KInput : public Singleton<KInput>
+{
+	friend class Singleton<KInput>;
+	KInput() {}
 public:
 	bool				Init();
 	bool				Frame();
 	bool				Render();
 	bool				Release();
 public:
-	KEYSTATE			getKey(DWORD);
-	KEYSTATE			getMouse(DWORD);
+	DWORD				getMouse(DWORD);
+	DWORD				getKey(DWORD);
 	void				MsgEvent(MSG);
 private:
-	KEYSTATE			KeyCheck(DWORD);
+	DWORD				KeyCheck(DWORD);
 private:
-	Input() {}
-private:
-	KEYSTATE			m_ksKeyState[256];
-	KEYSTATE			m_ksBeforeMouseState[3];
-	KEYSTATE			m_ksCurrentMouseState[3];
+	TCHAR				m_csBuffer[256];
+	POINT				m_MousePos;
+	DWORD				m_dwKeyState[256];
+	DWORD				m_dwBeforeMouseState[3];
+	DWORD				m_dwCurrentMouseState[3];
 };
 
-#define I_Input Input::getInstance()
+#define I_KInput KInput::getInstance()

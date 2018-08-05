@@ -1,121 +1,139 @@
 #include "WindowClass.h"
 
-HWND g_hWnd = nullptr;
-Window * g_pWindow = nullptr;		//WndProc()
-HINSTANCE g_hInstance = nullptr;
+KWindow *	g_pWindow = nullptr;
+HWND		g_hWnd = nullptr;
+HINSTANCE	g_hInstance = nullptr;
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT	CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	LRESULT ret;
-	if (ret = g_pWindow->MsgProc(hwnd, msg, wparam, lparam))
+	assert(g_pWindow != nullptr);
+
+	LRESULT Ret;
+	if (Ret = g_pWindow->MsgProc(hwnd, msg, wparam, lparam))
 	{
-		return ret;
+		return Ret;
 	}
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
 
-Window::Window()
+KWindow::KWindow()
 {
 	g_pWindow = this;
 }
-void Window::SetInstance(HINSTANCE hinst)
-{
-	m_hInstance = hinst;
-}
-RECT Window::getClient()
+RECT KWindow::getrtClient()
 {
 	return m_rtClient;
 }
-bool Window::SetWindow()
+bool KWindow::SetWindow(HINSTANCE hInst)
 {
-	ZeroMemory(&m_mMsg, sizeof(MSG));
-	ZeroMemory(&m_wcWD, sizeof(WNDCLASSEX));
-	m_wcWD.cbSize = sizeof(WNDCLASSEX);
-	m_wcWD.style = CS_HREDRAW | CS_VREDRAW;
-	m_wcWD.hInstance = g_hInstance = m_hInstance;
-	m_wcWD.lpfnWndProc = WndProc;
-//	m_wcWD.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-	m_wcWD.lpszMenuName = L"Window";
-	m_wcWD.lpszClassName = L"ClassName";
-
-	if (!RegisterClassEx(&m_wcWD))
+	ZeroMemory(&m_wdClass, sizeof(WNDCLASSEX));
+	m_wdClass.cbSize = sizeof(WNDCLASSEX);
+	m_wdClass.style = CS_HREDRAW | CS_VREDRAW;
+	m_wdClass.lpfnWndProc = WndProc;
+	m_wdClass.hInstance = m_hInstance = hInst;
+	m_wdClass.hIcon = LoadIcon(nullptr, IDI_SHIELD);
+	m_wdClass.hCursor = LoadCursor(nullptr, IDC_NO);
+	m_wdClass.lpszMenuName = L"NewWindow";
+	m_wdClass.lpszClassName = L"ClassName";
+	m_wdClass.hIconSm = LoadIcon(nullptr, IDI_EXCLAMATION);
+	if (!RegisterClassEx(&m_wdClass))
 	{
 		return false;
 	}
 	m_hWnd = CreateWindowEx(WS_EX_APPWINDOW,
-		m_wcWD.lpszClassName,
-		m_wcWD.lpszMenuName,
+		m_wdClass.lpszClassName,
+		m_wdClass.lpszMenuName,
 		WS_OVERLAPPEDWINDOW,
-		0, 0,
-		1024, 768,
+		0,
+		0,
+		1024,
+		768,
 		nullptr,
 		nullptr,
-		m_wcWD.hInstance,
+		m_wdClass.hInstance,
 		nullptr);
-	assert(m_hWnd != nullptr);
+	if (m_hWnd == nullptr)
+	{
+		return false;
+	}
 	g_hWnd = m_hWnd;
 	GetClientRect(m_hWnd, &m_rtClient);
 	GetWindowRect(m_hWnd, &m_rtWindow);
 	CenterWindow();
 	return true;
 }
-bool Window::Run()
+bool KWindow::Run()
 {
 	if (!GameInit())
 	{
 		return false;
 	}
-	if (ShowWindow(m_hWnd, SW_SHOW))
+	ShowWindow(m_hWnd, SW_SHOW);
+	MSG msg;
+	ZeroMemory(&msg, sizeof(MSG));
+	while (msg.message != WM_QUIT)
 	{
-		return false;
-	}
-
-	while (m_mMsg.message != WM_QUIT)
-	{
-		if (PeekMessage(&m_mMsg, nullptr, 0, 0, PM_REMOVE))
+		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
-			TranslateMessage(&m_mMsg);
-			DispatchMessage(&m_mMsg);
-			I_Input.MsgEvent(m_mMsg);
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+			I_KInput.MsgEvent(msg);
 		}
 		else
 		{
-			GameRun();			
+			GameFrame();
+			GameRender();
 		}
 	}
 	return GameRelease();
 }
-
-bool Window::GameInit()
+bool KWindow::GameInit()
 {
 	return true;
 }
-bool Window::GameRun()
+bool KWindow::GameFrame()
 {
 	return true;
 }
-bool Window::GameRelease()
+bool KWindow::GameRender()
 {
 	return true;
 }
-
-LRESULT CALLBACK Window::MsgProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+bool KWindow::GameRelease()
+{
+	return true;
+}
+LRESULT	CALLBACK KWindow::MsgProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	switch (msg)
 	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
-		break;
+		return 0;
 	}
 	return 0;
 }
-
-
-void Window::CenterWindow()
+void KWindow::CenterWindow()
 {
 	int iScreenWidth = GetSystemMetrics(SM_CXFULLSCREEN);
 	int iScreenHeight = GetSystemMetrics(SM_CYFULLSCREEN);
 	int x = ((iScreenWidth - (m_rtWindow.right - m_rtWindow.left)) / 2);
 	int y = ((iScreenHeight - (m_rtWindow.bottom - m_rtWindow.top)) / 2);
 	MoveWindow(m_hWnd, x, y, m_rtWindow.right - m_rtWindow.left, m_rtWindow.bottom - m_rtWindow.top, true);
+}
+bool KWindow::Init()
+{
+	return true;
+}
+bool KWindow::Frame()
+{
+	return true;
+}
+bool KWindow::Render()
+{
+	return true;
+}
+bool KWindow::Release()
+{
+	return true;
 }

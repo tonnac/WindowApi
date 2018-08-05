@@ -1,32 +1,20 @@
 #pragma once
 #include "Std.h"
 
-struct KPOINT
-{
-	float x, y;
-};
-
 class Bitmap
 {
 public:
-	Bitmap();
+	bool			Init();
+	bool			Frame();
+	bool			Render();
+	bool			Release();
+	bool			LoadFile(T_STR);
 public:
-	void				setOffset(float, float);
-	float				getPos(float = 0.0f);
-	BITMAP				getBmpInfo();
-	HDC&				getMemDC();
-public:
-	bool				LoadFile(T_STR);
-	bool				Init();
-	bool				Frame();
-	bool				Render();
-	bool				Release();
+	T_STR			getName() const;
+	HDC				getMemDC() const;
 private:
-	T_STR				m_szFileName;
-	HBITMAP				m_hBitmap;
-	HBITMAP				m_hofbit;
-	BITMAP				m_bBmpInfo;
-	HDC					m_hMemDC;
-	KPOINT				m_kPos;
-	HBRUSH				m_hBkColor;
+	T_STR			m_szName;
+	HDC				m_hMemDC;
+	HBITMAP			m_hBitmap;
+	BITMAP			m_bBmpInfo;
 };

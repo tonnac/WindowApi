@@ -146,6 +146,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Bitmap.h" />
+    <ClInclude Include="BitmapMgr.h" />
+    <ClInclude Include="Core.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Std.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="WindowClass.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Bitmap.cpp" />
+    <ClCompile Include="BitmapMgr.cpp" />
+    <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="WindowClass.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

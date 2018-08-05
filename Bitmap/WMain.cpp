@@ -9,7 +9,7 @@ public:
 	bool Init()
 	{
 		m_bBitmap.Init();
-		m_bBitmap.LoadFile(L"bitmap1.bmp");
+		m_bBitmap.LoadFile(L"86754.bmp");
 		return true;
 	}
 	bool Frame()
@@ -35,11 +35,15 @@ public:
 	}
 	bool Render()
 	{
+		static DWORD frame = 0;
 		BITMAP bBmpInfo = m_bBitmap.getBmpInfo();
 		HDC& hMemDC = m_bBitmap.getMemDC();
-		m_bBitmap.LoadFile(L"bitmap1.bmp");
-		BitBlt(g_hOffScreenDC,(int)m_bBitmap.getPos(),(int)m_bBitmap.getPos(1),68,79,hMemDC,46,62,SRCCOPY);
-	//	StretchBlt(g_hOffScreenDC, m_bBitmap.getPos(), m_bBitmap.getPos(1), 68, 79, hMemDC, 46, 62, 68, 79, SRCCOPY);
+		Sleep(30);
+		//BitBlt(g_hOffScreenDC, static_cast<int>(m_bBitmap.getPos()), static_cast<int>(m_bBitmap.getPos(1)), 48, 48, hMemDC, 1 * frame * 49, 201, SRCCOPY);
+		BitBlt(g_hOffScreenDC, static_cast<int>(m_bBitmap.getPos()), static_cast<int>(m_bBitmap.getPos(1)), 48, 48, hMemDC, 1 + (frame * 49), 201, SRCAND);
+	//	BitBlt(g_hOffScreenDC, static_cast<int>(m_bBitmap.getPos()), static_cast<int>(m_bBitmap.getPos(1)), 48, 48, hMemDC, 1 * frame * 49, 0, SRCPAINT);
+		//	StretchBlt(g_hOffScreenDC, m_bBitmap.getPos(), m_bBitmap.getPos(1), 68, 79, hMemDC, 46, 62, 68, 79, SRCCOPY);
+		frame = (++frame) % 11;
 		m_bBitmap.Render();
 		return true;
 	}

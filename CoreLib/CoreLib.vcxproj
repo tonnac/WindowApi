@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{918489AB-D489-4A2A-B021-B35363CEA895}</ProjectGuid>
+    <ProjectGuid>{C73330C2-4F75-488F-97E0-B8E49352D409}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>CoreLib</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
@@ -103,8 +103,9 @@
       <OutputFile>$(TargetName)$(TargetExt)</OutputFile>
     </Lib>
     <PostBuildEvent>
-      <Command>copy "*.h"  "$(SolutionDir)01_include"
-copy "*.lib" "$(SolutionDir)00_lib"</Command>
+      <Command>copy "*.lib" "$(SolutionDir)00_lib
+copy "*.h" "$(SolutionDir)01_include
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -161,14 +162,8 @@ copy "*.lib" "$(SolutionDir)00_lib"</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bitmap.cpp" />
-    <ClCompile Include="Core.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="WindowClass.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Bitmap.h" />
+    <ClInclude Include="BitmapMgr.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Std.h" />
@@ -176,7 +171,12 @@ copy "*.lib" "$(SolutionDir)00_lib"</Command>
     <ClInclude Include="WindowClass.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="bitmap1.bmp" />
+    <ClCompile Include="Bitmap.cpp" />
+    <ClCompile Include="BitmapMgr.cpp" />
+    <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="WindowClass.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

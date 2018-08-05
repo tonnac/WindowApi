@@ -3,27 +3,22 @@
 #include <assert.h>
 #include <tchar.h>
 #include <string>
-
-#pragma comment(lib,"winmm.lib")
-#pragma comment(lib,"06_CoreLib")
+#include <map>
+#include <list>
 
 using T_STR = std::basic_string<TCHAR>;
 
-enum class KEYSTATE
-{
-	KEY_FREE,
-	KEY_PUSH,
-	KEY_HOLD,
-	KEY_UP
-};
+#pragma comment(lib,"winmm.lib")
+#pragma comment(lib,"06_CoreLib.lib")
 
-template <typename K>
+
+template <class K>
 class Singleton
 {
 protected:
 	Singleton() {}
 public:
-	static K& getInstance()
+	static K & getInstance()
 	{
 		static K inst;
 		return inst;
@@ -31,7 +26,7 @@ public:
 };
 
 
-extern HWND					g_hWnd;				//Timer::Render()
-extern HINSTANCE			g_hInstance;		//Bitmap::LoadFile() 
-extern HDC					g_hOffScreenDC;		//Timer::Render()
-extern float				g_fSecPerFrame;		//Sample::Frame()
+extern HWND					g_hWnd;					//  Timer::Render()
+extern HINSTANCE			g_hInstance;			//	Bitmap::LoadFile()
+extern HDC					g_hOffScreenDC;			//  Render()
+extern float				g_fSecPerFrame;			//  Sample::Frame()
