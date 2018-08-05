@@ -25,6 +25,6 @@ private:
 	HDC						m_hScreenDC;
 	HBITMAP					m_hOffBitmap;
 	HBRUSH					m_hBkbrush;
-private:
+protected:
 	Timer					m_Timer;
 };

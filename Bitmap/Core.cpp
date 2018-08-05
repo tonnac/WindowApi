@@ -8,7 +8,7 @@ bool Core::GameInit()
 	m_hOffBitmap = CreateCompatibleBitmap(m_hScreenDC, m_rtClient.right, m_rtClient.bottom);
 	SelectObject(g_hOffScreenDC, m_hOffBitmap);
 
-	COLORREF bkColor = RGB(255, 255, 204);
+	COLORREF bkColor = RGB(255, 255, 100);
 	m_hBkbrush = CreateSolidBrush(bkColor);
 	SelectObject(g_hOffScreenDC, m_hBkbrush);
 

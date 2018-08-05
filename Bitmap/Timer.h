@@ -8,6 +8,7 @@ public:
 	bool			Frame();
 	bool			Render();
 	bool			Release();
+	DWORD			getFrame();
 private:
 	TCHAR			m_csBuffer[256];
 	DWORD			m_dwBeforeTick;

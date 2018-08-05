@@ -52,3 +52,7 @@ bool Timer::Release()
 {
 	return true;
 }
+DWORD Timer::getFrame()
+{
+	return m_dwFrameCount;
+}
