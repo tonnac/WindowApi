@@ -27,10 +27,14 @@ bool KCore::GameFrame()
 }
 bool KCore::GameRender()
 {
+	bool combo = GetAsyncKeyState(VK_LCONTROL) && GetKeyState(VK_HOME);
 	if (GamePreRender())
 	{
 		Render();
-		m_Timer.Render();
+		if (combo)
+		{
+			m_Timer.Render();
+		}
 		I_KInput.Render();
 	}
 	return GamePostRender();

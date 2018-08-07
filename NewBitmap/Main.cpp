@@ -1,5 +1,6 @@
 #include "Core.h"
 
+
 struct KPoint
 {
 	float x, y;
@@ -8,12 +9,14 @@ struct KPoint
 class KSample : public KCore
 {
 	KPoint m_pos;
-	Bitmap m_bBitmap;
+	Bitmap m_bBitmap[2];
 public:
 	bool Init()
 	{
-		m_bBitmap.Init();
-		m_bBitmap.LoadFile(L"../02_data/Number.bmp");
+		m_bBitmap[0].Init();
+		m_bBitmap[0].LoadFile(L"../02_data/Number.bmp");
+		m_bBitmap[1].Init();
+		m_bBitmap[1].LoadFile(L"../02_data/86754.bmp");
 		m_pos.x = m_pos.y = 80.0f;
 		return true;
 	}
@@ -39,21 +42,23 @@ public:
 		{
 			MessageBox(nullptr, L"KEY_PUSH", L"LBUTTON", MB_OK);
 		}
-		m_bBitmap.Frame();
+		m_bBitmap[0].Frame();
 		return true;
 	}
 	bool Render()
 	{
 		static DWORD frame = 0;
-		HDC MemDC = m_bBitmap.getMemDC();
-	//	Sleep(10);
+		HDC MemDC = m_bBitmap[0].getMemDC();
+		HDC MemDC1 = m_bBitmap[1].getMemDC();
+		Sleep(100);
 		BitBlt(g_hOffScreenDC, m_pos.x, m_pos.y, 47, 48, MemDC, 1 + (frame * 48), 0, SRCCOPY);
-		frame = (++frame) % 12;
-		return m_bBitmap.Render();
+		TransparentBlt(g_hOffScreenDC, 200, 500, 48, 48, MemDC1, (1 + frame) + (frame * 48),75,48, 48, RGB(8,255,68));
+		frame = (++frame) % 7;
+		return m_bBitmap[0].Render();
 	}
 	bool Release()
 	{
-		return m_bBitmap.Release();
+		return m_bBitmap[0].Release();
 	}
 private:
 };

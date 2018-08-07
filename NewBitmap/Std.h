@@ -9,6 +9,7 @@
 using T_STR = std::basic_string<TCHAR>;
 
 #pragma comment(lib,"winmm.lib")
+#pragma comment(lib,"msimg32.lib")
 
 
 template <class K>

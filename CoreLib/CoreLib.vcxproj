@@ -73,8 +73,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)\../output\$(SolutionName)\</OutDir>
-    <IntDir>$(SolutionDir)\../output\$(SolutionName)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)/../output/$(SolutionName)/</OutDir>
+    <IntDir>$(SolutionDir)/../output/$(SolutionName)/$(ProjectName)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -100,11 +100,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <OutputFile>$(TargetName)$(TargetExt)</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Lib>
     <PostBuildEvent>
-      <Command>copy "*.lib" "$(SolutionDir)00_lib
-copy "*.h" "$(SolutionDir)01_include
+      <Command>copy "$(TargetDir)$(ProjectName).lib" "$(SolutionDir)00_lib"
+copy "$(ProjectDir)*.h" "$(SolutionDir)01_include"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

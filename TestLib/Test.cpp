@@ -1,9 +1,6 @@
 #include "Core.h"
 
-struct KPoint
-{
-	float x, y;
-};
+#pragma comment(lib,"msimg32.lib")
 
 class KSample : public KCore
 {
@@ -13,7 +10,7 @@ public:
 	bool Init()
 	{
 		m_bBitmap.Init();
-		m_bBitmap.LoadFile(L"../02_data/Number.bmp");
+		m_bBitmap.LoadFile(L"../02_data/86754.bmp");
 		m_pos.x = m_pos.y = 80.0f;
 		return true;
 	}
@@ -45,10 +42,18 @@ public:
 	bool Render()
 	{
 		static DWORD frame = 0;
-		HDC MemDC = m_bBitmap.getMemDC();
-		//	Sleep(10);
-		BitBlt(g_hOffScreenDC, m_pos.x, m_pos.y, 47, 48, MemDC, 1 + (frame * 48), 0, SRCCOPY);
-		frame = (++frame) % 12;
+		Sleep(10);
+		// 1, 75, 48, 48 
+	//	BitBlt(g_hOffScreenDC, m_pos.x, m_pos.y, 47, 48, m_bBitmap.m_hMemDC, 1 + frame + (frame * 48), 75, SRCCOPY);
+		int x = 200;
+		int y = 200;
+		TransparentBlt(g_hOffScreenDC, 
+			m_pos.x + x, m_pos.y + y, 
+			x, y, 
+			m_bBitmap.m_hMemDC, 
+			1 + frame + (frame * 48), 75, 
+			47, 48, RGB(255,255,255));
+		frame = (++frame) % 7;
 		return m_bBitmap.Render();
 	}
 	bool Release()

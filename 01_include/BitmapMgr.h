@@ -27,6 +27,7 @@ private:
 	std::map<int, Bitmap*>				m_map;
 	std::list<KCacheData>				m_mapKCacheList;
 	BitmapMgr();
+	bool								Release();
 };
 
-#define I_BitmapMgr BitmapMgr::getInst()
+#define I_BitmapMgr BitmapMgr::getInstance()
