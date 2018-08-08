@@ -164,8 +164,12 @@ copy "$(ProjectDir)*.h" "$(SolutionDir)01_include"
   <ItemGroup>
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="BitmapMgr.h" />
+    <ClInclude Include="BkObject.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="NPCObj.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Std.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WindowClass.h" />
@@ -173,8 +177,12 @@ copy "$(ProjectDir)*.h" "$(SolutionDir)01_include"
   <ItemGroup>
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="BitmapMgr.cpp" />
+    <ClCompile Include="BkObject.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="NPCObj.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WindowClass.cpp" />
   </ItemGroup>

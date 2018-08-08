@@ -5,16 +5,22 @@
 
 void Object::Set(const KPoint& pos)
 {
-	m_pos = pos;
+	m_DrawPos = pos;
 }
 void Object::Set(float x, float y, DWORD l, DWORD t, DWORD r, DWORD b)
 {
-	m_pos.x = x;
-	m_pos.y = y;
+	m_CenterPos.x = x;
+	m_CenterPos.y = y;
+	m_DrawPos.x = x - (r / 2);
+	m_DrawPos.y = y - (b / 2);
 	m_rtDraw.left = l;
 	m_rtDraw.right = r;
 	m_rtDraw.bottom = b;
 	m_rtDraw.top = t;
+	m_rtCollision.left = l;
+	m_rtCollision.right = l+r;
+	m_rtCollision.top = t;
+	m_rtCollision.bottom = t+b;
 }
 
 bool Object::LoadFile(const TCHAR* pszColor, const TCHAR* pszMask)
@@ -37,24 +43,30 @@ bool Object::Frame()
 {
 	if (I_KInput.getKey('A'))
 	{
-		m_pos.x += (-1 * g_fSecPerFrame * 200.0f);
+		m_CenterPos.x += (-1 * g_fSecPerFrame * 350.0f);
 	}
 	if (I_KInput.getKey('D'))
 	{
-		m_pos.x += (1 * g_fSecPerFrame * 200.0f);
+		m_CenterPos.x += (1 * g_fSecPerFrame * 350.0f);
 	}
 	if (I_KInput.getKey('W'))
 	{
-		m_pos.y += (-1 * g_fSecPerFrame * 200.0f);
+		m_CenterPos.y += (-1 * g_fSecPerFrame * 350.0f);
 	}
 	if (I_KInput.getKey('S'))
 	{
-		m_pos.y += (1 * g_fSecPerFrame * 200.0f);
+		m_CenterPos.y += (1 * g_fSecPerFrame * 350.0f);
 	}
 	if (I_KInput.getMouse(VK_MBUTTON) == KEY_PUSH)
 	{
 		MessageBox(nullptr, L"KEY_PUSH", L"MBUTTON", MB_OK);
 	}
+	m_DrawPos.x = m_CenterPos.x - (m_rtDraw.right / 2);
+	m_DrawPos.y = m_CenterPos.y - (m_rtDraw.bottom / 2);
+	m_rtCollision.left = m_DrawPos.x;
+	m_rtCollision.top = m_DrawPos.y;
+	m_rtCollision.right = m_DrawPos.x + m_rtDraw.right;
+	m_rtCollision.bottom = m_DrawPos.y + m_rtDraw.bottom;
 	return true;
 }
 bool Object::Render()
@@ -62,7 +74,7 @@ bool Object::Render()
 	if (m_pMaskBitmap == nullptr)
 	{
 		BitBlt(g_hOffScreenDC, 
-			m_pos.x, m_pos.y, 
+			m_DrawPos.x, m_DrawPos.y,
 			m_rtDraw.right, 
 			m_rtDraw.bottom, 
 			m_pColorBitmap->m_hMemDC, 
@@ -71,26 +83,42 @@ bool Object::Render()
 		return true;
 	}
 	BitBlt(g_hOffScreenDC, 
-		m_pos.x, m_pos.y, 
+		m_DrawPos.x, m_DrawPos.y,
 		m_rtDraw.right, 
 		m_rtDraw.bottom, 
 		m_pMaskBitmap->m_hMemDC, 
 		m_rtDraw.left, m_rtDraw.top, 
 		SRCAND);
 	BitBlt(g_hOffScreenDC, 
-		m_pos.x, m_pos.y, 
+		m_DrawPos.x, m_DrawPos.y,
 		m_rtDraw.right, 
 		m_rtDraw.bottom, 
 		m_pColorBitmap->m_hMemDC, 
 		m_rtDraw.left, m_rtDraw.top, 
 		SRCINVERT);
 	BitBlt(g_hOffScreenDC, 
-		m_pos.x, m_pos.y, 
+		m_DrawPos.x, m_DrawPos.y,
 		m_rtDraw.right, 
 		m_rtDraw.bottom, 
 		m_pMaskBitmap->m_hMemDC, 
 		m_rtDraw.left, m_rtDraw.top, 
 		SRCINVERT);
+	if (isDebugMode)
+	{
+		int iPrev = SetROP2(g_hOffScreenDC, R2_MASKPEN);
+		LONG dwX = m_rtDraw.right;
+		LONG dwY = m_rtDraw.bottom;
+		LONG ok = (dwX < dwY) ? dwY : dwX;
+		Ellipse(g_hOffScreenDC,
+			m_rtCollision.left, m_rtCollision.top,
+			m_rtCollision.left + ok,
+			m_rtCollision.top + ok);
+		//Rectangle(g_hOffScreenDC,
+		//	m_rtCollision.left, m_rtCollision.top,
+		//	m_rtCollision.right,
+		//	m_rtCollision.bottom);
+		SetROP2(g_hOffScreenDC, iPrev);
+	}
 	return true;
 }
 bool Object::Release()
@@ -109,7 +137,7 @@ bool Object::Draw(SHORT sType, RECT* rt)
 	{
 	case LR_ROTATION:
 		StretchBlt(g_hOffScreenDC,
-			m_pos.x + rtDraw.right, m_pos.y,
+			m_DrawPos.x + rtDraw.right, m_DrawPos.y,
 			-rtDraw.right,
 			rtDraw.bottom,
 			m_pColorBitmap->m_hMemDC,
@@ -119,7 +147,7 @@ bool Object::Draw(SHORT sType, RECT* rt)
 		break;
 	case TB_ROTATION:
 		StretchBlt(g_hOffScreenDC,
-			m_pos.x, m_pos.y + rtDraw.bottom,
+			m_DrawPos.x, m_DrawPos.y + rtDraw.bottom,
 			rtDraw.right,
 			-rtDraw.bottom,
 			m_pColorBitmap->m_hMemDC,
@@ -129,7 +157,7 @@ bool Object::Draw(SHORT sType, RECT* rt)
 		break;
 	case LRTB_ROTATION:
 		StretchBlt(g_hOffScreenDC,
-			m_pos.x + rtDraw.right, m_pos.y + rtDraw.bottom,
+			m_DrawPos.x + rtDraw.right, m_DrawPos.y + rtDraw.bottom,
 			-rtDraw.right,
 			-rtDraw.bottom,
 			m_pColorBitmap->m_hMemDC,
@@ -139,7 +167,7 @@ bool Object::Draw(SHORT sType, RECT* rt)
 		break;
 	default:
 		StretchBlt(g_hOffScreenDC,
-			m_pos.x + rtDraw.right, m_pos.y,
+			m_DrawPos.x + rtDraw.right, m_DrawPos.y,
 			rtDraw.right,
 			rtDraw.bottom,
 			m_pColorBitmap->m_hMemDC,
@@ -152,7 +180,7 @@ bool Object::Draw(SHORT sType, RECT* rt)
 bool Object::DrawColorKey(DWORD maskColor)
 {
 	TransparentBlt(g_hOffScreenDC,
-		m_pos.x, m_pos.y,
+		m_DrawPos.x, m_DrawPos.y,
 		m_rtDraw.right,
 		m_rtDraw.bottom,
 		m_pColorBitmap->m_hMemDC,
@@ -164,8 +192,12 @@ bool Object::DrawColorKey(DWORD maskColor)
 
 Object::Object() : m_pColorBitmap(nullptr), m_pMaskBitmap(nullptr)
 {
-	m_pos.x = 0; 
-	m_pos.y = 0;
+	m_DrawPos.x = 0;
+	m_DrawPos.y = 0;
+	m_fDir[0] = (rand() % 2) ? -1.0f : 1.0f;
+	m_fDir[1] = (rand() % 2) ? -1.0f : 1.0f;
+	isDebugMode = false;
+	isDead = false;
 }
 Object::~Object()
 {

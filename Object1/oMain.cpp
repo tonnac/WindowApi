@@ -1,28 +1,29 @@
 #include "Core.h"
 #include "BkObject.h"
 #include "NPCObj.h"
+#include "Collision.h"
 
 const int g_iMaxNpcCount = 10;
 
 class KSample : public KCore
 {
 	std::vector<NPCObj>	m_npcList;
-	KObject				m_Hero;
-	KbkObject			m_BackGround;
+	Object				m_Hero;
+	BkObject			m_BackGround;
 public:
 	bool Init()
 	{
 		m_npcList.resize(g_iMaxNpcCount);
 		for (int iObj = 0; iObj < g_iMaxNpcCount; iObj++)
 		{
-			m_npcList[iObj].LoadFile(L"../../data/bitmap1.bmp", L"../../data/bitmap2.bmp");
+			m_npcList[iObj].LoadFile(L"../02_data/bitmap1.bmp", L"../02_data/bitmap2.bmp");
 			m_npcList[iObj].Set(static_cast<float>(100.0 + rand() % 500), 100 + rand() % 100, 115, 62, 36, 35);
 			m_npcList[iObj].Init();
 		}
-		m_BackGround.LoadFile(L"../../data/bk.bmp");
-		m_Hero.LoadFile(L"../../data/bitmap1.bmp", L"../../data/bitmap2.bmp");
+		m_BackGround.LoadFile(L"../02_data/bk.bmp");
+		m_Hero.LoadFile(L"../02_data/bitmap1.bmp", L"../02_data/bitmap2.bmp");
 		m_Hero.Set(500, 500, 133, 1, 42, 59);
-		m_BackGround.Set(0, 0, 0, 0, 800, 600);
+		m_BackGround.Set(g_rtClient.right / 2 , g_rtClient.bottom / 2, 0, 0, g_rtClient.right, g_rtClient.bottom);
 		m_BackGround.Init();
 		m_Hero.Init();
 		return true;
@@ -31,10 +32,10 @@ public:
 	{
 		if (I_KInput.getKey('0') == KEY_PUSH)
 		{
-			m_Hero.m_bDebugRect = !m_Hero.m_bDebugRect;
+			m_Hero.isDebugMode = !m_Hero.isDebugMode;
 			for (int iObj = 0; iObj < g_iMaxNpcCount; iObj++)
 			{
-				m_npcList[iObj].m_bDebugRect = !m_npcList[iObj].m_bDebugRect;
+				m_npcList[iObj].isDebugMode = !m_npcList[iObj].isDebugMode;
 			}
 		}
 		m_BackGround.Frame();
@@ -44,14 +45,29 @@ public:
 			m_npcList[iObj].Frame();
 		}
 
+		for (int i = 0; i < g_iMaxNpcCount; ++i)
+		{
+			if (Collision::SphereInSphere(m_Hero.m_rtCollision, m_npcList[i].m_rtCollision))
+			{
+				m_npcList[i].isDead = true;
+			}
+			if (I_KInput.getMouse(VK_LBUTTON) == KEY_PUSH && Collision::SphereInPoint(m_npcList[i].m_rtCollision, I_KInput.getMousePos()))
+			{
+				m_npcList[i].isDead = true;
+			}
+		}
 		return true;
 	}
 	bool Render()
 	{
+
 		m_BackGround.Render();
 		for (int iObj = 0; iObj < g_iMaxNpcCount; iObj++)
 		{
-			m_npcList[iObj].Render();
+			if (!m_npcList[iObj].isDead)
+			{
+				m_npcList[iObj].Render();
+			}
 		}
 		m_Hero.Render();
 		return true;

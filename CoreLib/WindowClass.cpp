@@ -3,6 +3,7 @@
 KWindow *	g_pWindow = nullptr;
 HWND		g_hWnd = nullptr;
 HINSTANCE	g_hInstance = nullptr;
+RECT		g_rtClient;
 
 LRESULT	CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
@@ -24,30 +25,35 @@ RECT KWindow::getrtClient()
 {
 	return m_rtClient;
 }
-bool KWindow::SetWindow(HINSTANCE hInst)
+bool KWindow::SetWindow(HINSTANCE hInst, UINT iWidth, UINT iHeight)
 {
 	ZeroMemory(&m_wdClass, sizeof(WNDCLASSEX));
 	m_wdClass.cbSize = sizeof(WNDCLASSEX);
 	m_wdClass.style = CS_HREDRAW | CS_VREDRAW;
 	m_wdClass.lpfnWndProc = WndProc;
 	m_wdClass.hInstance = m_hInstance = hInst;
-	m_wdClass.hIcon = LoadIcon(nullptr, IDI_SHIELD);
-	m_wdClass.hCursor = LoadCursor(nullptr, IDC_NO);
+//	m_wdClass.hIcon = LoadIcon(nullptr, MAKEINTRESOURCE(IDI_ICON2));
+//	m_wdClass.hCursor = LoadCursor(nullptr, IDC_NO);
 	m_wdClass.lpszMenuName = L"NewWindow";
 	m_wdClass.lpszClassName = L"ClassName";
-	m_wdClass.hIconSm = LoadIcon(nullptr, IDI_EXCLAMATION);
+//	m_wdClass.hIconSm = LoadIcon(nullptr, MAKEINTRESOURCE(IDI_ICON2));
 	if (!RegisterClassEx(&m_wdClass))
 	{
 		return false;
 	}
+	RECT rt;
+	ZeroMemory(&rt, sizeof(RECT));
+	rt.bottom = static_cast<LONG>(iHeight);
+	rt.right = static_cast<LONG>(iWidth);
+	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
 	m_hWnd = CreateWindowEx(WS_EX_APPWINDOW,
 		m_wdClass.lpszClassName,
 		m_wdClass.lpszMenuName,
 		WS_OVERLAPPEDWINDOW,
 		0,
 		0,
-		1024,
-		768,
+		rt.right- rt.left,
+		rt.bottom - rt.top,
 		nullptr,
 		nullptr,
 		m_wdClass.hInstance,
@@ -58,6 +64,7 @@ bool KWindow::SetWindow(HINSTANCE hInst)
 	}
 	g_hWnd = m_hWnd;
 	GetClientRect(m_hWnd, &m_rtClient);
+	g_rtClient = m_rtClient;
 	GetWindowRect(m_hWnd, &m_rtWindow);
 	CenterWindow();
 	return true;

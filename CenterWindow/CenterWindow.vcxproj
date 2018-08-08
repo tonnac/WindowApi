@@ -150,8 +150,16 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Std.h" />
     <ClInclude Include="WindowClass.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="02_CenterWindow.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1_JAy_icon.ico" />
+    <Image Include="vc2_RT6_icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

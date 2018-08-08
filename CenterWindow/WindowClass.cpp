@@ -6,7 +6,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 	case WM_MBUTTONDOWN:
 		DestroyWindow(hwnd);
-		return 0;
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
 	}
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
@@ -19,7 +22,7 @@ bool Window::setWindow(HINSTANCE hinst)
 	wd.style = CS_VREDRAW | CS_HREDRAW;
 	wd.lpfnWndProc = WndProc;
 	wd.hInstance = hinst;
-	wd.hIcon = LoadIcon(nullptr, IDI_SHIELD);
+	wd.hIcon = LoadIcon(hinst, MAKEINTRESOURCE(IDI_ICON2));
 	wd.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wd.lpszMenuName = L"Window";
 	wd.lpszClassName = L"Class";

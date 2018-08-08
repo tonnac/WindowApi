@@ -48,6 +48,10 @@ bool KInput::Release()
 {
 	return true;
 }
+POINT KInput::getMousePos()
+{
+	return m_MousePos;
+}
 DWORD KInput::getMouse(DWORD dwKey)
 {
 	switch (dwKey)

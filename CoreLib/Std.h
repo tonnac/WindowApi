@@ -35,3 +35,4 @@ extern HWND					g_hWnd;					//  Timer::Render()
 extern HINSTANCE			g_hInstance;			//	Bitmap::LoadFile()
 extern HDC					g_hOffScreenDC;			//  Render()
 extern float				g_fSecPerFrame;			//  Sample::Frame()
+extern RECT					g_rtClient;

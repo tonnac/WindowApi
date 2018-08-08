@@ -19,6 +19,7 @@ public:
 	bool				Render();
 	bool				Release();
 public:
+	POINT				getMousePos();
 	DWORD				getMouse(DWORD);
 	DWORD				getKey(DWORD);
 	void				MsgEvent(MSG);
