@@ -6,7 +6,7 @@
 #include <list>
 #include <map>
 #include <cstdlib>
-#include <ctime>
+#include <cmath>
 
 #pragma comment(lib,"winmm.lib")
 #pragma comment(lib,"11_mCore.lib")
@@ -29,6 +29,12 @@ enum class KEYSTATE
 	KEY_HOLD,
 	KEY_UP
 };
+enum class SCENE
+{
+	LOBBY,
+	GAME,
+	END
+};
 
 template <typename K>
 class Singleton
@@ -48,6 +54,13 @@ struct FloatPoint
 	float x, y;
 };
 
+struct Sphere
+{
+	float fRadius;
+	POINT CenterPos;
+};
+
+#define New new(__FILE__,__LINE__)
 
 extern HWND					g_hWnd;
 extern HINSTANCE            g_hInstance;
@@ -57,3 +70,6 @@ extern float				g_fPerSecFrame;
 
 extern int					g_iNewCount;
 extern MEM_MAP				MemoryMap;
+
+void * operator new(size_t sz, const char* FileName, int iLine);
+void operator delete(void * p);

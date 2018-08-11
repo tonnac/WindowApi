@@ -1,8 +1,5 @@
 #include "BitmapMgr.h"
 
-extern int		g_iNewCount;
-extern MEM_MAP	MemoryMap;
-
 BitmapMgr::BitmapMgr()
 {
 
@@ -50,7 +47,7 @@ T_STR BitmapMgr::LoadFile(T_STR szName, T_STR szFile)
 		return szName;
 	}
 
-	Bitmap * newBitmap = new Bitmap;
+	Bitmap * newBitmap = New Bitmap;
 	if (!newBitmap->LoadFile(szFile)) return nullptr;
 
 	m_BitmapList.insert(std::make_pair(szName, newBitmap));

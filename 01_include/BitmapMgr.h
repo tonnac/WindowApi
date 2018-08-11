@@ -1,8 +1,6 @@
 #pragma once
 #include "Bitmap.h"
 
-#define new new(__FILE__,__LINE__)
-
 struct CacheData_
 {
 	T_STR	m_tName;

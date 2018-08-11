@@ -33,6 +33,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "11_mCore", "mCore\mCore.vcxproj", "{5DAE0B07-DBCE-42B7-BBA3-DD1929D17688}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mCoreTest", "mCoreTest\mCoreTest.vcxproj", "{F9D6F0C1-71C9-4B4A-A2A3-996D5AEB630F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5DAE0B07-DBCE-42B7-BBA3-DD1929D17688} = {5DAE0B07-DBCE-42B7-BBA3-DD1929D17688}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

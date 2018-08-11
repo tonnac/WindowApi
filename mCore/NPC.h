@@ -5,6 +5,7 @@ class NPC : public Object
 {
 public:
 	NPC();
+	~NPC();
 public:
 	bool		Frame() override;
 private:

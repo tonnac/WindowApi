@@ -8,8 +8,8 @@ bool Core::GameInit()
 {
 	m_hScreenDC = GetDC(g_hWnd);
 	m_hOffScreenDC = g_hOffScreenDC = CreateCompatibleDC(m_hScreenDC);
-	m_bkBrush = CreateSolidBrush(RGB(255, 255, 153));
-	m_hPen = CreatePen(BS_SOLID, 1, RGB(0, 0, 0));
+	m_bkBrush = CreateSolidBrush(RGB(0, 0, 0));
+	m_hPen = CreatePen(BS_SOLID, 1, RGB(255, 0, 0));
 	HBITMAP hoffbitmap = CreateCompatibleBitmap(m_hScreenDC, g_rtClient.right, g_rtClient.bottom);
 	SelectObject(m_hOffScreenDC, hoffbitmap);
 	SelectObject(m_hOffScreenDC, m_bkBrush);
@@ -76,3 +76,4 @@ bool Core::GamePostRender()
 	BitBlt(m_hScreenDC, 0, 0, g_rtClient.right, g_rtClient.bottom, m_hOffScreenDC, 0, 0, SRCCOPY);
 	return true;
 }
+

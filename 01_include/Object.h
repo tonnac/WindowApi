@@ -10,6 +10,7 @@ class Object
 {
 public:
 	Object();
+	virtual ~Object() {};
 public:
 	bool				DebugMode();
 	virtual bool		Init();
@@ -20,10 +21,14 @@ public:
 	void				Set(const float&, const float&,
 							const DWORD&, const DWORD&, const DWORD&, const DWORD&);
 	void				SetInverse(SHORT, RECT* = nullptr);
-private:
+	RECT				getCollisionRt();
+public:
+	bool				isDead;
+protected:
 	bool				NormalRender();
 	bool				InversionRender();
 protected:
+	float				m_fSpeed;
 	bool				isDebugMode;
 	FloatPoint			m_DrawPos;
 	FloatPoint			m_CenterPos;

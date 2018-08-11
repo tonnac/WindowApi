@@ -6,6 +6,10 @@ NPC::NPC()
 	m_iDirection[1] = (rand() % 2 > 0 ? 1 : -1);
 	m_fSpeed = 200.0f;
 }
+NPC::~NPC()
+{
+
+}
 
 bool NPC::Frame()
 {

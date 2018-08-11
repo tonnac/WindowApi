@@ -1,13 +1,11 @@
 #pragma once
 #include "Object.h"
 
-class NPC : public Object
+class Player : public Object
 {
 public:
-	NPC();
-	~NPC();
-public:
+	bool		Init() override;
 	bool		Frame() override;
 private:
-	int			m_iDirection[2];
+
 };

@@ -4,7 +4,8 @@ Object::Object()
 {
 	m_ColorBitmap = nullptr;
 	m_MaskBitmap = nullptr;
-	isDebugMode = false;
+	isDebugMode = true;
+	isDead = false;
 	m_sRotation = -1;
 	m_rtZoom = nullptr;
 }
@@ -22,51 +23,11 @@ bool Object::Init()
 }
 bool Object::Frame()
 {
-	if (S_Input.GetKey(VK_INSERT) == KEYSTATE::KEY_PUSH)
-	{
-		if (m_sRotation < 0)
-		{
-			m_sRotation = TB_ROTATION;
-		}
-		else
-		{
-			m_sRotation = -1;
-		}
-	}
-	if (S_Input.GetKey('W') == KEYSTATE::KEY_PUSH ||
-		S_Input.GetKey('W') == KEYSTATE::KEY_HOLD)
-	{
-		m_CenterPos.y += (-1 * g_fPerSecFrame * 1000.f);
-	}
-	if (S_Input.GetKey('S') == KEYSTATE::KEY_PUSH ||
-		S_Input.GetKey('S') == KEYSTATE::KEY_HOLD)
-	{
-		m_CenterPos.y += (1 * g_fPerSecFrame * 1000.f);
-	}
-	if (S_Input.GetKey('A') == KEYSTATE::KEY_PUSH ||
-		S_Input.GetKey('A') == KEYSTATE::KEY_HOLD)
-	{
-		m_CenterPos.x += (-1 * g_fPerSecFrame * 1000.f);
-	}
-	if (S_Input.GetKey('D') == KEYSTATE::KEY_PUSH ||
-		S_Input.GetKey('D') == KEYSTATE::KEY_HOLD)
-	{
-		m_CenterPos.x += (1 * g_fPerSecFrame * 1000.f);
-	}
-
-	m_DrawPos.x = m_CenterPos.x - (m_rtDraw.right / 2);
-	m_DrawPos.y = m_CenterPos.y - (m_rtDraw.bottom / 2);
-
-	m_rtCollision.left = m_DrawPos.x;
-	m_rtCollision.top = m_DrawPos.y;
-	m_rtCollision.right = m_DrawPos.x + m_rtDraw.right;
-	m_rtCollision.bottom = m_DrawPos.y + m_rtDraw.bottom;
-
 	return true;
 }
 bool Object::Render()
 {
-
+	DebugMode();
 	if (m_rtZoom != nullptr || m_sRotation > 0)
 	{
 		InversionRender();
@@ -77,7 +38,16 @@ bool Object::Render()
 	}
 	if (isDebugMode)
 	{
-		int iPrev = SetROP2(g_hOffScreenDC, R2_MASKPEN);
+		int iPrev = SetROP2(g_hOffScreenDC, R2_XORPEN);
+
+		//원충돌크기
+		//LONG dwX = m_rtCollision.right - m_rtCollision.left;						
+		//LONG dwY = m_rtCollision.bottom - m_rtCollision.top;						
+		//LONG fRad = (dwX > dwY) ? dwX : dwY;
+		//LONG left = m_rtCollision.left - (fRad - m_rtDraw.right) / 2;
+		//LONG top = m_rtCollision.top - (fRad - m_rtDraw.bottom) / 2;
+		//Ellipse(g_hOffScreenDC, left, top, left + fRad, top + fRad);
+
 		Rectangle(g_hOffScreenDC, m_rtCollision.left, m_rtCollision.top,
 			m_rtCollision.right, m_rtCollision.bottom);
 		SetROP2(g_hOffScreenDC, iPrev);
@@ -128,6 +98,10 @@ void Object::SetInverse(SHORT Key, RECT * rt)
 {
 	Key = m_sRotation;
 	m_rtZoom = rt;
+}
+RECT Object::getCollisionRt()
+{
+	return m_rtCollision;
 }
 bool Object::NormalRender()
 {
