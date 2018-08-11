@@ -45,6 +45,15 @@
     <ClInclude Include="BKObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="wClass.cpp">
@@ -74,5 +83,17 @@
     <ClCompile Include="BKObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

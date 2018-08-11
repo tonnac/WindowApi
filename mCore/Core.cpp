@@ -1,12 +1,13 @@
 #include "Core.h"
 
 HDC			g_hOffScreenDC = nullptr;
+HDC			g_hScreenDC = nullptr;
 int			g_iNewCount = 0;
 MEM_MAP		MemoryMap;
 
 bool Core::GameInit()
 {
-	m_hScreenDC = GetDC(g_hWnd);
+	m_hScreenDC = g_hScreenDC = GetDC(g_hWnd);
 	m_hOffScreenDC = g_hOffScreenDC = CreateCompatibleDC(m_hScreenDC);
 	m_bkBrush = CreateSolidBrush(RGB(0, 0, 0));
 	m_hPen = CreatePen(BS_SOLID, 1, RGB(255, 0, 0));

@@ -65,7 +65,7 @@ bool LobbyScene::Release()
 	return true;
 }
 
-GameScene::GameScene(Sample* sample) : Scene(SCENE::GAME, sample), iNPc(0)
+GameScene::GameScene(Sample* sample) : Scene(SCENE::GAME, sample), iNPc(10)
 {}
 bool GameScene::Init()
 {

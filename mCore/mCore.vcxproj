@@ -153,10 +153,13 @@ copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="BitmapMgr.h" />
     <ClInclude Include="BKObject.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Std.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="wClass.h" />
@@ -165,12 +168,18 @@ copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="BitmapMgr.cpp" />
     <ClCompile Include="BKObject.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="wClass.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

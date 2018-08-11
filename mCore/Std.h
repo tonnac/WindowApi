@@ -65,6 +65,7 @@ struct Sphere
 extern HWND					g_hWnd;
 extern HINSTANCE            g_hInstance;
 extern HDC					g_hOffScreenDC;
+extern HDC					g_hScreenDC;
 extern RECT					g_rtClient;
 extern float				g_fPerSecFrame;
 

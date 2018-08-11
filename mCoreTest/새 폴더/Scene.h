@@ -34,7 +34,6 @@ class LobbyScene : public Scene
 {
 public:
 	LobbyScene(Sample*);
-public:
 	bool					Init() override;
 	bool					Frame() override;
 	bool					Render() override;
@@ -50,7 +49,6 @@ class GameScene : public Scene
 	const int iNPc;
 public:
 	GameScene(Sample*);
-public:
 	bool					Init() override;
 	bool					Frame() override;
 	bool					Render() override;
@@ -62,7 +60,6 @@ class EndScene : public Scene
 {
 public:
 	EndScene(Sample*);
-public:
 	bool					Init() override;
 	bool					Frame() override;
 	bool					Render() override;
