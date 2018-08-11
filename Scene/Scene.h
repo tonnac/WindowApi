@@ -10,6 +10,7 @@ const int g_iMaxNpcCount = 100;
 class Scene
 {
 public:
+	float							m_fDownScene;
 	const int						m_iSceneID;
 	BkObject						m_BackGround;
 	bool							m_bNextSceneStart;

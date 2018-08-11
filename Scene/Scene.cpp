@@ -20,7 +20,7 @@ bool Scene::Reset()
 {
 	return true;
 }
-Scene::Scene(int n) : m_iSceneID(n), m_bNextSceneStart(false)
+Scene::Scene(int n) : m_iSceneID(n), m_bNextSceneStart(false), m_fDownScene(1.0f)
 {
 }
 Scene::~Scene()
@@ -30,7 +30,7 @@ Scene::~Scene()
 bool LobbyScene::Init()
 {
 	m_BackGround.LoadFile(L"../02_data/bk.bmp");
-	m_BackGround.Set(g_rtClient.right / 2, g_rtClient.bottom / 2, 0, 0, g_rtClient.right, g_rtClient.bottom);
+	m_BackGround.Set(g_rtClient.right / 2, -g_rtClient.bottom / 2, 0, 0, g_rtClient.right, g_rtClient.bottom);
 	m_BackGround.Init();
 	m_btnStart.LoadFile(L"../02_data/main_start_nor.bmp");
 	m_btnStart.Set(g_rtClient.right / 2, g_rtClient.bottom / 2, 0, 0,334, 82);
@@ -39,18 +39,32 @@ bool LobbyScene::Init()
 }
 bool LobbyScene::Frame()
 {
-	m_BackGround.Frame();
-	m_btnStart.Frame();
-	if (I_KInput.getMouse(VK_LBUTTON) == KEY_UP && Collision::RectInPoint(m_btnStart.m_rtCollision, I_KInput.getMousePos()))
+//	Sleep(10);
+	if (m_fDownScene != static_cast<float>(g_rtClient.bottom))
 	{
-		m_bNextSceneStart = true;
+		m_fDownScene += 0.5f;
+		m_BackGround.Set(g_rtClient.right / 2, -g_rtClient.bottom / 2 + m_fDownScene, 0, 0, g_rtClient.right, g_rtClient.bottom);
+	}
+	Sleep(1);
+	m_BackGround.Frame();
+
+	m_btnStart.Frame();
+	if (m_fDownScene == static_cast<float>(g_rtClient.bottom))
+	{
+		if (I_KInput.getMouse(VK_LBUTTON) == KEY_UP && Collision::RectInPoint(m_btnStart.m_rtCollision, I_KInput.getMousePos()))
+		{
+			m_bNextSceneStart = true;
+		}
 	}
 	return true;
 }
 bool LobbyScene::Render()
 {
 	m_BackGround.Render();
-	m_btnStart.Render();
+	if (m_fDownScene == static_cast<float>(g_rtClient.bottom))
+	{
+		m_btnStart.Render();
+	}
 	return true;
 }
 bool LobbyScene::Release()
@@ -79,7 +93,7 @@ bool GameScene::Init()
 		m_npcList[iObj].Set(static_cast<float>(100.0 + rand() % 500), 100 + rand() % 100, 115, 62, 36, 35);
 		m_npcList[iObj].Init();
 	}
-	m_BackGround.LoadFile(L"../02_data/bk.bmp");
+	m_BackGround.LoadFile(L"../02_data/binglybongly_wallpaper.bmp");
 	m_Hero.LoadFile(L"../02_data/bitmap1.bmp", L"../02_data/bitmap2.bmp");
 	m_Hero.Set(500, 500, 133, 1, 42, 59);
 	m_BackGround.Set(g_rtClient.right / 2, g_rtClient.bottom / 2, 0, 0, g_rtClient.right, g_rtClient.bottom);

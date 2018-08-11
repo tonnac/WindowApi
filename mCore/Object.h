@@ -24,6 +24,7 @@ private:
 	bool				NormalRender();
 	bool				InversionRender();
 protected:
+	float				m_fSpeed;
 	bool				isDebugMode;
 	FloatPoint			m_DrawPos;
 	FloatPoint			m_CenterPos;

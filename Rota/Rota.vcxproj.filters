@@ -15,44 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="bitmap1.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="Win.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="Core.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Std.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowClass.h">
+    <ClInclude Include="RotationObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Bitmap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="WindowClass.cpp">
+    <ClCompile Include="Win.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="wMain.cpp">
+    <ClCompile Include="RotaMain.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Corecpp.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="RotationObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Bitmap.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Core.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="asdasd.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
