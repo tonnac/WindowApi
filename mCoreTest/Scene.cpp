@@ -33,11 +33,15 @@ bool LobbyScene::Init()
 {
 	bkobj.Init();
 	bkobj.LoadFile(L"BACKGROUND", L"../02_data/bk.bmp");
-	bkobj.Set(g_rtClient.right / 2, g_rtClient.bottom / 2, 0, 0, 800, 600);
+	bkobj.Set(static_cast<float>(g_rtClient.right / 2), 
+		static_cast<float>(g_rtClient.bottom / 2), 
+		0, 0, 800, 600);
 
 	m_startButton.Init();
 	m_startButton.LoadFile(L"BUTTON", L"../02_data/main_start_nor.bmp");
-	m_startButton.Set(g_rtClient.right / 2, g_rtClient.bottom / 2, 0, 0, 334, 82);
+	m_startButton.Set(static_cast<float>(g_rtClient.right / 2),
+		static_cast<float>(g_rtClient.bottom / 2),
+		0, 0, 334, 82);
 	return true;
 }
 bool LobbyScene::Frame()
@@ -73,11 +77,14 @@ bool GameScene::Init()
 	{
 		n1[i].Init();
 		n1[i].LoadFile(L"NPC", L"../02_data/bitmap1.bmp", L"../02_data/bitmap2.bmp");
-		n1[i].Set(rand() % 100 + 200, rand() % 100 + 200, 115, 62, 36, 35);
+		n1[i].Set(static_cast<float>(rand() % 100 + 200), 
+			static_cast<float>(rand() % 100 + 200)
+			, 115, 62, 36, 35);
 	}
 	bkobj.Init();
 	bkobj.LoadFile(L"BACKGROUND", L"../02_data/bk.bmp");
-	bkobj.Set(g_rtClient.right / 2, g_rtClient.bottom / 2, 0, 0, 800, 600);
+	bkobj.Set(static_cast<float>(g_rtClient.right / 2), 
+		static_cast<float>(g_rtClient.bottom / 2), 0, 0, 800, 600);
 	_Player.Init();
 
 	return true;
@@ -138,10 +145,14 @@ bool EndScene::Init()
 {
 	bkobj.Init();
 	bkobj.LoadFile(L"ENDBACK",L"../02_data/RAINBOW.bmp");
-	bkobj.Set(g_rtClient.right / 2, g_rtClient.bottom / 2, 0, 0, g_rtClient.right, g_rtClient.bottom);
+	bkobj.Set(static_cast<float>(g_rtClient.right / 2),
+		static_cast<float>(g_rtClient.bottom / 2), 
+		0, 0, g_rtClient.right, g_rtClient.bottom);
 	m_EndButton.Init();
 	m_EndButton.LoadFile(L"ENDBUTTON",L"../02_data/end.bmp");
-	m_EndButton.Set(g_rtClient.right / 2, g_rtClient.bottom / 2, 0, 0, 100, 50);
+	m_EndButton.Set(static_cast<float>(g_rtClient.right / 2), 
+		static_cast<float>(g_rtClient.bottom / 2)
+		, 0, 0, 100, 50);
 	return true;
 }
 bool EndScene::Frame()

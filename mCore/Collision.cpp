@@ -39,10 +39,10 @@ bool Collision::SphereInPt(RECT rt, POINT pt)
 	LONG diffX = (rt.right - rt.left) / 2;
 	LONG diffY = (rt.bottom - rt.top) / 2;
 
-	rtSphere.fRadius = (diffX > diffY) ? diffX : diffY;
+	rtSphere.fRadius = (diffX > diffY) ? static_cast<float>(diffX) : static_cast<float>(diffY);
 	
-	float diffpt = sqrt((pt.x - rtSphere.CenterPos.x) *(pt.x - rtSphere.CenterPos.x) +
-		(pt.y - rtSphere.CenterPos.y) * (pt.y - rtSphere.CenterPos.y));
+	float diffpt = static_cast<float>(sqrt((pt.x - rtSphere.CenterPos.x) *(pt.x - rtSphere.CenterPos.x) +
+		(pt.y - rtSphere.CenterPos.y) * (pt.y - rtSphere.CenterPos.y)));
 
 	if (diffpt <= rtSphere.fRadius)
 	{
@@ -62,15 +62,15 @@ bool Collision::SphereInSphere(RECT A_rt, RECT B_rt)
 
 	LONG diffX = (A_rt.right - A_rt.left) / 2;
 	LONG diffY = (A_rt.bottom - A_rt.top) / 2;
-	A_Sphere.fRadius = (diffX > diffY) ? diffX : diffY;
+	A_Sphere.fRadius = (diffX > diffY) ? static_cast<float>(diffX) : static_cast<float>(diffY);
 
 	diffX = (B_rt.right - B_rt.left) / 2;
 	diffY = (B_rt.bottom - B_rt.top) / 2;
-	B_Sphere.fRadius = (diffX > diffY) ? diffX : diffY;
+	B_Sphere.fRadius = (diffX > diffY) ? static_cast<float>(diffX) : static_cast<float>(diffY);
 
 
-	float diffpt = sqrt((A_Sphere.CenterPos.x - B_Sphere.CenterPos.x) * (A_Sphere.CenterPos.x - B_Sphere.CenterPos.x) +
-		(A_Sphere.CenterPos.y - B_Sphere.CenterPos.y) * (A_Sphere.CenterPos.y - B_Sphere.CenterPos.y));
+	float diffpt = static_cast<float>(sqrt((A_Sphere.CenterPos.x - B_Sphere.CenterPos.x) * (A_Sphere.CenterPos.x - B_Sphere.CenterPos.x) +
+		(A_Sphere.CenterPos.y - B_Sphere.CenterPos.y) * (A_Sphere.CenterPos.y - B_Sphere.CenterPos.y)));
 
 	if (diffpt <= (A_Sphere.fRadius + B_Sphere.fRadius))
 	{

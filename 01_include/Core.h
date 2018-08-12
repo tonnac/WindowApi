@@ -17,9 +17,7 @@ private:
 	bool					GamePreRender();
 	bool					GamePostRender();
 private:
-	HPEN					m_hPen;
 	HDC						m_hOffScreenDC;
 	HDC						m_hScreenDC;
-	HBRUSH					m_bkBrush;
 	Timer					m_Timer;
 };

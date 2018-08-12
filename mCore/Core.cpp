@@ -9,12 +9,8 @@ bool Core::GameInit()
 {
 	m_hScreenDC = g_hScreenDC = GetDC(g_hWnd);
 	m_hOffScreenDC = g_hOffScreenDC = CreateCompatibleDC(m_hScreenDC);
-	m_bkBrush = CreateSolidBrush(RGB(0, 0, 0));
-	m_hPen = CreatePen(BS_SOLID, 1, RGB(255, 0, 0));
 	HBITMAP hoffbitmap = CreateCompatibleBitmap(m_hScreenDC, g_rtClient.right, g_rtClient.bottom);
 	SelectObject(m_hOffScreenDC, hoffbitmap);
-	SelectObject(m_hOffScreenDC, m_bkBrush);
-	SelectObject(m_hOffScreenDC, m_hPen);
 
 	m_Timer.Init();
 	S_Input.Init();
@@ -43,8 +39,6 @@ bool Core::GameRelease()
 {
 	DeleteDC(m_hOffScreenDC);
 	ReleaseDC(g_hWnd, m_hScreenDC);
-	DeleteObject(m_bkBrush);
-	DeleteObject(m_hPen);
 
 	m_Timer.Release();
 	S_Input.Release();
@@ -69,7 +63,10 @@ bool Core::Release()
 }
 bool Core::GamePreRender()
 {
+	HBRUSH bkBrush = CreateSolidBrush(RGB(255, 255, 255));
+	HBRUSH old = HBRUSH(SelectObject(m_hOffScreenDC, bkBrush));
 	PatBlt(m_hOffScreenDC, 0, 0, g_rtClient.right, g_rtClient.bottom, PATCOPY);
+	DeleteObject(SelectObject(m_hOffScreenDC, old));
 	return true;
 }
 bool Core::GamePostRender()

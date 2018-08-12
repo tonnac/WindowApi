@@ -4,12 +4,20 @@
 #include <tchar.h>
 #include <string>
 #include <list>
+#include <vector>
 #include <map>
 #include <cstdlib>
 #include <cmath>
+#include <sstream>
+#include <fstream>
 
 #pragma comment(lib,"winmm.lib")
+#pragma comment(lib,"msimg32.lib")
 #pragma comment(lib,"11_mCore.lib")
+
+#define New new(__FILE__,__LINE__)
+#define PI 3.141592
+#define DegreeToRadian(x) (x) * PI / 180.0f
 
 struct MEMINFO
 {
@@ -21,6 +29,7 @@ struct MEMINFO
 
 using T_STR = std::basic_string<TCHAR>;
 using MEM_MAP = std::map<void *, MEMINFO>;
+using RECT_VECTOR = std::vector<RECT>;
 
 enum class KEYSTATE
 {
@@ -51,16 +60,15 @@ public:
 
 struct FloatPoint
 {
-	float x, y;
+	FLOAT x, y;
 };
 
 struct Sphere
 {
-	float fRadius;
+	FLOAT fRadius;
 	POINT CenterPos;
 };
 
-#define New new(__FILE__,__LINE__)
 
 extern HWND					g_hWnd;
 extern HINSTANCE            g_hInstance;
@@ -71,6 +79,3 @@ extern float				g_fPerSecFrame;
 
 extern int					g_iNewCount;
 extern MEM_MAP				MemoryMap;
-
-void * operator new(size_t sz, const char* FileName, int iLine);
-void operator delete(void * p);

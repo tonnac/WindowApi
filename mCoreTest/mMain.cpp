@@ -1,188 +1,115 @@
 #include "Sample.h"
-
-class Rotate : public Object
-{
-public:
-	bool Init()
-	{
-		_Angle = 0.0f;
-		LoadFile(L"PLAYER", L"../02_data/bitmap1.bmp", L"../02_data/bitmap2.bmp");
-		Set(400, 400, 1, 62, 44, 74);
-
-
-		_RotationDC = CreateCompatibleDC(g_hOffScreenDC);
-		_ColorDC = CreateCompatibleDC(g_hOffScreenDC);
-		_MaskDC = CreateCompatibleDC(g_hOffScreenDC);
-
-		_MaxLength = sqrt((m_rtDraw.right) * (m_rtDraw.right) +
-			(m_rtDraw.bottom) * (m_rtDraw.bottom));
-
-		_ColorBitmap = CreateCompatibleBitmap(g_hScreenDC, _MaxLength, _MaxLength);
-		_MaskBitmap = CreateCompatibleBitmap(g_hScreenDC, _MaxLength, _MaxLength);
-
-		return true;
-	}
-	bool Frame()
-	{
-		_Angle += g_fPerSecFrame * 300.0f;
-		Rotation(_ColorBitmap, m_ColorBitmap);
-		Rotation(_MaskBitmap, m_MaskBitmap);
-
-#pragma region dd
-		if (S_Input.GetKey(VK_INSERT) == KEYSTATE::KEY_PUSH)
-		{
-			if (m_sRotation < 0)
-			{
-				m_sRotation = TB_ROTATION;
-			}
-			else
-			{
-				m_sRotation = -1;
-			}
-		}
-		if (S_Input.GetKey('W') == KEYSTATE::KEY_PUSH ||
-			S_Input.GetKey('W') == KEYSTATE::KEY_HOLD)
-		{
-			m_CenterPos.y += (-1 * g_fPerSecFrame * 1000.f);
-		}
-		if (S_Input.GetKey('S') == KEYSTATE::KEY_PUSH ||
-			S_Input.GetKey('S') == KEYSTATE::KEY_HOLD)
-		{
-			m_CenterPos.y += (1 * g_fPerSecFrame * 1000.f);
-		}
-		if (S_Input.GetKey('A') == KEYSTATE::KEY_PUSH ||
-			S_Input.GetKey('A') == KEYSTATE::KEY_HOLD)
-		{
-			m_CenterPos.x += (-1 * g_fPerSecFrame * 1000.f);
-		}
-		if (S_Input.GetKey('D') == KEYSTATE::KEY_PUSH ||
-			S_Input.GetKey('D') == KEYSTATE::KEY_HOLD)
-		{
-			m_CenterPos.x += (1 * g_fPerSecFrame * 1000.f);
-		}
-
-		m_DrawPos.x = m_CenterPos.x - (m_rtDraw.right / 2);
-		m_DrawPos.y = m_CenterPos.y - (m_rtDraw.bottom / 2);
-
-		m_rtCollision.left = m_DrawPos.x;
-		m_rtCollision.top = m_DrawPos.y;
-		m_rtCollision.right = m_DrawPos.x + m_rtDraw.right;
-		m_rtCollision.bottom = m_DrawPos.y + m_rtDraw.bottom;
-#pragma endregion hh
-		return true;
-	}
-	bool Render()
-	{
-		HBITMAP oldColor = (HBITMAP)SelectObject(_ColorDC, _ColorBitmap);
-		HBITMAP oldMask = (HBITMAP)SelectObject(_MaskDC, _MaskBitmap);
-		BitBlt(g_hOffScreenDC, m_CenterPos.x - (_MaxLength / 2), m_CenterPos.y - (_MaxLength / 2),
-			_MaxLength, _MaxLength,
-			_MaskDC,
-			0, 0, SRCAND);
-		BitBlt(g_hOffScreenDC, m_CenterPos.x - (_MaxLength / 2), m_CenterPos.y - (_MaxLength / 2),
-			_MaxLength, _MaxLength,
-			_ColorDC,
-			0, 0, SRCINVERT);
-		BitBlt(g_hOffScreenDC, m_CenterPos.x - (_MaxLength / 2), m_CenterPos.y - (_MaxLength / 2),
-			_MaxLength, _MaxLength,
-			_MaskDC,
-			0, 0, SRCINVERT);
-
-		SelectObject(_ColorDC, oldColor);
-		SelectObject(_MaskDC, oldMask);
-
-		return true;
-	}
-	bool Release()
-	{
-		return true;
-	}
-	void Rotation(HBITMAP hbit, Bitmap* bitm)
-	{
-		float Radian = _Angle * 3.141592f / 180.0f;
-		float Cosine = cos(Radian);
-		float Sine = sin(Radian);
-
-		HBRUSH bkBrush = CreateSolidBrush(RGB(255, 255, 255));
-
-		HBITMAP oldbitmap = (HBITMAP)SelectObject(_RotationDC, hbit);
-		HBRUSH oldbrush = (HBRUSH)SelectObject(_RotationDC, bkBrush);
-
-		PatBlt(_RotationDC, 0, 0, _MaxLength, _MaxLength, PATCOPY);
-		DeleteObject(SelectObject(_RotationDC, bkBrush));
-
-
-		int oldgraphic = SetGraphicsMode(_RotationDC, GM_ADVANCED);
-
-		XFORM xform;
-		xform.eM11 = Cosine;
-		xform.eM12 = -Sine;
-		xform.eM21 = Sine;
-		xform.eM22 = Cosine;
-		xform.eDx = _MaxLength / 2;
-		xform.eDy = _MaxLength / 2;
-
-		SetWorldTransform(_RotationDC, &xform);
-
-		HDC hbitm = bitm->getMemDC();
-		BitBlt(_RotationDC, -(m_rtDraw.right / 2), -(m_rtDraw.bottom / 2),
-			m_rtDraw.right, m_rtDraw.bottom, hbitm,
-			m_rtDraw.left, m_rtDraw.top, SRCCOPY);
-
-		xform.eM11 = 1;
-		xform.eM12 = 0;
-		xform.eM21 = 0;
-		xform.eM22 = 1;
-		xform.eDx = 0;
-		xform.eDy = 0;
-
-		SetWorldTransform(_RotationDC, &xform);
-
-		SetGraphicsMode(_RotationDC, GM_ADVANCED);
-		SelectObject(_RotationDC, oldbrush);
-		SelectObject(_RotationDC, oldbitmap);
-	}
-private:
-	float			_MaxLength;
-	HDC				_RotationDC;
-	HDC				_ColorDC;
-	HDC				_MaskDC;
-	HBITMAP			_ColorBitmap;
-	HBITMAP			_MaskBitmap;
-	float			_Angle;
-};
+#include "Sprite.h"
+#include "RObject.h"
 
 class Pl : public Core
 {
 public:
 	bool Init()
 	{
+		bk.LoadFile(L"BG", L"../02_data/BKBmp.bmp");
+		bk.Set(g_rtClient.right / 2,g_rtClient.bottom /2 , 0, 0, 600, 240);
+		bk.Init();
+		for (int i = 0; i < 3; ++i)
+		{
+			d[i].LoadFile(L"PLAYER", L"../02_data/KahoColor.bmp", L"../02_data/KahoMask.bmp");
+			d[i].Set(rand() % 400 + 200, rand() % 400, 50, 75, 48, 48);
+			d[i].Init();
+			d[i].isRotate = true;
+		}
+		d[0].Set(600, 200, 50, 75, 48, 48);
+		d[0].SetInverse(LR_ROTATION, 2.6f);
+	//	d[1].Set(500, 300, 50, 74, 48, 48);
+//		d[2].SetInverse(LR_ROTATION, 2.8f);
+		//a.LoadFile(L"PLAYER", L"../02_data/KahoColor.bmp", L"../02_data/KahoMask.bmp");
+		//a.Set(500, 500, 50, 74, 48, 48);
+		//a.Init();
+		//a.SetInverse(0, 2.0f);
+		int l, t, r, b;
+		int total, temp;
+		std::ifstream in("SPRITE.txt",std::ios::in);
+		std::string ee;
+		std::string stemp;
+		if (in.is_open())
+		{
+			while (!in.eof())
+			{
+				std::getline(in, ee);
+				std::istringstream(ee) >> stemp >> total;
+				for (int i = 0; i < 1; ++i)
+				{
+					e.LoadFile(L"PLAYER", L"../02_data/KahoColor.bmp", L"../02_data/KahoMask.bmp");
+					e.Set(200, 200);
+					std::getline(in, ee);
+					std::istringstream(ee) >> stemp >> temp;
+					for (int j = 0; j < temp; ++j)
+					{
+						RECT rt;
+						std::getline(in, ee);
+						std::istringstream(ee) >> l >> t >> r >> b;
+						rt.left = l;
+						rt.top = t;
+						rt.right = r;
+						rt.bottom = b;
+						e.m_spritelist.push_back(rt);
+					}
+				}
+				break;
+			}
+		}
+		else
+		{
+			MessageBox(nullptr, L"X", L"X", MB_OK);
+		}
+
 		e.Init();
+//		a.Init();
 		return true;
 	}
 	bool Frame()
 	{
+		bk.Frame();
 		e.Frame();
+		for (int i = 0; i < 3; ++i)
+		{
+			d[i].Frame();
+		}
+//		a.Frame();
 		return true;
 	}
 	bool Render()
 	{
+		bk.Render();
 		e.Render();
+		for (int i = 0; i < 3; ++i)
+		{
+			d[i].Render();
+		}
+//		a.Render();
 		return true;
 	}
 	bool Release()
 	{
+		bk.Release();
 		e.Release();
+		for (int i = 0; i < 3; ++i)
+		{
+			d[i].Release();
+		}
+//		a.Release();
 		return true;
 	}
 private:
-	Rotate e;
+	Object d[3];
+	Sprite e;
+	Player a;
+	BKObject bk;
 };
 
 int WINAPI wWinMain(HINSTANCE hinst, HINSTANCE previnst, LPWSTR szCmdLine, int nCmdShow)
 {
 	Pl wd;
-	wd.SetWindow(hinst, 800, 600);
+	wd.SetWindow(hinst, 1024, 700);
 	wd.Run();
 
 	return 0;

@@ -159,7 +159,6 @@ copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
     <ClInclude Include="Input.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="Std.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="wClass.h" />
@@ -174,12 +173,8 @@ copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="wClass.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

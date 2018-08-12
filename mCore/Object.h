@@ -18,24 +18,35 @@ public:
 	virtual bool		Render();
 	virtual bool		Release();
 	bool				LoadFile(T_STR, T_STR, T_STR = std::basic_string<TCHAR>());
-	void				Set(const float&, const float&,
-							const DWORD&, const DWORD&, const DWORD&, const DWORD&);
-	void				SetInverse(SHORT, RECT* = nullptr);
+	void				Set(const FLOAT&, const FLOAT&,
+							const DWORD& =0, const DWORD& =0, const DWORD& =0, const DWORD& =0);
+	void				SetInverse(const SHORT& = 0, const FLOAT& = 1.0f);
 	RECT				getCollisionRt();
 public:
 	bool				isDead;
+	bool				isRotate;
 protected:
+	void				getRotateBitmap(HBITMAP, Bitmap*);
+	bool				RotateRender();
 	bool				NormalRender();
 	bool				InversionRender();
 protected:
-	float				m_fSpeed;
+	FLOAT				m_fSpeed;
+	FLOAT				m_fZoom;
 	bool				isDebugMode;
 	FloatPoint			m_DrawPos;
 	FloatPoint			m_CenterPos;
-	RECT*				m_rtZoom;
 	SHORT				m_sRotation;
 	RECT				m_rtDraw;
 	RECT				m_rtCollision;
 	Bitmap *			m_ColorBitmap;
 	Bitmap *			m_MaskBitmap;
+protected:
+	HDC					m_hRotationDC;
+	HDC					m_hColorDC;
+	HDC					m_hMaskDC;
+	HBITMAP				m_hbColorBitmap;
+	HBITMAP				m_hbMaskBitmap;
+	FLOAT				m_fAngle;
+	FLOAT				m_fMaxLength;
 };
