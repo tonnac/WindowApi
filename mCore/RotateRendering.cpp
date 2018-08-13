@@ -12,6 +12,7 @@ bool RotateRendering::Init()
 
 	m_hbColorBitmap = CreateCompatibleBitmap(g_hScreenDC, static_cast<int>(m_fMaxLength), static_cast<int>(m_fMaxLength));
 	m_hbMaskBitmap = CreateCompatibleBitmap(g_hScreenDC, static_cast<int>(m_fMaxLength), static_cast<int>(m_fMaxLength));
+	return true;
 }
 bool RotateRendering::Frame()
 {
@@ -29,7 +30,7 @@ bool RotateRendering::Render()
 		static_cast<int>(m_CenterPos.y - (m_fMaxLength / 2)),
 		-static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
-		m_hMaskDC,
+		m_hRMaskDC,
 		0,
 		0,
 		static_cast<int>(m_fMaxLength),
@@ -40,7 +41,7 @@ bool RotateRendering::Render()
 		static_cast<int>(m_CenterPos.y - (m_fMaxLength / 2)),
 		-static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
-		m_hColorDC,
+		m_hRColorDC,
 		0,
 		0,
 		static_cast<int>(m_fMaxLength),
@@ -51,14 +52,14 @@ bool RotateRendering::Render()
 		static_cast<int>(m_CenterPos.y - (m_fMaxLength / 2)),
 		-static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
-		m_hMaskDC,
+		m_hRMaskDC,
 		0,
 		0,
 		static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
 		SRCINVERT);
-	SelectObject(m_hMaskDC, oldMask);
-	SelectObject(m_hColorDC, oldColor);
+	SelectObject(m_hRMaskDC, oldMask);
+	SelectObject(m_hRColorDC, oldColor);
 	return true;
 }
 
@@ -69,6 +70,7 @@ bool RotateRendering::Release()
 	DeleteDC(m_hMaskDC);
 	DeleteObject(m_hbColorBitmap);
 	DeleteObject(m_hbMaskBitmap);
+	return true;
 }
 void RotateRendering::getRotateBitmap(HBITMAP hbit, HDC MemDC)
 {

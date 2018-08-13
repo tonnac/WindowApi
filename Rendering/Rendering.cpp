@@ -60,3 +60,24 @@ bool Rendering::Release()
 {
 	return true;
 }
+
+void * Rendering::operator new(size_t sz, const char* FileName, int iLine)
+{
+	MEMINFO mem;
+	void* pfs = new char[sz];
+	mem.addr = pfs;
+	mem.filename = FileName;
+	mem.line = iLine;
+	mem.dwAllocateTime = timeGetTime();
+	MemoryMap.insert(std::make_pair(pfs, mem));
+	++::g_iNewCount;
+	return pfs;
+}
+void Rendering::operator delete(void * p)
+{
+	std::map<void*, MEMINFO>::iterator it;
+	it = MemoryMap.find(p);
+	MemoryMap.erase(it);
+	--::g_iNewCount;
+	delete p;
+}

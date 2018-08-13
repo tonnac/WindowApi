@@ -165,6 +165,7 @@ copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
     </ClInclude>
     <ClInclude Include="Object.h" />
     <ClInclude Include="Rendering.h" />
+    <ClInclude Include="RotateRendering.h" />
     <ClInclude Include="Std.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="wClass.h" />
@@ -185,6 +186,7 @@ copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
     </ClCompile>
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Rendering.cpp" />
+    <ClCompile Include="RotateRendering.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="wClass.cpp" />
   </ItemGroup>

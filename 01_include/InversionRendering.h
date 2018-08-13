@@ -4,7 +4,7 @@
 class InversionRendering : public Rendering
 {
 public:
-	InversionRendering(Object*, const FLOAT& = 0, const SHORT& = 0);
+	InversionRendering	(Object*, const FLOAT& = 0, const SHORT& = 0);
 public:
 //	bool		Init	() override;
 	bool		Frame	() override;
@@ -13,7 +13,4 @@ public:
 private:
 	SHORT		m_sInverse;
 	FLOAT		m_fZoom;
-	FloatPoint&	m_CenterPos;
-	FloatPoint&	m_DrawPos;
-	RECT&		m_rtCollision;
 };

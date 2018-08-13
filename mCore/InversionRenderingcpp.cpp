@@ -1,8 +1,7 @@
 #include "InversionRendering.h"
 
 InversionRendering::InversionRendering(Object* ob, const FLOAT& zoom, const SHORT& inverse) : Rendering(ob),
-			m_sInverse(inverse), m_fZoom(zoom), m_CenterPos(ob->getCenterPos()), m_DrawPos(ob->getDrawPos()),
-			m_rtCollision(ob->getCollisionRt())
+																		 m_sInverse(inverse), m_fZoom(zoom)
 {}
 
 bool InversionRendering::Frame()

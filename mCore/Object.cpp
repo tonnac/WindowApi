@@ -1,12 +1,14 @@
+#pragma once
 #include "Object.h"
 #include "InversionRendering.h"
+#include "RotateRendering.h"
 
 Object::Object() : m_ColorBitmap(nullptr), m_MaskBitmap(nullptr), isDebugMode(false),
 					isDead(false), m_fSpeed(0.0f)
 {}
 bool Object::Init()
 {
-	m_pRendering = new InversionRendering(this,2.8f);
+	m_pRendering = New RotateRendering(this, 30);
 	return true;
 }
 bool Object::Frame()

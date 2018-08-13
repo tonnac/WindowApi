@@ -14,8 +14,8 @@ public:
 	bool				Release			() override;
 private:
 	HDC					m_hRotationDC;
-	HDC					m_hColorDC;
-	HDC					m_hMaskDC;
+	HDC					m_hRColorDC;
+	HDC					m_hRMaskDC;
 	HBITMAP				m_hbColorBitmap;
 	HBITMAP				m_hbMaskBitmap;
 

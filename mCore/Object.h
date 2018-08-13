@@ -22,7 +22,7 @@ public:
 public:
 	RECT&				getrtDraw		();
 	RECT&				getCollisionRt	();
-	FloatPoint&				getCenterPos	();
+	FloatPoint&			getCenterPos	();
 	FloatPoint&			getDrawPos		();
 	HDC					getColorDC		() const;
 	HDC					getMaskDC		() const;
