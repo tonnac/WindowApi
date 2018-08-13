@@ -11,7 +11,7 @@ bool BKObject::Render()
 	StretchBlt(g_hOffScreenDC,
 		0,
 		0,
-		g_rtClient.right, g_rtClient.bottom,
+		g_rtClient.right * 2, g_rtClient.bottom,
 		ColorDC,
 		m_rtDraw.left, m_rtDraw.top,
 		m_rtDraw.right, m_rtDraw.bottom,

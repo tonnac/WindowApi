@@ -64,17 +64,19 @@ bool Object::Frame()
 bool Object::Render()
 {
 	DebugMode();
-	if (m_fZoom > 1.0f || m_sRotation > 0)
+	if (m_ColorBitmap != nullptr)
 	{
-		InversionRender();
+		if (m_fZoom > 1.0f || m_sRotation > 0)
+		{
+			InversionRender();
+		}
+		else if (isRotate)
+		{
+			RotateRender();
+		}
+		else
+			NormalRender();
 	}
-	else if (isRotate)
-	{
-		RotateRender();
-	}
-	else
-		NormalRender();
-
 	if (isDebugMode)
 	{
 		int iPrev = SetROP2(g_hOffScreenDC, R2_MASKPEN);
@@ -119,16 +121,16 @@ bool Object::LoadFile(T_STR szName, T_STR szColorFile, T_STR szMaskFile)
 void Object::Set(const FLOAT& x, const FLOAT& y,
 	const DWORD& l, const DWORD& t, const DWORD& r, const DWORD& b)
 {
-	m_CenterPos.x = x;
-	m_CenterPos.y = y;
+	m_DrawPos.x = x;
+	m_DrawPos.y = y;
 
 	m_rtDraw.left = l;
 	m_rtDraw.top = t;
 	m_rtDraw.bottom = b;
 	m_rtDraw.right = r;
 
-	m_DrawPos.x = m_CenterPos.x - (m_rtDraw.right * m_fZoom / 2);
-	m_DrawPos.y = m_CenterPos.y - (m_rtDraw.bottom * m_fZoom / 2);
+	m_CenterPos.x = m_DrawPos.x + (m_rtDraw.right * m_fZoom / 2);
+	m_CenterPos.y = m_DrawPos.y + (m_rtDraw.bottom * m_fZoom / 2);
 
 	FLOAT d = m_rtDraw.right * m_fZoom / 2;
 	FLOAT e = m_rtDraw.bottom * m_fZoom / 2;

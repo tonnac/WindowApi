@@ -147,26 +147,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GroundObject.cpp" />
     <ClCompile Include="mMain.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rendering.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteMgr.cpp" />
+    <ClCompile Include="TerrainObejct.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GroundObject.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Rendering.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteMgr.h" />
+    <ClInclude Include="TerrainObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="SPRITE.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

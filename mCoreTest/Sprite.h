@@ -1,15 +1,14 @@
 #pragma once
 #include "Object.h"
 
-class Sprite : public Object
+class Sprite
 {
 public:
-	bool				Init() override;
-	bool				Frame() override;
-//	bool				Render() override;
-	bool				Release() override;
+	bool				Init();
+	bool				Frame();
+//	bool				Render();
+	bool				Release();
 	bool				AddRect(const RECT&);
-	bool				SetRect(const RECT&);
 	bool				SetDivideTime(const FLOAT&);
 public:
 	bool				PreFrame();

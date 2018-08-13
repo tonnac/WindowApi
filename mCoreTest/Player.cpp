@@ -1,30 +1,24 @@
 #include "Player.h"
 
-bool Player::Init()
-{
-	pe.LoadFile(L"PLAYER", L"../02_data/KahoColor.bmp", L"../02_data/KahoMask.bmp");
-	pe.Set(500, 500, 50, 74, 48, 48);
-	return true;
-}
 bool Player::Frame()
 {
-	if (S_Input.GetKey('W') == KEYSTATE::KEY_PUSH ||
-		S_Input.GetKey('W') == KEYSTATE::KEY_HOLD)
+	if (S_Input.GetKey(VK_UP) == KEYSTATE::KEY_PUSH ||
+		S_Input.GetKey(VK_UP) == KEYSTATE::KEY_HOLD)
 	{
 		m_CenterPos.y += (-1 * g_fPerSecFrame * 1000.f);
 	}
-	if (S_Input.GetKey('S') == KEYSTATE::KEY_PUSH ||
-		S_Input.GetKey('S') == KEYSTATE::KEY_HOLD)
+	if (S_Input.GetKey(VK_DOWN) == KEYSTATE::KEY_PUSH ||
+		S_Input.GetKey(VK_DOWN) == KEYSTATE::KEY_HOLD)
 	{
 		m_CenterPos.y += (1 * g_fPerSecFrame * 1000.f);
 	}
-	if (S_Input.GetKey('A') == KEYSTATE::KEY_PUSH ||
-		S_Input.GetKey('A') == KEYSTATE::KEY_HOLD)
+	if (S_Input.GetKey(VK_LEFT) == KEYSTATE::KEY_PUSH ||
+		S_Input.GetKey(VK_LEFT) == KEYSTATE::KEY_HOLD)
 	{
 		m_CenterPos.x += (-1 * g_fPerSecFrame * 1000.f);
 	}
-	if (S_Input.GetKey('D') == KEYSTATE::KEY_PUSH ||
-		S_Input.GetKey('D') == KEYSTATE::KEY_HOLD)
+	if (S_Input.GetKey(VK_RIGHT) == KEYSTATE::KEY_PUSH ||
+		S_Input.GetKey(VK_RIGHT) == KEYSTATE::KEY_HOLD)
 	{
 		m_CenterPos.x += (1 * g_fPerSecFrame * 1000.f);
 	}

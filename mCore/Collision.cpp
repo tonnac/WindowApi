@@ -25,7 +25,7 @@ bool Collision::RectInRect(RECT A_rt, RECT B_rt)
 	LONG yDiff = abs(A_Center.y - B_Center.y);
 
 	if (xDiff <= (A_rt.right - A_Center.x) + (B_rt.right - B_Center.x) &&
-		yDiff <= (A_rt.bottom - A_rt.top) + (B_rt.bottom - B_rt.top))
+		yDiff <= (A_rt.bottom - A_Center.y) + (B_rt.bottom - B_Center.y))
 		return true;
 
 	return false;

@@ -3,9 +3,6 @@
 bool Sprite::Init()
 {
 
-	m_DrawPos.x = 200;
-	m_DrawPos.y = 200;
-
 	m_fSpriteTime = 0.0f;
 	m_fDivideTime = 1.0f;
 	m_iIndex = 0;
@@ -17,7 +14,6 @@ bool Sprite::Init()
 bool Sprite::Frame()
 {
 	PreFrame();
-	Object::Frame();
 	return true;
 }
 //bool Sprite::Render()
@@ -31,14 +27,6 @@ bool Sprite::Release()
 bool Sprite::AddRect(const RECT& rt)
 {
 	m_spritelist.push_back(rt);
-	return true;
-}
-bool Sprite::SetRect(const RECT& rt)
-{
-	m_rtDraw.left = rt.left;
-	m_rtDraw.right = rt.right;
-	m_rtDraw.bottom = rt.bottom;
-	m_rtDraw.top = rt.top;
 	return true;
 }
 bool Sprite::SetDivideTime(const FLOAT& offset)

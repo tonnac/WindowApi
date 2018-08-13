@@ -1,13 +1,12 @@
 #pragma once
-#include "Sprite.h"
+#include "Object.h"
 
-class Player
+class Player : public Object
 {
 public:
-	bool		Init();
+	//bool		Init();
 	bool		Frame();
-	bool		Render();
-	bool		Release();
+	//bool		Render();
+	//bool		Release();
 private:
-	Sprite pe;
 };

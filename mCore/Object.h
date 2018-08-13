@@ -30,7 +30,7 @@ protected:
 	bool				RotateRender();
 	bool				NormalRender();
 	bool				InversionRender();
-protected:
+public:
 	FLOAT				m_fSpeed;
 	FLOAT				m_fZoom;
 	bool				isDebugMode;
