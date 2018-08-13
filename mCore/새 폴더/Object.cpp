@@ -1,68 +1,111 @@
-#include "Rendering.h"
+#include "Object.h"
 
-Rendering::Rendering(const Object& ob)
+Object::Object()
 {
-	ob.getrtDraw();
+	m_ColorBitmap = nullptr;
+	m_MaskBitmap = nullptr;
+	isDebugMode = true;
+	isDead = false;
+	isRotate = false;
+	m_sRotation = -1;
+	m_fZoom = 1.0f;
+	m_fAngle = 0.0f;
+	m_fMaxLength = 0.0f;
+	m_hRotationDC = nullptr;
+	m_hColorDC = nullptr;
+	m_hMaskDC = nullptr;
+	m_hbColorBitmap = nullptr;
+	m_hbMaskBitmap = nullptr;
 }
-
-bool Rendering::Init()
+bool Object::DebugMode()
 {
-	return true;
-}
-bool Rendering::Frame()
-{
-	return true;
-}
-bool Rendering::Render()
-{
-	HDC ColorDC = m_oBject.m_ColorBitmap->getMemDC();
-	if (m_oBject.m_MaskBitmap == nullptr)
+	if (S_Input.GetKey(VK_HOME) == KEYSTATE::KEY_PUSH)
 	{
-		BitBlt(g_hOffScreenDC,
-			static_cast<int>(m_DrawPos.x),
-			static_cast<int>(m_DrawPos.y),
-			m_rtDraw.right,
-			m_rtDraw.bottom,
-			ColorDC,
-			m_rtDraw.left,
-			m_rtDraw.top,
-			SRCCOPY);
-		return true;
+		isDebugMode = !isDebugMode;
 	}
-	HDC MaskDC = m_MaskBitmap->getMemDC();
-	BitBlt(g_hOffScreenDC,
-		static_cast<int>(m_DrawPos.x),
-		static_cast<int>(m_DrawPos.y),
-		m_rtDraw.right,
-		m_rtDraw.bottom,
-		MaskDC,
-		m_rtDraw.left,
-		m_rtDraw.top, SRCAND);
-	BitBlt(g_hOffScreenDC,
-		static_cast<int>(m_DrawPos.x),
-		static_cast<int>(m_DrawPos.y),
-		m_rtDraw.right,
-		m_rtDraw.bottom,
-		ColorDC,
-		m_rtDraw.left,
-		m_rtDraw.top,
-		SRCINVERT);
-	BitBlt(g_hOffScreenDC,
-		static_cast<int>(m_DrawPos.x),
-		static_cast<int>(m_DrawPos.y),
-		m_rtDraw.right,
-		m_rtDraw.bottom,
-		MaskDC,
-		m_rtDraw.left,
-		m_rtDraw.top,
-		SRCINVERT);
 	return true;
 }
-bool Rendering::Release()
+bool Object::Init()
 {
+	m_fMaxLength = static_cast<float>(sqrt((m_rtDraw.right) * (m_rtDraw.right) + (m_rtDraw.bottom) * (m_rtDraw.bottom)));
+
+	m_hRotationDC = CreateCompatibleDC(g_hOffScreenDC);
+	m_hColorDC = CreateCompatibleDC(g_hOffScreenDC);
+	m_hMaskDC = CreateCompatibleDC(g_hOffScreenDC);
+
+	m_hbColorBitmap = CreateCompatibleBitmap(g_hScreenDC, static_cast<int>(m_fMaxLength), static_cast<int>(m_fMaxLength));
+	m_hbMaskBitmap = CreateCompatibleBitmap(g_hScreenDC, static_cast<int>(m_fMaxLength), static_cast<int>(m_fMaxLength));
+
 	return true;
 }
-bool Rendering::LoadFile(T_STR szName, T_STR szColorFile, T_STR szMaskFile)
+bool Object::Frame()
+{
+	m_fAngle += g_fPerSecFrame * 300.0f;
+
+
+	m_DrawPos.x = m_CenterPos.x - (m_rtDraw.right * m_fZoom / 2);
+	m_DrawPos.y = m_CenterPos.y - (m_rtDraw.bottom * m_fZoom / 2);
+
+	FLOAT d = m_rtDraw.right * m_fZoom / 2;
+	FLOAT e = m_rtDraw.bottom * m_fZoom / 2;
+
+	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - d);
+	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - e);
+	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + d);
+	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + e);
+
+	if (isRotate)
+	{
+		getRotateBitmap(m_hbColorBitmap, m_ColorBitmap);
+		getRotateBitmap(m_hbMaskBitmap, m_MaskBitmap);
+	}
+	return true;
+}
+bool Object::Render()
+{
+	DebugMode();
+	if (m_ColorBitmap != nullptr)
+	{
+		if (m_fZoom > 1.0f || m_sRotation > 0)
+		{
+			InversionRender();
+		}
+		else if (isRotate)
+		{
+			RotateRender();
+		}
+		else
+			NormalRender();
+	}
+	if (isDebugMode)
+	{
+		int iPrev = SetROP2(g_hOffScreenDC, R2_MASKPEN);
+
+		//원충돌크기
+		//LONG dwX = m_rtCollision.right - m_rtCollision.left;						
+		//LONG dwY = m_rtCollision.bottom - m_rtCollision.top;						
+		//LONG fRad = (dwX > dwY) ? dwX : dwY;
+		//LONG left = m_rtCollision.left - (fRad - m_rtDraw.right) / 2;
+		//LONG top = m_rtCollision.top - (fRad - m_rtDraw.bottom) / 2;
+		//Ellipse(g_hOffScreenDC, left, top, left + fRad, top + fRad);
+
+		Rectangle(g_hOffScreenDC, m_rtCollision.left, m_rtCollision.top,
+			m_rtCollision.right, m_rtCollision.bottom);
+
+		SetROP2(g_hOffScreenDC, iPrev);
+	}
+	return true;
+}
+bool Object::Release()
+{
+	DeleteDC(m_hRotationDC);
+	DeleteDC(m_hColorDC);
+	DeleteDC(m_hMaskDC);
+	DeleteObject(m_hbColorBitmap);
+	DeleteObject(m_hbMaskBitmap);
+	return true;
+}
+bool Object::LoadFile(T_STR szName, T_STR szColorFile, T_STR szMaskFile)
 {
 	T_STR bitmapName;
 	if (!szMaskFile.empty())
@@ -75,7 +118,7 @@ bool Rendering::LoadFile(T_STR szName, T_STR szColorFile, T_STR szMaskFile)
 	m_ColorBitmap = S_BitmapMgr.getBitmapPtr(bitmapName);
 	return true;
 }
-void Rendering::Set(const FLOAT& x, const FLOAT& y,
+void Object::Set(const FLOAT& x, const FLOAT& y,
 	const DWORD& l, const DWORD& t, const DWORD& r, const DWORD& b)
 {
 	m_DrawPos.x = x;
@@ -98,16 +141,16 @@ void Rendering::Set(const FLOAT& x, const FLOAT& y,
 	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + e);
 
 }
-void Rendering::SetInverse(const SHORT& Key, const FLOAT& fZoom)
+void Object::SetInverse(const SHORT& Key, const FLOAT& fZoom)
 {
 	m_sRotation = Key;
 	m_fZoom = fZoom;
 }
-RECT Rendering::getCollisionRt()
+RECT Object::getCollisionRt()
 {
 	return m_rtCollision;
 }
-void Rendering::getRotateBitmap(HBITMAP hbit, Bitmap* pBitmap)
+void Object::getRotateBitmap(HBITMAP hbit, Bitmap* pBitmap)
 {
 	FLOAT fRadian = static_cast<FLOAT>(DegreeToRadian(m_fAngle));
 	FLOAT Cosine = cos(fRadian);
@@ -115,14 +158,14 @@ void Rendering::getRotateBitmap(HBITMAP hbit, Bitmap* pBitmap)
 
 	HBRUSH bkBrush = CreateSolidBrush(RGB(255, 255, 255));
 
-	HBITMAP oldBItmap = static_cast<HBITMAP>(SelectRendering(m_hRotationDC, hbit));
-	HBRUSH oldBrush = static_cast<HBRUSH>(SelectRendering(m_hRotationDC, bkBrush));
+	HBITMAP oldBItmap = static_cast<HBITMAP>(SelectObject(m_hRotationDC, hbit));
+	HBRUSH oldBrush = static_cast<HBRUSH>(SelectObject(m_hRotationDC, bkBrush));
 
 	PatBlt(m_hRotationDC, 0, 0,
 		static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength), PATCOPY);
 
-	DeleteRendering(SelectRendering(m_hRotationDC, oldBrush));
+	DeleteObject(SelectObject(m_hRotationDC, oldBrush));
 
 	int prevGraphic = SetGraphicsMode(m_hRotationDC, GM_ADVANCED);
 
@@ -154,16 +197,16 @@ void Rendering::getRotateBitmap(HBITMAP hbit, Bitmap* pBitmap)
 
 	SetWorldTransform(m_hRotationDC, &xform);
 
-	SelectRendering(m_hRotationDC, oldBItmap);
+	SelectObject(m_hRotationDC, oldBItmap);
 	SetGraphicsMode(m_hRotationDC, prevGraphic);
 }
-bool Rendering::RotateRender()
+bool Object::RotateRender()
 {
-	HBITMAP oldMask = static_cast<HBITMAP>(SelectRendering(m_hMaskDC, m_hbMaskBitmap));
-	HBITMAP oldColor = static_cast<HBITMAP>(SelectRendering(m_hColorDC, m_hbColorBitmap));
+	HBITMAP oldMask = static_cast<HBITMAP>(SelectObject(m_hMaskDC, m_hbMaskBitmap));
+	HBITMAP oldColor = static_cast<HBITMAP>(SelectObject(m_hColorDC, m_hbColorBitmap));
 
-	StretchBlt(g_hOffScreenDC,
-		static_cast<int>(m_CenterPos.x - (m_fMaxLength / 2) + m_fMaxLength),
+	StretchBlt(g_hOffScreenDC, 
+		static_cast<int>(m_CenterPos.x - (m_fMaxLength / 2) +m_fMaxLength),
 		static_cast<int>(m_CenterPos.y - (m_fMaxLength / 2)),
 		-static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
@@ -173,7 +216,7 @@ bool Rendering::RotateRender()
 		static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
 		SRCAND);
-	StretchBlt(g_hOffScreenDC,
+	StretchBlt(g_hOffScreenDC, 
 		static_cast<int>(m_CenterPos.x - (m_fMaxLength / 2) + m_fMaxLength),
 		static_cast<int>(m_CenterPos.y - (m_fMaxLength / 2)),
 		-static_cast<int>(m_fMaxLength),
@@ -195,16 +238,16 @@ bool Rendering::RotateRender()
 		static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
 		SRCINVERT);
-	SelectRendering(m_hMaskDC, oldMask);
-	SelectRendering(m_hColorDC, oldColor);
+	SelectObject(m_hMaskDC, oldMask);
+	SelectObject(m_hColorDC, oldColor);
 	return true;
 }
-bool Rendering::NormalRender()
+bool Object::NormalRender()
 {
 	HDC ColorDC = m_ColorBitmap->getMemDC();
 	if (m_MaskBitmap == nullptr)
 	{
-		BitBlt(g_hOffScreenDC,
+		BitBlt(g_hOffScreenDC, 
 			static_cast<int>(m_DrawPos.x),
 			static_cast<int>(m_DrawPos.y),
 			m_rtDraw.right,
@@ -216,7 +259,7 @@ bool Rendering::NormalRender()
 		return true;
 	}
 	HDC MaskDC = m_MaskBitmap->getMemDC();
-	BitBlt(g_hOffScreenDC,
+	BitBlt(g_hOffScreenDC, 
 		static_cast<int>(m_DrawPos.x),
 		static_cast<int>(m_DrawPos.y),
 		m_rtDraw.right,
@@ -224,7 +267,7 @@ bool Rendering::NormalRender()
 		MaskDC,
 		m_rtDraw.left,
 		m_rtDraw.top, SRCAND);
-	BitBlt(g_hOffScreenDC,
+	BitBlt(g_hOffScreenDC, 
 		static_cast<int>(m_DrawPos.x),
 		static_cast<int>(m_DrawPos.y),
 		m_rtDraw.right,
@@ -233,7 +276,7 @@ bool Rendering::NormalRender()
 		m_rtDraw.left,
 		m_rtDraw.top,
 		SRCINVERT);
-	BitBlt(g_hOffScreenDC,
+	BitBlt(g_hOffScreenDC, 
 		static_cast<int>(m_DrawPos.x),
 		static_cast<int>(m_DrawPos.y),
 		m_rtDraw.right,
@@ -244,7 +287,7 @@ bool Rendering::NormalRender()
 		SRCINVERT);
 	return true;
 }
-bool Rendering::InversionRender()
+bool Object::InversionRender()
 {
 	HDC ColorDC = m_ColorBitmap->getMemDC();
 	if (m_MaskBitmap == nullptr)
@@ -334,7 +377,7 @@ bool Rendering::InversionRender()
 			StretchBlt(g_hOffScreenDC,
 				static_cast<int>(m_DrawPos.x),
 				static_cast<int>(m_DrawPos.y + m_rtDraw.bottom),
-				m_rtDraw.right,
+				m_rtDraw.right, 
 				-m_rtDraw.bottom,
 				MaskDC,
 				m_rtDraw.left, m_rtDraw.top,
@@ -375,7 +418,7 @@ bool Rendering::InversionRender()
 				m_rtDraw.right, m_rtDraw.bottom,
 				SRCINVERT);
 			StretchBlt(g_hOffScreenDC,
-				static_cast<int>(m_DrawPos.x + m_rtDraw.right),
+				static_cast<int>(m_DrawPos.x + m_rtDraw.right), 
 				static_cast<int>(m_DrawPos.y + m_rtDraw.bottom),
 				-m_rtDraw.right, -m_rtDraw.bottom,
 				MaskDC,

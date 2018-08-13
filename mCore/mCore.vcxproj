@@ -152,13 +152,19 @@ copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
   <ItemGroup>
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="BitmapMgr.h" />
-    <ClInclude Include="BKObject.h" />
+    <ClInclude Include="BKObject.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="NPC.h" />
+    <ClInclude Include="InversionRendering.h" />
+    <ClInclude Include="NPC.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Rendering.h" />
     <ClInclude Include="Std.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="wClass.h" />
@@ -166,13 +172,19 @@ copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
   <ItemGroup>
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="BitmapMgr.cpp" />
-    <ClCompile Include="BKObject.cpp" />
+    <ClCompile Include="BKObject.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="InversionRenderingcpp.cpp" />
+    <ClCompile Include="NPC.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Rendering.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="wClass.cpp" />
   </ItemGroup>

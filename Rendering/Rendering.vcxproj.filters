@@ -15,37 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="wClass.h">
+    <ClInclude Include="Sprite.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Std.h">
+    <ClInclude Include="SpriteMgr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Core.h">
+    <ClInclude Include="TerrainObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
+    <ClInclude Include="GroundObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
+    <ClInclude Include="InversionRendering.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Bitmap.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="BitmapMgr.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="NPC.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="BKObject.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
+    <ClInclude Include="RotateRendering.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
@@ -54,39 +39,27 @@
     <ClInclude Include="Rendering.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="InversionRendering.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="wClass.cpp">
+    <ClCompile Include="GroundObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Core.cpp">
+    <ClCompile Include="InversionRenderingcpp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
+    <ClCompile Include="mMain.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
+    <ClCompile Include="RotateRendering.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Bitmap.cpp">
+    <ClCompile Include="Sprite.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="BitmapMgr.cpp">
+    <ClCompile Include="SpriteMgr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="NPC.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="BKObject.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
+    <ClCompile Include="TerrainObejct.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Rendering.cpp">
@@ -95,11 +68,5 @@
     <ClCompile Include="Object.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="InversionRenderingcpp.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

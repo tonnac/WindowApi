@@ -1,18 +1,11 @@
 #pragma once
-#include "Object.h"
+#include "Rendering.h"
 
-class RObject : public Object
+class RotateRendering : public Rendering
 {
 public:
-	RObject();
-public:
-	bool				Init() override;
-	bool				Frame() override;
-	bool				Render() override;
-	bool				Release() override;
-public:
-private:
 	void				getRotateBitmap(HBITMAP, Bitmap*);
+	bool				RotateRender();
 private:
 	HDC					m_hRotationDC;
 	HDC					m_hColorDC;
