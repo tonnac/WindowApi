@@ -9,6 +9,7 @@ Object::Object() : m_ColorBitmap(nullptr), m_MaskBitmap(nullptr), isDebugMode(fa
 bool Object::Init()
 {
 	m_pRendering = New RotateRendering(this, 30);
+	m_pRendering->Init();
 	return true;
 }
 bool Object::Frame()
@@ -125,3 +126,5 @@ void Object::Set(const FLOAT& x, const FLOAT& y,
 	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
 	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
 }
+
+
