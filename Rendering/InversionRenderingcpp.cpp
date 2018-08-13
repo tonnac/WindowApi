@@ -1,12 +1,22 @@
 #include "InversionRendering.h"
 
-InversionRendering::InversionRendering(Object* ob, const SHORT& inverse, const FLOAT& zoom) : Rendering(ob),
-																		m_sInverse(inverse), m_fZoom(zoom)
+InversionRendering::InversionRendering(Object* ob, const FLOAT& zoom, const SHORT& inverse) : Rendering(ob),
+																		 m_sInverse(inverse), m_fZoom(zoom)
 {}
 
 bool InversionRendering::Frame()
 {
+	m_DrawPos.x = m_CenterPos.x - (m_rtDraw.right * m_fZoom / 2);
+	m_DrawPos.y = m_CenterPos.y - (m_rtDraw.bottom * m_fZoom / 2);
 
+	FLOAT d = m_rtDraw.right * m_fZoom / 2;
+	FLOAT e = m_rtDraw.bottom * m_fZoom / 2;
+
+	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - d);
+	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - e);
+	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + d);
+	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + e);
+	return true;
 }
 bool InversionRendering::Render()
 {

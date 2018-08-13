@@ -27,24 +27,21 @@
     <ClInclude Include="GroundObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="InversionRendering.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="RotateRendering.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Rendering.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="InversionRendering.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GroundObject.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="InversionRenderingcpp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="mMain.cpp">
@@ -63,6 +60,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Rendering.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InversionRenderingcpp.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">

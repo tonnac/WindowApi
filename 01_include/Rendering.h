@@ -7,13 +7,13 @@ public:
 	Rendering(Object*);
 	virtual ~Rendering() {};
 public:
-	virtual bool		Init();
-	virtual bool		Frame();
-	virtual bool		Render();
-	virtual bool		Release();
-private:
-	const FloatPoint&	m_DrawPos;
-	const RECT&			m_rtDraw;
+	virtual bool		Init	();
+	virtual bool		Frame	();
+	virtual bool		Render	();
+	virtual bool		Release	();
+protected:
+	FloatPoint&			m_DrawPos;
+	RECT&				m_rtDraw;
 	HDC					m_hColorDC;
 	HDC					m_hMaskDC;
 };

@@ -2,7 +2,7 @@
 #include "BitmapMgr.h"
 #include "Input.h"
 
-
+#define ZOOM		   0x00
 #define LR_ROTATION    0x01
 #define TB_ROTATION    0x02
 #define LRTB_ROTATION  0x03
@@ -20,11 +20,12 @@ public:
 	virtual bool		Render			();
 	virtual bool		Release			();
 public:
-	const RECT&			getrtDraw		() const;
-	const FloatPoint&	getDrawPos		() const;
+	RECT&				getrtDraw		();
+	RECT&				getCollisionRt	();
+	FloatPoint&				getCenterPos	();
+	FloatPoint&			getDrawPos		();
 	HDC					getColorDC		() const;
 	HDC					getMaskDC		() const;
-	RECT				getCollisionRt	();
 	void				DebugMode		();
 public:
 	bool				LoadFile		(T_STR, T_STR, T_STR = std::basic_string<TCHAR>());

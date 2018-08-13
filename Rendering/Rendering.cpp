@@ -1,7 +1,8 @@
 #include "Rendering.h"
 
 Rendering::Rendering(Object* ob) : m_DrawPos(ob->getDrawPos()), m_rtDraw(ob->getrtDraw()),
-									m_hColorDC(ob->getColorDC()), m_hMaskDC(ob->getMaskDC())
+									m_hColorDC(ob->getColorDC()), m_hMaskDC(ob->getMaskDC()),
+						m_CenterPos(ob->getCenterPos()), m_rtCollision(ob->getCollisionRt())
 {}
 
 bool Rendering::Init()

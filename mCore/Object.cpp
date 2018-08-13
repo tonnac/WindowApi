@@ -1,12 +1,12 @@
 #include "Object.h"
-#include "Rendering.h"
+#include "InversionRendering.h"
 
 Object::Object() : m_ColorBitmap(nullptr), m_MaskBitmap(nullptr), isDebugMode(false),
 					isDead(false), m_fSpeed(0.0f)
 {}
 bool Object::Init()
 {
-	m_pRendering = new Rendering(this);
+	m_pRendering = new InversionRendering(this,2.8f);
 	return true;
 }
 bool Object::Frame()
@@ -52,16 +52,42 @@ bool Object::Release()
 {
 	return true;
 }
+
+RECT& Object::getrtDraw()
+{
+	return m_rtDraw;
+}
+FloatPoint& Object::getDrawPos()
+{
+	return m_DrawPos;
+}
+RECT& Object::getCollisionRt()
+{
+	return m_rtCollision;
+}
+FloatPoint& Object::getCenterPos()
+{
+	return m_CenterPos;
+}
+HDC Object::getColorDC() const
+{
+	return m_ColorBitmap->getMemDC();
+}
+HDC	Object::getMaskDC() const
+{
+	if (m_MaskBitmap == nullptr)
+	{
+		return nullptr;
+	}
+	return m_MaskBitmap->getMemDC();
+}
+
 void Object::DebugMode()
 {
 	if (S_Input.GetKey(VK_HOME) == KEYSTATE::KEY_PUSH)
 	{
 		isDebugMode = !isDebugMode;
 	}
-}
-RECT Object::getCollisionRt()
-{
-	return m_rtCollision;
 }
 
 bool Object::LoadFile(T_STR szName, T_STR szColorFile, T_STR szMaskFile)
@@ -96,25 +122,4 @@ void Object::Set(const FLOAT& x, const FLOAT& y,
 	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
 	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
 	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
-}
-
-RECT& Object::getrtDraw()
-{
-	return m_rtDraw;
-}
-FloatPoint& Object::getDrawPos()
-{
-	return m_DrawPos;
-}
-HDC Object::getColorDC() const
-{
-	return m_ColorBitmap->getMemDC();
-}
-HDC	Object::getMaskDC() const
-{
-	if (m_MaskBitmap == nullptr)
-	{
-		return nullptr;
-	}
-	return m_MaskBitmap->getMemDC();
 }

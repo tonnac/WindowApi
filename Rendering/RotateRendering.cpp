@@ -1,7 +1,7 @@
 #include "RotateRendering.h"
 
 
-bool Init()
+bool RotateRendering::Init()
 {
 	m_fMaxLength = static_cast<float>(sqrt((m_rtDraw.right) * (m_rtDraw.right) + (m_rtDraw.bottom) * (m_rtDraw.bottom)));
 
@@ -13,7 +13,7 @@ bool Init()
 	m_hbMaskBitmap = CreateCompatibleBitmap(g_hScreenDC, static_cast<int>(m_fMaxLength), static_cast<int>(m_fMaxLength));
 }
 
-void Rendering::getRotateBitmap(HBITMAP hbit, Bitmap* pBitmap)
+void RotateRendering::getRotateBitmap(HBITMAP hbit, Bitmap* pBitmap)
 {
 	FLOAT fRadian = static_cast<FLOAT>(DegreeToRadian(m_fAngle));
 	FLOAT Cosine = cos(fRadian);
@@ -63,7 +63,7 @@ void Rendering::getRotateBitmap(HBITMAP hbit, Bitmap* pBitmap)
 	SelectRendering(m_hRotationDC, oldBItmap);
 	SetGraphicsMode(m_hRotationDC, prevGraphic);
 }
-bool Rendering::RotateRender()
+bool RotateRendering::RotateRender()
 {
 	HBITMAP oldMask = static_cast<HBITMAP>(SelectRendering(m_hMaskDC, m_hbMaskBitmap));
 	HBITMAP oldColor = static_cast<HBITMAP>(SelectRendering(m_hColorDC, m_hbColorBitmap));
