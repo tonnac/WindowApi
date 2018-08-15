@@ -60,6 +60,12 @@
     <ClInclude Include="InversionRendering.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteMgr.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="wClass.cpp">
@@ -104,8 +110,14 @@
     <ClCompile Include="RotateRendering.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteMgr.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <Text Include="Kaho.txt" />
   </ItemGroup>
 </Project>

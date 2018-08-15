@@ -7,58 +7,60 @@ bool RotateRendering::Init()
 	m_fMaxLength = static_cast<float>(sqrt((m_rtDraw.right) * (m_rtDraw.right) + (m_rtDraw.bottom) * (m_rtDraw.bottom)));
 
 	m_hRotationDC = CreateCompatibleDC(g_hOffScreenDC);
-	m_hColorDC = CreateCompatibleDC(g_hOffScreenDC);
-	m_hMaskDC = CreateCompatibleDC(g_hOffScreenDC);
+	m_hRColorDC = CreateCompatibleDC(g_hOffScreenDC);
+	m_hRMaskDC = CreateCompatibleDC(g_hOffScreenDC);
 
 	m_hbColorBitmap = CreateCompatibleBitmap(g_hScreenDC, static_cast<int>(m_fMaxLength), static_cast<int>(m_fMaxLength));
 	m_hbMaskBitmap = CreateCompatibleBitmap(g_hScreenDC, static_cast<int>(m_fMaxLength), static_cast<int>(m_fMaxLength));
+	return true;
 }
 bool RotateRendering::Frame()
 {
+	m_fAngle += g_fPerSecFrame * 30.0f;
 	getRotateBitmap(m_hbMaskBitmap, m_hMaskDC);
 	getRotateBitmap(m_hbColorBitmap, m_hColorDC);
 	return true;
 }
 bool RotateRendering::Render()
 {
-	HBITMAP oldMask = static_cast<HBITMAP>(SelectObject(m_hMaskDC, m_hbMaskBitmap));
-	HBITMAP oldColor = static_cast<HBITMAP>(SelectObject(m_hColorDC, m_hbColorBitmap));
+	HBITMAP oldMask = static_cast<HBITMAP>(SelectObject(m_hRMaskDC, m_hbMaskBitmap));
+	HBITMAP oldColor = static_cast<HBITMAP>(SelectObject(m_hRColorDC, m_hbColorBitmap));
 
 	StretchBlt(g_hOffScreenDC,
-		static_cast<int>(m_CenterPos.x - (m_fMaxLength / 2) + m_fMaxLength),
+		static_cast<int>(m_CenterPos.x - (m_fMaxLength / 2)),
 		static_cast<int>(m_CenterPos.y - (m_fMaxLength / 2)),
-		-static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
-		m_hMaskDC,
+		static_cast<int>(m_fMaxLength),
+		m_hRMaskDC,
 		0,
 		0,
 		static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
 		SRCAND);
 	StretchBlt(g_hOffScreenDC,
-		static_cast<int>(m_CenterPos.x - (m_fMaxLength / 2) + m_fMaxLength),
+		static_cast<int>(m_CenterPos.x - (m_fMaxLength / 2)),
 		static_cast<int>(m_CenterPos.y - (m_fMaxLength / 2)),
-		-static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
-		m_hColorDC,
+		static_cast<int>(m_fMaxLength),
+		m_hRColorDC,
 		0,
 		0,
 		static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
 		SRCINVERT);
 	StretchBlt(g_hOffScreenDC,
-		static_cast<int>(m_CenterPos.x - (m_fMaxLength / 2) + m_fMaxLength),
+		static_cast<int>(m_CenterPos.x - (m_fMaxLength / 2)),
 		static_cast<int>(m_CenterPos.y - (m_fMaxLength / 2)),
-		-static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
-		m_hMaskDC,
+		static_cast<int>(m_fMaxLength),
+		m_hRMaskDC,
 		0,
 		0,
 		static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
 		SRCINVERT);
-	SelectObject(m_hMaskDC, oldMask);
-	SelectObject(m_hColorDC, oldColor);
+	SelectObject(m_hRMaskDC, oldMask);
+	SelectObject(m_hRColorDC, oldColor);
 	return true;
 }
 
@@ -69,6 +71,7 @@ bool RotateRendering::Release()
 	DeleteDC(m_hMaskDC);
 	DeleteObject(m_hbColorBitmap);
 	DeleteObject(m_hbMaskBitmap);
+	return true;
 }
 void RotateRendering::getRotateBitmap(HBITMAP hbit, HDC MemDC)
 {

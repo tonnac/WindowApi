@@ -9,6 +9,9 @@
 
 class Rendering;
 
+
+// 소멸자 Delete 확인
+
 class Object
 {
 public:
@@ -31,7 +34,10 @@ public:
 	bool				LoadFile		(T_STR, T_STR, T_STR = std::basic_string<TCHAR>());
 	void				Set				(const FLOAT&, const FLOAT&,
 										const DWORD& = 0, const DWORD& = 0, const DWORD& = 0, const DWORD& = 0);
-private:
+public:
+	void				setRendering(const FLOAT&, const SHORT&);
+	void				setRendering(const FLOAT&);
+protected:
 	FloatPoint			m_CenterPos;
 	FloatPoint			m_DrawPos;
 	FLOAT				m_fSpeed;

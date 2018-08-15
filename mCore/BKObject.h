@@ -4,6 +4,7 @@
 class BKObject : public Object
 {
 public:
-	bool			Frame() override;
-	bool			Render() override;
+	bool		Init		() override;
+//	bool		Frame		() override;
+//	bool		Render		() override;
 };

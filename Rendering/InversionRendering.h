@@ -1,5 +1,5 @@
 #pragma once
-#include "Rendering.h"
+#include "RotateRendering.h"
 
 class InversionRendering : public Rendering
 {

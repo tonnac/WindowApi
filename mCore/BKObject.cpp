@@ -1,20 +1,17 @@
 #include "BKObject.h"
+#include "InversionRendering.h"
 
-bool BKObject::Frame()
+bool BKObject::Init()
 {
+	m_pRendering = New Rendering(this);
 	return true;
 }
-
-bool BKObject::Render()
-{
-	HDC ColorDC = m_ColorBitmap->getMemDC();
-	StretchBlt(g_hOffScreenDC,
-		0,
-		0,
-		g_rtClient.right * 2, g_rtClient.bottom,
-		ColorDC,
-		m_rtDraw.left, m_rtDraw.top,
-		m_rtDraw.right, m_rtDraw.bottom,
-		SRCCOPY);
-	return true;
-}
+//bool BKObject::Frame()
+//{
+//	return true;
+//}
+//
+//bool BKObject::Render()
+//{
+//	return true;
+//}

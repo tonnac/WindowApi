@@ -8,7 +8,7 @@ Object::Object() : m_ColorBitmap(nullptr), m_MaskBitmap(nullptr), isDebugMode(fa
 {}
 bool Object::Init()
 {
-	m_pRendering = New RotateRendering(this, 30);
+	m_pRendering = New Rendering(this);
 	m_pRendering->Init();
 	return true;
 }
@@ -53,6 +53,7 @@ bool Object::Render()
 }
 bool Object::Release()
 {
+	delete m_pRendering;
 	return true;
 }
 
@@ -128,3 +129,23 @@ void Object::Set(const FLOAT& x, const FLOAT& y,
 }
 
 
+void Object::setRendering(const FLOAT& zoom, const SHORT& inversion)
+{
+	if (m_pRendering)
+	{
+		m_pRendering->Release();
+		delete m_pRendering;
+	}
+	m_pRendering = New InversionRendering(this, zoom, inversion);
+	m_pRendering->Init();
+}
+void Object::setRendering(const FLOAT& rotation)
+{
+	if (m_pRendering)
+	{
+		m_pRendering->Release();
+		delete m_pRendering;
+	}
+	m_pRendering = New RotateRendering(this, rotation);
+	m_pRendering->Init();
+}

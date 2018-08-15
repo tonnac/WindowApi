@@ -99,7 +99,8 @@
     </Link>
     <PostBuildEvent>
       <Command>copy "$(ProjectDir)*.h" "$(SolutionDir)01_include"
-copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
+copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"
+copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -153,7 +154,7 @@ copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="BitmapMgr.h" />
     <ClInclude Include="BKObject.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Collision.h" />
@@ -166,6 +167,8 @@ copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
     <ClInclude Include="Object.h" />
     <ClInclude Include="Rendering.h" />
     <ClInclude Include="RotateRendering.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteMgr.h" />
     <ClInclude Include="Std.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="wClass.h" />
@@ -174,7 +177,7 @@ copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="BitmapMgr.cpp" />
     <ClCompile Include="BKObject.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -187,11 +190,13 @@ copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"</Command>
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Rendering.cpp" />
     <ClCompile Include="RotateRendering.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteMgr.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="wClass.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <Text Include="Kaho.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
