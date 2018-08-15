@@ -60,7 +60,10 @@ bool Rendering::Release()
 {
 	return true;
 }
-
+void Rendering::setInverse(const INVERSE& type)
+{
+	return;
+}
 void * Rendering::operator new(size_t sz, const char* FileName, int iLine)
 {
 	MEMINFO mem;

@@ -60,10 +60,10 @@
     <ClInclude Include="InversionRendering.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
+    <ClInclude Include="SpriteMgr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteMgr.h">
+    <ClInclude Include="Sprite.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

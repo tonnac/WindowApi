@@ -10,6 +10,7 @@
 #include <cmath>
 #include <sstream>
 #include <fstream>
+#include <array>
 
 #pragma comment(lib,"winmm.lib")
 #pragma comment(lib,"msimg32.lib")
@@ -43,6 +44,13 @@ enum class SCENE
 	LOBBY,
 	GAME,
 	END
+};
+enum class INVERSE
+{
+	LR_ROTATION,
+	TB_ROTATION,
+	LRTB_ROTATION,
+	DEFAULT
 };
 
 template <typename K>
@@ -79,3 +87,48 @@ extern float				g_fPerSecFrame;
 
 extern int					g_iNewCount;
 extern MEM_MAP				MemoryMap;
+
+
+
+//	KahoAttack1 7
+//	KahoAttack2 7
+//	KahoAttack3 11
+//	AirAttack 7
+//	LandAttack 7
+//	Leaf1 7
+//	Leaf2 7
+//	Leaf3 9
+//	AirLeaf 6
+//	Bow 6
+//	Airbow 6
+//	CrouchBow 6
+//	Run 10
+//	Brake 7
+//	Turn 3
+//	Crouch 4
+//	Rise 2
+//	Death 24
+//	Defensive 3
+//	EndingDeath 35
+//	EndingDeath2 28
+//	Jump  3
+//	Fall 5
+//	ToPraying  6
+//	Praying 4
+//	FromPraying 9
+//	HeadBob 4
+//	HeadBobBack 4
+//	Hurt 1
+//	Idle 6
+//	Look 14
+//	Item 11
+//	LadderUp 6
+//	LadderDown 3
+//	LadderEnter 6
+//	LadderLeave 6
+//	Roll 8
+//	MiscEffect 3
+//	Shine 1
+//	Icon 1
+//	ArrowS 1
+//	ArrowL 1

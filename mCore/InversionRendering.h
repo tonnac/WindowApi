@@ -4,13 +4,14 @@
 class InversionRendering : public Rendering
 {
 public:
-	InversionRendering	(Object*, const FLOAT& = 0, const SHORT& = 0);
+	InversionRendering	(Object*, const FLOAT&, const INVERSE&);
 public:
-//	bool		Init	() override;
-	bool		Frame	() override;
-	bool		Render	() override;
-//	bool		Release	() override;
+//	bool		Init		() override;
+	bool		Frame		() override;
+	bool		Render		() override;
+//	bool		Release		() override;
+	void		setInverse	(const INVERSE&) override;
 private:
-	SHORT		m_sInverse;
+	INVERSE		m_sInverse;
 	FLOAT		m_fZoom;
 };

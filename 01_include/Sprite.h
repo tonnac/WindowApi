@@ -17,8 +17,9 @@ public:
 	bool				Render			();
 	bool				Release			();
 public:
-	RECT				getSpriteRt();
+	RECT				getSpriteRt		();
 	bool				setDivideTime	(const FLOAT&);
+	bool				setIndex		(const INT&);
 	bool				setList			(const SPRITELIST&);
 	size_t				Size			();
 private:

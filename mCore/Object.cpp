@@ -129,14 +129,14 @@ void Object::Set(const FLOAT& x, const FLOAT& y,
 }
 
 
-void Object::setRendering(const FLOAT& zoom, const SHORT& inversion)
+void Object::setRendering(const FLOAT& zoom, const INVERSE& type)
 {
 	if (m_pRendering)
 	{
 		m_pRendering->Release();
 		delete m_pRendering;
 	}
-	m_pRendering = New InversionRendering(this, zoom, inversion);
+	m_pRendering = New InversionRendering(this, zoom, type);
 	m_pRendering->Init();
 }
 void Object::setRendering(const FLOAT& rotation)
@@ -148,4 +148,8 @@ void Object::setRendering(const FLOAT& rotation)
 	}
 	m_pRendering = New RotateRendering(this, rotation);
 	m_pRendering->Init();
+}
+void Object::setRendering(const INVERSE& type)
+{
+	m_pRendering->setInverse(type);
 }

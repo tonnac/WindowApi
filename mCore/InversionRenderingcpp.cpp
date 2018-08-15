@@ -1,6 +1,6 @@
 #include "InversionRendering.h"
 
-InversionRendering::InversionRendering(Object* ob, const FLOAT& zoom, const SHORT& inverse) : Rendering(ob),
+InversionRendering::InversionRendering(Object* ob, const FLOAT& zoom, const INVERSE& inverse) : Rendering(ob),
 																		 m_sInverse(inverse), m_fZoom(zoom)
 {}
 
@@ -24,7 +24,7 @@ bool InversionRendering::Render()
 	{
 		switch (m_sInverse)
 		{
-		case LR_ROTATION:
+		case INVERSE::LR_ROTATION:
 			StretchBlt(g_hOffScreenDC,
 				static_cast<int>(m_DrawPos.x + m_rtDraw.right),
 				static_cast<int>(m_DrawPos.y),
@@ -35,7 +35,7 @@ bool InversionRendering::Render()
 				m_rtDraw.right, m_rtDraw.bottom,
 				SRCCOPY);
 			break;
-		case TB_ROTATION:
+		case INVERSE::TB_ROTATION:
 			StretchBlt(g_hOffScreenDC,
 				static_cast<int>(m_DrawPos.x),
 				static_cast<int>(m_DrawPos.y + m_rtDraw.bottom),
@@ -46,7 +46,7 @@ bool InversionRendering::Render()
 				m_rtDraw.right, m_rtDraw.bottom,
 				SRCCOPY);
 			break;
-		case LRTB_ROTATION:
+		case INVERSE::LRTB_ROTATION:
 			StretchBlt(g_hOffScreenDC,
 				static_cast<int>(m_DrawPos.x + m_rtDraw.right),
 				static_cast<int>(m_DrawPos.y + m_rtDraw.bottom),
@@ -73,7 +73,7 @@ bool InversionRendering::Render()
 	{
 		switch (m_sInverse)
 		{
-		case LR_ROTATION:
+		case INVERSE::LR_ROTATION:
 			StretchBlt(g_hOffScreenDC,
 				static_cast<int>(m_DrawPos.x + m_rtDraw.right * m_fZoom),
 				static_cast<int>(m_DrawPos.y),
@@ -102,7 +102,7 @@ bool InversionRendering::Render()
 				m_rtDraw.right, m_rtDraw.bottom,
 				SRCINVERT);
 			break;
-		case TB_ROTATION:
+		case INVERSE::TB_ROTATION:
 			StretchBlt(g_hOffScreenDC,
 				static_cast<int>(m_DrawPos.x),
 				static_cast<int>(m_DrawPos.y + m_rtDraw.bottom),
@@ -129,7 +129,7 @@ bool InversionRendering::Render()
 				m_rtDraw.right, m_rtDraw.bottom,
 				SRCINVERT);
 			break;
-		case LRTB_ROTATION:
+		case INVERSE::LRTB_ROTATION:
 			StretchBlt(g_hOffScreenDC,
 				static_cast<int>(m_DrawPos.x + m_rtDraw.right),
 				static_cast<int>(m_DrawPos.y + m_rtDraw.bottom),
@@ -186,4 +186,8 @@ bool InversionRendering::Render()
 		}
 	}
 	return true;
+}
+void InversionRendering::setInverse(const INVERSE& Inverse)
+{
+	m_sInverse = Inverse;
 }

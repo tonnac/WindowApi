@@ -2,11 +2,6 @@
 #include "BitmapMgr.h"
 #include "Input.h"
 
-#define ZOOM		   0x00
-#define LR_ROTATION    0x01
-#define TB_ROTATION    0x02
-#define LRTB_ROTATION  0x03
-
 class Rendering;
 
 
@@ -35,8 +30,9 @@ public:
 	void				Set				(const FLOAT&, const FLOAT&,
 										const DWORD& = 0, const DWORD& = 0, const DWORD& = 0, const DWORD& = 0);
 public:
-	void				setRendering(const FLOAT&, const SHORT&);
+	void				setRendering(const FLOAT&, const INVERSE&);
 	void				setRendering(const FLOAT&);
+	void				setRendering(const INVERSE&);
 protected:
 	FloatPoint			m_CenterPos;
 	FloatPoint			m_DrawPos;
