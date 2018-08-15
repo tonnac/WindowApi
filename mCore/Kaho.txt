@@ -1,7 +1,7 @@
 42
-KahoAttack1 7
-KahoAttack2 7
-KahoAttack3 11
+Attack1 7
+Attack2 7
+Attack3 11
 AirAttack 7
 LandAttack 7
 Leaf1 7

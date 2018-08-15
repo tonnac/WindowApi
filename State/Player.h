@@ -3,22 +3,24 @@
 
 class State;
 
+using StateMap = std::map<std::string, State*>;
+
 class Player : public Object
 {
 public:
 	Player();
 public:
-	bool				Init		();
-	bool				Frame		();
+	bool			Init		();
+	bool			Frame		();
 public:
-	void				setIdle		();
-	void				setBrake	();
-	void				setRun		();
+	void			setState	(T_STR);
 public:
-	INT					getDir		();
-	void				setDir		(const INT&);
+	INT				getDir		();
+	void			setDir		(const INT&);
+public:
+	void			addState(std::string, State*);
 private:
-	INT					m_iCurrentDir;
-	std::vector<State*>	m_pStateList;
-	State *				m_pCurrentState;
+	INT				m_iCurrentDir;
+	StateMap		m_pStateList;
+	State *			m_pCurrentState;
 };

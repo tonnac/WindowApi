@@ -4,6 +4,7 @@
 #include <sstream>
 
 using SPMAP = std::map<std::string, Sprite*>;
+using TSPMAP = std::map<std::string, SPMAP>;
 
 class SpriteMgr : public Singleton<SpriteMgr>
 {
@@ -11,15 +12,15 @@ class SpriteMgr : public Singleton<SpriteMgr>
 public:
 	~SpriteMgr();
 public:
-	bool				Init();
-	bool				Frame();
-	bool				Render();
-	bool				Release();
+	bool				Init		();
+	bool				Frame		();
+	bool				Render		();
+	bool				Release		();
 public:
-	bool				SpriteSet(T_STR);
-	Sprite*				LoadSprite(T_STR);
+	bool				SpriteSet	(T_STR);
+	Sprite*				LoadSprite	(T_STR, T_STR);
 private:
-	SPMAP				m_SpriteMap;
+	TSPMAP				m_SpriteMap;
 };
 
 

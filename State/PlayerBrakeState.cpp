@@ -1,10 +1,12 @@
 #include "PlayerBrakeState.h"
 
 PlayerBrakeState::PlayerBrakeState(Player * pPlayer) : PlayerState(pPlayer)
-{}
+{
+	m_pPlayer->addState(std::string("Brake"), this);
+}
 bool PlayerBrakeState::Init()
 {
-	setSprite(L"Brake");
+	setSprite(L"Kaho",L"Brake");
 	m_pSprite->setDivideTime(0.7f);
 	return true;
 }
@@ -19,7 +21,7 @@ bool PlayerBrakeState::Frame()
 	{
 		m_pSprite->setIndex(0);
 		Player * pl = dynamic_cast<Player*>(m_pPlayer);
-		pl->setIdle();
+		pl->setState(L"Idle");
 		return true;
 	}
 	RECT& rt = m_pPlayer->getrtDraw();

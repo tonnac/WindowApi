@@ -155,6 +155,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteMgr.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="StateBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteMgr.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateBuilder.cpp" />
     <ClCompile Include="StateMain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

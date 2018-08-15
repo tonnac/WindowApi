@@ -7,20 +7,17 @@ Player::Player() : m_pCurrentState(nullptr)
 {
 	m_iCurrentDir = 1;
 	State * state = new PlayerState(this);
-	m_pStateList.push_back(state);
 	state = new PlayerRunState(this);
-	m_pStateList.push_back(state);
 	state = new PlayerBrakeState(this);
-	m_pStateList.push_back(state);
 }
 
 bool Player::Init()
 {
 	for (auto it : m_pStateList)
 	{
-		it->Init();
+		it.second->Init();
 	}
-	m_pCurrentState = m_pStateList[0];
+	m_pCurrentState = m_pStateList["Idle"];
 	Object::Init();
 	return true;
 }
@@ -32,17 +29,10 @@ bool Player::Frame()
 	return true;
 }
 
-void Player::setIdle()
+void Player::setState(T_STR szStateName)
 {
-	m_pCurrentState = m_pStateList[0];
-}
-void Player::setBrake()
-{
-	m_pCurrentState = m_pStateList[2];
-}
-void Player::setRun()
-{
-	m_pCurrentState = m_pStateList[1];
+	std::string cstate(szStateName.begin(), szStateName.end());
+	m_pCurrentState = m_pStateList[cstate];
 }
 INT	Player::getDir()
 {
@@ -51,4 +41,8 @@ INT	Player::getDir()
 void Player::setDir(const INT& dir)
 {
 	m_iCurrentDir *= dir;
+}
+void Player::addState(std::string Name, State* state)
+{
+	m_pStateList.insert(std::make_pair(Name, state));
 }

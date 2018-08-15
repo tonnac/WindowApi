@@ -1,6 +1,6 @@
 #pragma once
 #include "SpriteMgr.h"
-#include "Object.h"
+#include "Player.h"
 
 class State
 {
@@ -12,8 +12,9 @@ public:
 	virtual bool		Render		() = 0;
 	virtual bool		Release		() = 0;
 public:
-	void				setSprite	(T_STR);
+	void				setSprite	(T_STR, T_STR);
 protected:
 //	Object *			m_pObject;
 	Sprite *			m_pSprite;
 };
+

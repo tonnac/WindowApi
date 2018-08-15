@@ -1,10 +1,12 @@
 #include "PlayerRunState.h"
 
 PlayerRunState::PlayerRunState(Player * pPlayer) : PlayerState(pPlayer)
-{}
+{
+	m_pPlayer->addState(std::string("Run"), this);
+}
 bool PlayerRunState::Init()
 {
-	setSprite(L"Run");
+	setSprite(L"Kaho",L"Run");
 	return true;
 }
 bool PlayerRunState::Frame()
@@ -19,7 +21,7 @@ bool PlayerRunState::Frame()
 	{
 		m_pSprite->setIndex(0);
 		Player * pl = dynamic_cast<Player*>(m_pPlayer);
-		pl->setBrake();
+		pl->setState(L"Brake");
 		return true;
 	}
 	if (!m_pSprite->Frame())
