@@ -13,21 +13,42 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\PlayerState">
+      <UniqueIdentifier>{040669d6-02fc-4cd1-95a0-25717172d197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\PlayerState">
+      <UniqueIdentifier>{9e24bfd0-a5cb-4137-b895-b034bc81576a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Rendering">
+      <UniqueIdentifier>{7af11ee7-0b59-47d6-ab66-cb3537008287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Rendering">
+      <UniqueIdentifier>{95e5f09e-7766-4d80-b496-3cd5e512c65c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Sprite">
+      <UniqueIdentifier>{57dac625-9584-4020-a2b5-47bda9235f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Sprite">
+      <UniqueIdentifier>{3f7ef034-0db0-4892-a2ae-8b302b46f661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Object">
+      <UniqueIdentifier>{6a32d163-8c78-4c92-90f5-210999c9596d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Object">
+      <UniqueIdentifier>{e541ca31-98f0-496b-83af-cbde71746aef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="wClass.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
+    <Text Include="Kaho.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="Std.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Core.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
+    <ClInclude Include="wClass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Bitmap.h">
@@ -36,88 +57,136 @@
     <ClInclude Include="BitmapMgr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="NPC.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="BKObject.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
+    <ClInclude Include="Core.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="RotateRendering.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="InversionRendering.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteMgr.h">
+    <ClInclude Include="Input.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteMgr.h">
+      <Filter>헤더 파일\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateRendering.h">
+      <Filter>헤더 파일\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="InversionRendering.h">
+      <Filter>헤더 파일\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering.h">
+      <Filter>헤더 파일\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttack.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBrake.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRun.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTurn.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="StateHeader.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BKObject.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>헤더 파일\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="wClass.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Core.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Bitmap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BitmapMgr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="NPC.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="BKObject.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
+    <ClCompile Include="Core.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="InversionRenderingcpp.cpp">
+    <ClCompile Include="Input.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="wClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerTurn.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBrake.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRun.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="NPC.cpp">
+      <Filter>소스 파일\Object</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttack.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="RotateRendering.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="InversionRenderingcpp.cpp">
+      <Filter>소스 파일\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering.cpp">
+      <Filter>소스 파일\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="SpriteMgr.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Sprite</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Kaho.txt" />
+    <ClCompile Include="State.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="BKObject.cpp">
+      <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>소스 파일\Object</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

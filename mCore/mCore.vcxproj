@@ -151,24 +151,31 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Kaho.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="BitmapMgr.h" />
-    <ClInclude Include="BKObject.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="BKObject.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InversionRendering.h" />
-    <ClInclude Include="NPC.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerAttack.h" />
+    <ClInclude Include="PlayerBrake.h" />
+    <ClInclude Include="PlayerRun.h" />
+    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="PlayerTurn.h" />
     <ClInclude Include="Rendering.h" />
     <ClInclude Include="RotateRendering.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteMgr.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateHeader.h" />
     <ClInclude Include="Std.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="wClass.h" />
@@ -176,27 +183,27 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
   <ItemGroup>
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="BitmapMgr.cpp" />
-    <ClCompile Include="BKObject.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="BKObject.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="InversionRenderingcpp.cpp" />
-    <ClCompile Include="NPC.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerAttack.cpp" />
+    <ClCompile Include="PlayerBrake.cpp" />
+    <ClCompile Include="PlayerRun.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="PlayerTurn.cpp" />
     <ClCompile Include="Rendering.cpp" />
     <ClCompile Include="RotateRendering.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteMgr.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="wClass.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Kaho.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

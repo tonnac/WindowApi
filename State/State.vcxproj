@@ -148,24 +148,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EffectObj.h" />
+    <ClInclude Include="KahoAttack1.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerBrakeState.h" />
-    <ClInclude Include="PlayerRunState.h" />
+    <ClInclude Include="PlayerBrake.h" />
+    <ClInclude Include="PlayerRun.h" />
     <ClInclude Include="PlayerState.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="SpriteMgr.h" />
+    <ClInclude Include="PlayerTurn.h" />
+    <ClInclude Include="Sprite.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="SpriteMgr.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="State.h" />
-    <ClInclude Include="StateBuilder.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EffectObj.cpp" />
+    <ClCompile Include="KahoAttack1.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerBrakeState.cpp" />
-    <ClCompile Include="PlayerRunState.cpp" />
+    <ClCompile Include="PlayerAttack.h" />
+    <ClCompile Include="PlayerAttack.cpp" />
+    <ClCompile Include="PlayerBrake.cpp" />
+    <ClCompile Include="PlayerRun.cpp" />
     <ClCompile Include="PlayerState.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SpriteMgr.cpp" />
+    <ClCompile Include="PlayerTurn.cpp" />
+    <ClCompile Include="Sprite.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="SpriteMgr.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="State.cpp" />
-    <ClCompile Include="StateBuilder.cpp" />
+    <ClCompile Include="StateHeader.h" />
     <ClCompile Include="StateMain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

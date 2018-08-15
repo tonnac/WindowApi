@@ -14,15 +14,13 @@ bool PlayerState::Frame()
 {
 	if (S_Input.GetKey(VK_LEFT) == KEYSTATE::KEY_PUSH || S_Input.GetKey(VK_LEFT) == KEYSTATE::KEY_HOLD)
 	{
-		if (m_pPlayer->getDir() == -1)
+		if (m_pPlayer->getDir() == -1)		//방향 같으면
 		{
 			m_pPlayer->setState(L"Run");
 		}
-		else
+		else								//방향 다르면
 		{
-			m_pPlayer->setDir(-1);
-			m_pPlayer->setRendering(INVERSE::LR_ROTATION);
-			m_pPlayer->setState(L"Run");
+			m_pPlayer->setState(L"Turn");
 		}
 	}
 	if (S_Input.GetKey(VK_RIGHT) == KEYSTATE::KEY_PUSH || S_Input.GetKey(VK_RIGHT) == KEYSTATE::KEY_HOLD)
@@ -33,12 +31,14 @@ bool PlayerState::Frame()
 		}
 		else
 		{
-			m_pPlayer->setDir(-1);
-			m_pPlayer->setRendering(INVERSE::DEFAULT);
-			m_pPlayer->setState(L"Run");
+			m_pPlayer->setState(L"Turn");
 		}
 	}
-	if (!m_pSprite->Frame())
+	if (S_Input.GetKey('A') == KEYSTATE::KEY_PUSH)
+	{
+		m_pPlayer->setState(L"Attack1");
+	}
+	if (!m_pSprite->Frame())				//한바퀴 다돌면
 	{
 		m_pSprite->setIndex(0);
 	}

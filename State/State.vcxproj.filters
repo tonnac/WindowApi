@@ -13,60 +13,87 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\PlayerState">
+      <UniqueIdentifier>{f4e5ca65-3881-4a3b-ad74-9d3e97ecb76e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\PlayerState">
+      <UniqueIdentifier>{2817b99b-44a0-4dc4-8d87-8290089c01af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="State.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerRunState.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerBrakeState.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SpriteMgr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="StateBuilder.h">
+    <ClInclude Include="PlayerState.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBrake.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRun.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTurn.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectObj.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="KahoAttack1.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Player.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="StateMain.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerRunState.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerBrakeState.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="SpriteMgr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="StateBuilder.cpp">
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBrake.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRun.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerTurn.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttack.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttack.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectObj.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="KahoAttack1.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="StateHeader.h">
+      <Filter>헤더 파일\PlayerState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

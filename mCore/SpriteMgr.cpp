@@ -21,8 +21,11 @@ bool SpriteMgr::Release()
 {
 	for (auto it : m_SpriteMap)
 	{
-		it.second->Release();
-		delete it.second;
+		for (auto iter : it.second)
+		{
+			iter.second->Release();
+			delete iter.second;
+		}
 	}
 	m_SpriteMap.clear();
 	return true;
@@ -31,6 +34,11 @@ bool SpriteMgr::SpriteSet(T_STR szSpriteList)
 {
 	std::ifstream fp(szSpriteList.c_str());
 	
+	std::string filestring(szSpriteList.begin(), szSpriteList.end());
+	std::string pe = filestring.substr(filestring.find_last_of('/')+1, filestring.length() - (filestring.find_last_not_of(".txt")+1));
+
+	SPMAP addmap;
+
 	if (!fp.is_open())
 	{
 		MessageBox(nullptr, L"FILE OPEN", L"FILE OPEN ERROR", MB_OK);
@@ -49,14 +57,14 @@ bool SpriteMgr::SpriteSet(T_STR szSpriteList)
 		is >> temp[i] >> k;
 		//Sprite* pl = New Sprite(k);
 		Sprite* pl = New Sprite(k);
-		m_SpriteMap.insert(std::make_pair(temp[i], pl));
+		addmap.insert(std::make_pair(temp[i], pl));
 	}
 	while (!fp.eof())
 	{
 		for (auto it : temp)
 		{
 			SPRITELIST sl;
-			for (int i = 0; i < m_SpriteMap[it]->Size() ;++i)
+			for (int i = 0; i < addmap[it]->Size() ;++i)
 			{
 				int l, t, r, b;
 				std::getline(fp, buffer);
@@ -65,16 +73,21 @@ bool SpriteMgr::SpriteSet(T_STR szSpriteList)
 				RECT rt = { l,t,r,b };
 				sl.push_back(rt);
 			}
-			m_SpriteMap[it]->setList(sl);
+			addmap[it]->setList(sl);
 		}
 	}
+	m_SpriteMap[pe] = addmap;
 	return true;
 }
-Sprite*	SpriteMgr::LoadSprite(T_STR szSpriteName)
+Sprite*	SpriteMgr::LoadSprite(T_STR szCName, T_STR szSpriteName)
 {
-	std::string fileName(szSpriteName.begin(), szSpriteName.end());
-	SPMAP::iterator it;
-	it = m_SpriteMap.find(fileName);
-	assert(it != m_SpriteMap.end());
-	return it->second;
+	std::string cName(szCName.begin(), szCName.end());
+	std::string SpriteName(szSpriteName.begin(), szSpriteName.end());
+	TSPMAP::iterator it;
+	SPMAP::iterator iter;
+	
+	it = m_SpriteMap.find(cName);
+	iter = it->second.find(SpriteName);
+	assert(iter != it->second.end());
+	return iter->second;
 }

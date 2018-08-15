@@ -1,14 +1,13 @@
-#include "Player.h"
-#include "PlayerState.h"
-#include "PlayerRunState.h"
-#include "PlayerBrakeState.h"
+#include "StateHeader.h"
 
 Player::Player() : m_pCurrentState(nullptr)
 {
 	m_iCurrentDir = 1;
 	State * state = new PlayerState(this);
-	state = new PlayerRunState(this);
-	state = new PlayerBrakeState(this);
+	state = new PlayerRun(this);
+	state = new PlayerBrake(this);
+	state = new PlayerTurn(this);
+	state = new PlayerAttack(this);
 }
 
 bool Player::Init()
@@ -26,6 +25,17 @@ bool Player::Frame()
 {
 	m_pCurrentState->Frame();
 	Object::Frame();
+	return true;
+}
+
+bool Player::Release()
+{
+	for (auto it : m_pStateList)
+	{
+		it.second->Release();
+		delete it.second;
+	}
+	m_pStateList.clear();
 	return true;
 }
 

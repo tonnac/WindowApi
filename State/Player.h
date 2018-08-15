@@ -10,8 +10,9 @@ class Player : public Object
 public:
 	Player();
 public:
-	bool			Init		();
-	bool			Frame		();
+	bool			Init		() override;
+	bool			Frame		() override;
+	bool			Release		() override;
 public:
 	void			setState	(T_STR);
 public:
