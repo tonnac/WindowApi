@@ -37,6 +37,12 @@
     <Filter Include="헤더 파일\Object">
       <UniqueIdentifier>{e541ca31-98f0-496b-83af-cbde71746aef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Object\EffectObj">
+      <UniqueIdentifier>{3cd688b8-dfbe-4194-b2e3-b5b77daec59d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Object\EffectObj">
+      <UniqueIdentifier>{3fad93e0-2585-45c6-aa8a-58e4d16f9451}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Kaho.txt" />
@@ -81,27 +87,6 @@
     <ClInclude Include="Rendering.h">
       <Filter>헤더 파일\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerAttack.h">
-      <Filter>헤더 파일\PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerBrake.h">
-      <Filter>헤더 파일\PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerRun.h">
-      <Filter>헤더 파일\PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>헤더 파일\PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerTurn.h">
-      <Filter>헤더 파일\PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="StateHeader.h">
-      <Filter>헤더 파일\PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>헤더 파일\PlayerState</Filter>
-    </ClInclude>
     <ClInclude Include="NPC.h">
       <Filter>헤더 파일\Object</Filter>
     </ClInclude>
@@ -114,8 +99,23 @@
     <ClInclude Include="Object.h">
       <Filter>헤더 파일\Object</Filter>
     </ClInclude>
+    <ClInclude Include="EffectObj.h">
+      <Filter>헤더 파일\Object\EffectObj</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttack.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBasicState.h">
+      <Filter>헤더 파일\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="KahoAttack.h">
+      <Filter>헤더 파일\Object\EffectObj</Filter>
+    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>헤더 파일\Object</Filter>
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -140,29 +140,11 @@
     <ClCompile Include="wClass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerTurn.cpp">
-      <Filter>소스 파일\PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerBrake.cpp">
-      <Filter>소스 파일\PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerRun.cpp">
-      <Filter>소스 파일\PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>소스 파일\PlayerState</Filter>
-    </ClCompile>
     <ClCompile Include="NPC.cpp">
       <Filter>소스 파일\Object</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>소스 파일\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>소스 파일\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerAttack.cpp">
-      <Filter>소스 파일\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="RotateRendering.cpp">
       <Filter>소스 파일\Rendering</Filter>
@@ -179,14 +161,29 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>소스 파일\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>소스 파일\PlayerState</Filter>
-    </ClCompile>
     <ClCompile Include="BKObject.cpp">
       <Filter>소스 파일\Object</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectObj.cpp">
+      <Filter>소스 파일\Object\EffectObj</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttack.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBasicState.cpp">
+      <Filter>소스 파일\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="KahoAttack.cpp">
+      <Filter>소스 파일\Object\EffectObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

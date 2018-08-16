@@ -9,18 +9,18 @@ bool EffectObj::Frame()
 	if (!m_pEffectSprite->Frame())
 	{
 		m_pEffectSprite->setIndex(0);
+		return false;
 	}
 	m_rtDraw = m_pEffectSprite->getSpriteRt();
 	Object::Frame();
 	return true;
 }
-
-void EffectObj::setSprite(Sprite* sprite)
+void EffectObj::setDrawPos(const FloatPoint& pt)
 {
-	if (m_pEffectSprite)
-	{
-		delete m_pEffectSprite;
-		m_pEffectSprite = nullptr;
-	}
-	m_pEffectSprite = sprite;
+	m_CenterPos.x = pt.x;
+	m_CenterPos.y = pt.y;
+}
+void EffectObj::setIndex(const int& index)
+{
+	m_pEffectSprite->setIndex(index);
 }

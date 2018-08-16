@@ -151,10 +151,33 @@
     <ClCompile Include="ASMain.cpp" />
     <ClCompile Include="EffectObj.cpp" />
     <ClCompile Include="KahoAttack1.cpp" />
+    <ClCompile Include="KahoAttack2.cpp" />
+    <ClCompile Include="KahoAttack3.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerAttack.cpp" />
+    <ClCompile Include="PlayerAttack2.cpp" />
+    <ClCompile Include="PlayerAttack3.cpp" />
+    <ClCompile Include="PlayerBrake.cpp" />
+    <ClCompile Include="PlayerRun.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="PlayerTurn.cpp" />
+    <ClCompile Include="State.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EffectObj.h" />
     <ClInclude Include="KahoAttack1.h" />
+    <ClInclude Include="KahoAttack2.h" />
+    <ClInclude Include="KahoAttack3.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerAttack.h" />
+    <ClInclude Include="PlayerAttack2.h" />
+    <ClInclude Include="PlayerAttack3.h" />
+    <ClInclude Include="PlayerBrake.h" />
+    <ClInclude Include="PlayerRun.h" />
+    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="PlayerTurn.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateHeader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,13 +1,17 @@
-#include "StateHeader.h"
+#include "Player.h"
+#include "PlayerAttack.h"
+#include "PlayerBasicState.h"
 
-Player::Player() : m_pCurrentState(nullptr)
+Player::Player() : m_pCurrentState(nullptr), m_iCurrentDir(1)
 {
-	m_iCurrentDir = 1;
-	State * state = new PlayerState(this);
-	state = new PlayerRun(this);
-	state = new PlayerBrake(this);
-	state = new PlayerTurn(this);
-	state = new PlayerAttack(this);
+	State * state = New PlayerState(this);
+	state = New PlayerRun(this);
+	state = New PlayerBrake(this);
+	state = New PlayerTurn(this);
+	state = New PlayerAttack(this);
+	state = New PlayerAttack2(this);
+	state = New PlayerAttack3(this);
+	m_fSpeed = 100.0f;
 }
 
 bool Player::Init()
@@ -24,6 +28,7 @@ bool Player::Init()
 bool Player::Frame()
 {
 	m_pCurrentState->Frame();
+
 	Object::Frame();
 	return true;
 }
@@ -36,9 +41,15 @@ bool Player::Release()
 		delete it.second;
 	}
 	m_pStateList.clear();
+	Object::Release();
 	return true;
 }
-
+bool Player::Render()
+{
+	Object::Render();
+	m_pCurrentState->Render();
+	return true;
+}
 void Player::setState(T_STR szStateName)
 {
 	std::string cstate(szStateName.begin(), szStateName.end());

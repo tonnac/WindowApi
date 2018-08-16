@@ -63,16 +63,21 @@ bool Sprite::setIndex(const INT& rindex)
 	m_iIndex = rindex;
 	return true;
 }
+INT	Sprite::getIndex()
+{
+	return m_iIndex;
+}
 RECT Sprite::getSpriteRt()
 {
 	return m_spritelist[m_iIndex];
 }
 void * Sprite::operator new(size_t sz, const char* FileName, int iLine)
 {
+	std::string ad = FileName;
 	MEMINFO mem;
-	void* pfs = malloc(sz);
+	void* pfs = new char[sz];
 	mem.addr = pfs;
-	mem.filename = FileName;
+	mem.filename = ad.substr(ad.find_last_of('\\') + 1, ad.length() - (ad.find_last_of(".cpp") + 4));
 	mem.line = iLine;
 	mem.dwAllocateTime = timeGetTime();
 	MemoryMap.insert(std::make_pair(pfs, mem));

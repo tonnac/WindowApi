@@ -6,6 +6,6 @@ class KahoAttack1 : public EffectObj
 {
 public:
 	bool		Init() override;
-//	bool		Frame		() override;
+	bool		Frame() override;
 private:
 };

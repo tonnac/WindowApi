@@ -4,7 +4,7 @@
 #include "RotateRendering.h"
 
 Object::Object() : m_ColorBitmap(nullptr), m_MaskBitmap(nullptr), isDebugMode(false),
-					isDead(false), m_fSpeed(0.0f)
+					isDead(false), m_fSpeed(0.0f), m_pRendering(nullptr)
 {}
 bool Object::Init()
 {
@@ -14,15 +14,19 @@ bool Object::Init()
 }
 bool Object::Frame()
 {
-	m_DrawPos.x = m_CenterPos.x - (m_rtDraw.right / 2);
-	m_DrawPos.y = m_CenterPos.y - (m_rtDraw.bottom / 2);
+	/*m_DrawPos.x = m_CenterPos.x - (m_rtDraw.right / 2);
+	m_DrawPos.y = m_CenterPos.y - (m_rtDraw.bottom / 2);*/
 
+	if (m_pRendering == nullptr)
+	{
+		m_CenterPos.x = m_DrawPos.x + (m_rtDraw.right / 2);
+		m_CenterPos.y = m_DrawPos.y + (m_rtDraw.bottom / 2);
 
-	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
-	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
-	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
-	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
-
+		m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
+		m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
+		m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
+		m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
+	}
 	m_pRendering->Frame();
 	return true;
 }
@@ -53,6 +57,7 @@ bool Object::Render()
 }
 bool Object::Release()
 {
+	m_pRendering->Release();
 	delete m_pRendering;
 	return true;
 }
@@ -93,7 +98,14 @@ void Object::DebugMode()
 		isDebugMode = !isDebugMode;
 	}
 }
-
+bool Object::getDebugmode()
+{
+	return isDebugMode;
+}
+void Object::setDebugmode(const bool& bflag)
+{
+	isDebugMode = bflag;
+}
 bool Object::LoadFile(T_STR szName, T_STR szColorFile, T_STR szMaskFile)
 {
 	T_STR bitmapName;

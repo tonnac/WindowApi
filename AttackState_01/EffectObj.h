@@ -7,7 +7,8 @@ class EffectObj : public Object
 public:
 	virtual bool		Init		();
 	virtual bool		Frame		();
-	void				setSprite	(Sprite*);
-private:
+	void				setDrawPos	(const FloatPoint&);
+	void				setIndex	(const int&);
+protected:
 	Sprite *			m_pEffectSprite;
 };

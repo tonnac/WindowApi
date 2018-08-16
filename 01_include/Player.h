@@ -12,6 +12,7 @@ public:
 public:
 	bool			Init		() override;
 	bool			Frame		() override;
+	bool			Render		() override;
 	bool			Release		() override;
 public:
 	void			setState	(T_STR);

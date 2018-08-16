@@ -20,6 +20,7 @@ public:
 	RECT				getSpriteRt		();
 	bool				setDivideTime	(const FLOAT&);
 	bool				setIndex		(const INT&);
+	INT					getIndex		();
 	bool				setList			(const SPRITELIST&);
 	size_t				Size			();
 private:

@@ -26,6 +26,9 @@ public:
 	HDC					getMaskDC		() const;
 	void				DebugMode		();
 public:
+	bool				getDebugmode	();
+	void				setDebugmode	(const bool&);
+public:
 	bool				LoadFile		(T_STR, T_STR, T_STR = std::basic_string<TCHAR>());
 	void				Set				(const FLOAT&, const FLOAT&,
 										const DWORD& = 0, const DWORD& = 0, const DWORD& = 0, const DWORD& = 0);
