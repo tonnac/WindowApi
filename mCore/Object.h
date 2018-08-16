@@ -33,9 +33,11 @@ public:
 	void				Set				(const FLOAT&, const FLOAT&,
 										const DWORD& = 0, const DWORD& = 0, const DWORD& = 0, const DWORD& = 0);
 public:
-	void				setRendering(const FLOAT&, const INVERSE&);
-	void				setRendering(const FLOAT&);
-	void				setRendering(const INVERSE&);
+	void				setRendering	(const FLOAT&, const INVERSE&);
+	void				setRendering	(const FLOAT&);
+	void				setRendering	(const INVERSE&);
+public:
+	virtual void		MoveScroll		(const INT&);
 protected:
 	FloatPoint			m_CenterPos;
 	FloatPoint			m_DrawPos;

@@ -165,3 +165,7 @@ void Object::setRendering(const INVERSE& type)
 {
 	m_pRendering->setInverse(type);
 }
+void Object::MoveScroll(const INT& scroll)
+{
+	m_rtDraw.left += g_fPerSecFrame * scroll * 5.0f;
+}
