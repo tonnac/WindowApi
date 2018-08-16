@@ -99,7 +99,10 @@ POINT Input::GetMousePos()
 {
 	return m_MousePos;
 }
-
+void Input::setKey(DWORD dwKey)
+{
+	m_KeyState[dwKey] = KEYSTATE::KEY_FREE;
+}
 KEYSTATE Input::KeyCheck(DWORD dwKey)
 {
 	SHORT sKey = GetAsyncKeyState(dwKey);

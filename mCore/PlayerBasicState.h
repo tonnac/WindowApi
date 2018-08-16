@@ -9,12 +9,22 @@ class PlayerState : public State
 public:
 	PlayerState(Player*);
 public:
-	virtual bool		Init() override;
-	virtual bool		Frame() override;
-	virtual bool		Render() override;
-	virtual bool		Release() override;
+	virtual bool		Init() =0;
+	virtual bool		Frame() =0;
+	virtual	bool		Render();
+	virtual	bool		Release();
 protected:
-	EffectObj * m_pEffectObj;
+	EffectObj *			m_pEffectObj;
+	FLOAT				m_fTimer;
+};
+
+class PlayerIdle : public PlayerState
+{
+public:
+	PlayerIdle(Player*);
+public:
+	bool		Init() override;
+	bool		Frame() override;
 };
 
 class PlayerRun : public PlayerState
@@ -24,7 +34,6 @@ public:
 public:
 	bool		Init() override;
 	bool		Frame() override;
-private:
 };
 
 class PlayerBrake : public PlayerState
@@ -34,7 +43,6 @@ public:
 public:
 	bool		Init() override;
 	bool		Frame() override;
-private:
 };
 
 class PlayerTurn : public PlayerState
@@ -44,5 +52,39 @@ public:
 public:
 	bool		Init() override;
 	bool		Frame() override;
+};
+
+class PlayerJump : public PlayerState
+{
+public:
+	PlayerJump(Player*);
+public:
+	bool		Init() override;
+	bool		Frame() override;
 private:
+	FLOAT		m_fJumpSpeed;
+	FLOAT		m_fAcceleration;
+};
+
+class PlayerJump2 : public PlayerState
+{
+public:
+	PlayerJump2(Player*);
+public:
+	bool		Init() override;
+	bool		Frame() override;
+private:
+	FLOAT		m_fJumpSpeed;
+	FLOAT		m_fAcceleration;
+};
+
+class PlayerFall : public PlayerState
+{
+public:
+	PlayerFall(Player*);
+public:
+	bool		Init() override;
+	bool		Frame() override;
+private:
+	FLOAT		m_fAcceleration;
 };

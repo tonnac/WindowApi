@@ -4,13 +4,15 @@
 #include "RotateRendering.h"
 
 Object::Object() : m_ColorBitmap(nullptr), m_MaskBitmap(nullptr), isDebugMode(false),
-					isDead(false), m_fSpeed(0.0f), m_pRendering(nullptr), m_fScroll(0.0f)
+					isDead(false), m_fSpeed(0.0f), m_pRendering(nullptr), m_fScroll(0.0f),
+					isLanding(false)
 {
 	ZeroMemory(&m_CenterPos,sizeof(FloatPoint));
 	ZeroMemory(&m_DrawPos, sizeof(FloatPoint));
 	ZeroMemory(&m_rtDraw, sizeof(RECT));
 	ZeroMemory(&m_rtCollision, sizeof(RECT));
 }
+
 bool Object::Init()
 {
 	m_pRendering = New Rendering(this);
@@ -55,21 +57,21 @@ bool Object::Release()
 	return true;
 }
 
-RECT& Object::getrtDraw()
+RECT* Object::getrtDraw()
 {
-	return m_rtDraw;
+	return &m_rtDraw;
 }
-FloatPoint& Object::getDrawPos()
+RECT* Object::getCollisionRt()
 {
-	return m_DrawPos;
+	return &m_rtCollision;
 }
-RECT& Object::getCollisionRt()
+FloatPoint* Object::getDrawPos()
 {
-	return m_rtCollision;
+	return &m_DrawPos;
 }
-FloatPoint& Object::getCenterPos()
+FloatPoint* Object::getCenterPos()
 {
-	return m_CenterPos;
+	return &m_CenterPos;
 }
 HDC Object::getColorDC() const
 {
@@ -83,7 +85,75 @@ HDC	Object::getMaskDC() const
 	}
 	return m_MaskBitmap->getMemDC();
 }
+FLOAT Object::getSpeed() const
+{
+	return m_fSpeed;
+}
+bool Object::getDebugmode() const
+{
+	return isDebugMode;
+}
+bool Object::getLanding() const
+{
+	return isLanding;
+}
 
+void Object::setRendering(const FLOAT& zoom, const INVERSE& type)
+{
+	if (m_pRendering)
+	{
+		m_pRendering->Release();
+		delete m_pRendering;
+	}
+	m_pRendering = New InversionRendering(this, zoom, type);
+	m_pRendering->Init();
+}
+void Object::setRendering(const FLOAT& rotation)
+{
+	if (m_pRendering)
+	{
+		m_pRendering->Release();
+		delete m_pRendering;
+	}
+	m_pRendering = New RotateRendering(this, rotation);
+	m_pRendering->Init();
+}
+void Object::setRendering(const INVERSE& type)
+{
+	m_pRendering->setInverse(type);
+}
+void Object::setDebugmode(const bool& bflag)
+{
+	isDebugMode = bflag;
+}
+void Object::setSpeed(const FLOAT& speed)
+{
+	m_fSpeed = speed;
+}
+void Object::setCenterPos_x(const FLOAT& ft)
+{
+	m_CenterPos.x = ft;
+	m_DrawPos.x = ft + m_rtDraw.right / 2;
+
+	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
+	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
+	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
+	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
+}
+void Object::setCenterPos_y(const FLOAT& ft)
+{
+	m_CenterPos.y = ft;
+	m_DrawPos.y = ft + m_rtDraw.bottom / 2;
+
+	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
+	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
+	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
+	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
+}
+void Object::setLanding(const bool& bflag)
+{
+	isLanding = bflag;
+}
 void Object::DebugMode()
 {
 	if (S_Input.GetKey(VK_HOME) == KEYSTATE::KEY_PUSH)
@@ -91,14 +161,7 @@ void Object::DebugMode()
 		isDebugMode = !isDebugMode;
 	}
 }
-bool Object::getDebugmode()
-{
-	return isDebugMode;
-}
-void Object::setDebugmode(const bool& bflag)
-{
-	isDebugMode = bflag;
-}
+
 bool Object::LoadFile(T_STR szName, T_STR szColorFile, T_STR szMaskFile)
 {
 	T_STR bitmapName;
@@ -132,55 +195,21 @@ void Object::Set(const FLOAT& x, const FLOAT& y,
 	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
 	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
 
-	m_fScroll = m_rtDraw.left;
+	m_fScroll = static_cast<FLOAT>(m_rtDraw.left);
 
 }
-void Object::Set(const RECT& rt)
-{
-	m_rtDraw.left = rt.left;
-	m_rtDraw.top = rt.top;
-	m_rtDraw.right = rt.right;
-	m_rtDraw.bottom = rt.bottom;
 
-	m_CenterPos.x = (m_rtCollision.left + m_rtCollision.right) / 2;
-	m_CenterPos.y = (m_rtCollision.top + m_rtCollision.bottom) / 2;
-}
-
-void Object::setRendering(const FLOAT& zoom, const INVERSE& type)
-{
-	if (m_pRendering)
-	{
-		m_pRendering->Release();
-		delete m_pRendering;
-	}
-	m_pRendering = New InversionRendering(this, zoom, type);
-	m_pRendering->Init();
-}
-void Object::setRendering(const FLOAT& rotation)
-{
-	if (m_pRendering)
-	{
-		m_pRendering->Release();
-		delete m_pRendering;
-	}
-	m_pRendering = New RotateRendering(this, rotation);
-	m_pRendering->Init();
-}
-void Object::setRendering(const INVERSE& type)
-{
-	m_pRendering->setInverse(type);
-}
 void Object::MoveScrollBk(const bool& bflag)
 {
 	if (bflag)
 	{
 		m_fScroll += (g_fPerSecFrame * g_fSpeed);
-		m_rtDraw.left = m_fScroll;
+		m_rtDraw.left = static_cast<LONG>(m_fScroll);
 	}
 	else
 	{
 		m_fScroll += -(g_fPerSecFrame * g_fSpeed);
-		m_rtDraw.left = m_fScroll;
+		m_rtDraw.left = static_cast<LONG>(m_fScroll);
 	}
 }
 void Object::MoveScrollObj(const bool& bflag)
@@ -193,14 +222,4 @@ void Object::MoveScrollObj(const bool& bflag)
 	{
 		m_DrawPos.x += (g_fPerSecFrame * g_fSpeed);
 	}
-}
-void Object::setCenterPos_x(const FLOAT& ft)
-{
-	m_CenterPos.x = ft;
-	m_DrawPos.x = ft + m_rtDraw.right / 2;
-
-	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
-	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
-	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
-	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
 }

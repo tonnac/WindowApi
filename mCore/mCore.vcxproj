@@ -161,6 +161,7 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="EffectObj.h" />
+    <ClInclude Include="GroundObject.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InversionRendering.h" />
     <ClInclude Include="KahoAttack.h" />
@@ -176,6 +177,7 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClInclude Include="SpriteMgr.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Std.h" />
+    <ClInclude Include="TerrainObject.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="wClass.h" />
   </ItemGroup>
@@ -187,8 +189,9 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="EffectObj.cpp" />
+    <ClCompile Include="GroundObject.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="InversionRenderingcpp.cpp" />
+    <ClCompile Include="InversionRendering.cpp" />
     <ClCompile Include="KahoAttack.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -201,6 +204,7 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteMgr.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="TerrainObject.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="wClass.cpp" />
   </ItemGroup>

@@ -17,10 +17,10 @@ public:
 	void * operator new(size_t sz, const char* FileName, int iLine);
 	void operator delete(void * p);
 protected:
-	FloatPoint&			m_CenterPos;
-	FloatPoint&			m_DrawPos;
-	RECT&				m_rtCollision;
-	RECT&				m_rtDraw;
+	FloatPoint*			m_CenterPos;
+	FloatPoint*			m_DrawPos;
+	RECT*				m_rtCollision;
+	RECT*				m_rtDraw;
 	HDC					m_hColorDC;
 	HDC					m_hMaskDC;
 };

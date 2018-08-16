@@ -8,6 +8,15 @@ void State::setSprite(T_STR cName, T_STR szSprite)
 	m_pSprite = S_SpriteMgr.LoadSprite(cName, szSprite);
 }
 
+bool State::Render()
+{
+	return true;
+}
+bool State::Release()
+{
+	return true;
+}
+
 void * State::operator new(size_t sz, const char* FileName, int iLine)
 {
 	std::string ad = FileName;

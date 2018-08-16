@@ -9,8 +9,8 @@ public:
 public:
 	virtual bool		Init		() = 0;
 	virtual bool		Frame		() = 0;
-	virtual bool		Render		() = 0;
-	virtual bool		Release		() = 0;
+	virtual bool		Render		();
+	virtual bool		Release		();
 public:
 	void				setSprite	(T_STR, T_STR);
 public:
@@ -19,9 +19,9 @@ public:
 protected:
 	Object *			m_pObject;
 	Sprite *			m_pSprite;
-	FloatPoint&			m_CenterPos;
-	FloatPoint&			m_DrawPos;
-	RECT&				m_rtCollision;
-	RECT&				m_rtDraw;
+	FloatPoint*			m_CenterPos;
+	FloatPoint*			m_DrawPos;
+	RECT*				m_rtCollision;
+	RECT*				m_rtDraw;
 };
 

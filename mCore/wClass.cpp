@@ -3,6 +3,7 @@
 HWND				 g_hWnd = nullptr;
 HINSTANCE            g_hInstance = nullptr;
 RECT				 g_rtClient;
+bool				 g_bActiveApp = false;
 
 LRESULT	CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
@@ -10,6 +11,9 @@ LRESULT	CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
+		break;
+	case WM_ACTIVATEAPP:
+		g_bActiveApp = (BOOL)wparam;
 		break;
 	}
 	return DefWindowProc(hwnd, msg, wparam, lparam);

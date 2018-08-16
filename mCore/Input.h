@@ -17,6 +17,8 @@ public:
 	KEYSTATE				GetKey(DWORD);
 	KEYSTATE				GetMouse(DWORD);
 	POINT					GetMousePos();
+public:
+	void					setKey(DWORD);
 private:
 	KEYSTATE				KeyCheck(DWORD);
 private:

@@ -16,4 +16,5 @@ private:
 	float					m_fGameTime;
 	DWORD					m_dwBeforeTick;
 	DWORD					m_dwFrameCount;
+	DWORD					m_dwInterval;
 };

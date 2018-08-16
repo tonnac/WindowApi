@@ -4,7 +4,7 @@ RotateRendering::RotateRendering(Object*ob, const FLOAT& angle) : Rendering(ob),
 {}
 bool RotateRendering::Init()
 {
-	m_fMaxLength = static_cast<float>(sqrt((m_rtDraw.right) * (m_rtDraw.right) + (m_rtDraw.bottom) * (m_rtDraw.bottom)));
+	m_fMaxLength = static_cast<float>(sqrt((m_rtDraw->right) * (m_rtDraw->right) + (m_rtDraw->bottom) * (m_rtDraw->bottom)));
 
 	m_hRotationDC = CreateCompatibleDC(g_hOffScreenDC);
 	m_hRColorDC = CreateCompatibleDC(g_hOffScreenDC);
@@ -27,8 +27,8 @@ bool RotateRendering::Render()
 	HBITMAP oldColor = static_cast<HBITMAP>(SelectObject(m_hRColorDC, m_hbColorBitmap));
 
 	StretchBlt(g_hOffScreenDC,
-		static_cast<int>(m_CenterPos.x - (m_fMaxLength / 2)),
-		static_cast<int>(m_CenterPos.y - (m_fMaxLength / 2)),
+		static_cast<int>(m_CenterPos->x - (m_fMaxLength / 2)),
+		static_cast<int>(m_CenterPos->y - (m_fMaxLength / 2)),
 		static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
 		m_hRMaskDC,
@@ -38,8 +38,8 @@ bool RotateRendering::Render()
 		static_cast<int>(m_fMaxLength),
 		SRCAND);
 	StretchBlt(g_hOffScreenDC,
-		static_cast<int>(m_CenterPos.x - (m_fMaxLength / 2)),
-		static_cast<int>(m_CenterPos.y - (m_fMaxLength / 2)),
+		static_cast<int>(m_CenterPos->x - (m_fMaxLength / 2)),
+		static_cast<int>(m_CenterPos->y - (m_fMaxLength / 2)),
 		static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
 		m_hRColorDC,
@@ -49,8 +49,8 @@ bool RotateRendering::Render()
 		static_cast<int>(m_fMaxLength),
 		SRCINVERT);
 	StretchBlt(g_hOffScreenDC,
-		static_cast<int>(m_CenterPos.x - (m_fMaxLength / 2)),
-		static_cast<int>(m_CenterPos.y - (m_fMaxLength / 2)),
+		static_cast<int>(m_CenterPos->x - (m_fMaxLength / 2)),
+		static_cast<int>(m_CenterPos->y - (m_fMaxLength / 2)),
 		static_cast<int>(m_fMaxLength),
 		static_cast<int>(m_fMaxLength),
 		m_hRMaskDC,
@@ -103,12 +103,12 @@ void RotateRendering::getRotateBitmap(HBITMAP hbit, HDC MemDC)
 	SetWorldTransform(m_hRotationDC, &xform);
 
 	BitBlt(m_hRotationDC,
-		static_cast<int>(-m_rtDraw.right / 2),
-		static_cast<int>(-m_rtDraw.bottom / 2),
-		m_rtDraw.right,
-		m_rtDraw.bottom,
+		static_cast<int>(-m_rtDraw->right / 2),
+		static_cast<int>(-m_rtDraw->bottom / 2),
+		m_rtDraw->right,
+		m_rtDraw->bottom,
 		MemDC,
-		m_rtDraw.left, m_rtDraw.top, SRCCOPY);
+		m_rtDraw->left, m_rtDraw->top, SRCCOPY);
 
 	xform.eM11 = 1;
 	xform.eM12 = 0;

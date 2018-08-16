@@ -1,7 +1,7 @@
 #include "PlayerAttack.h"
 #include "KahoAttack.h"
 
-PlayerAttack::PlayerAttack(Player * pPlayer) : PlayerState(pPlayer), m_fTimer(0.0f)
+PlayerAttack::PlayerAttack(Player * pPlayer) : PlayerState(pPlayer)
 {
 	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
 	m_pPlayer->addState(std::string("Attack1"), this);
@@ -10,7 +10,7 @@ PlayerAttack::PlayerAttack(Player * pPlayer) : PlayerState(pPlayer), m_fTimer(0.
 bool PlayerAttack::Init()
 {
 	setSprite(L"Kaho", L"Attack1");
-	m_pSprite->setDivideTime(0.7f);
+	m_pSprite->setDivideTime(0.9f);
 	m_pEffectObj->LoadFile(L"PLAYER", L"../02_data/bmp/KahoColor.bmp", L"../02_data/bmp/KahoMask.bmp");
 	m_pEffectObj->Init();
 	m_pEffectObj->setRendering(2.8f, INVERSE::DEFAULT);
@@ -19,7 +19,7 @@ bool PlayerAttack::Init()
 bool PlayerAttack::Frame()
 {
 	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
-	m_CenterPos.x += m_pPlayer->getDir() * g_fPerSecFrame * 50.0f;
+	m_CenterPos->x += m_pPlayer->getDir() * g_fPerSecFrame * 30.0f;
 
 	m_pEffectObj->setDebugmode(m_pObject->getDebugmode());
 	m_fTimer += g_fPerSecFrame;
@@ -27,21 +27,21 @@ bool PlayerAttack::Frame()
 	if (m_pPlayer->getDir() == -1)
 	{
 		m_pEffectObj->setRendering(2.8f, INVERSE::LR_ROTATION);
-		pt.x = m_CenterPos.x - 75.0f;
-		pt.y = m_CenterPos.y;
+		pt.x = m_CenterPos->x - 75.0f;
+		pt.y = m_CenterPos->y;
 	}
 	else
 	{
 		m_pEffectObj->setRendering(2.8f, INVERSE::DEFAULT);
-		pt.x = m_CenterPos.x + 75.0f;
-		pt.y = m_CenterPos.y;
+		pt.x = m_CenterPos->x + 75.0f;
+		pt.y = m_CenterPos->y;
 	}
-	if (m_fTimer >= 0.4f && S_Input.GetKey('S') == KEYSTATE::KEY_PUSH)
+	if (m_fTimer >= 0.5f && S_Input.GetKey('S') == KEYSTATE::KEY_PUSH)
 	{
 		m_pSprite->setIndex(0);
 		m_pEffectObj->setIndex(0);
-		m_pPlayer->setState(L"Attack2");
 		m_fTimer = 0.0f;
+		m_pPlayer->setState(L"Attack2");
 	}
 	m_pEffectObj->Frame();
 	m_pEffectObj->setDrawPos(pt);
@@ -49,11 +49,11 @@ bool PlayerAttack::Frame()
 	{
 		m_pSprite->setIndex(0);
 		m_pEffectObj->setIndex(0);
-		m_pPlayer->setState(L"Idle");
 		m_fTimer = 0.0f;
+		m_pPlayer->setState(L"Idle");
 		return true;
 	}
-	m_rtDraw = m_pSprite->getSpriteRt();
+	*m_rtDraw = m_pSprite->getSpriteRt();
 	return true;
 }
 bool PlayerAttack::Render()
@@ -64,7 +64,7 @@ bool PlayerAttack::Render()
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-PlayerAttack2::PlayerAttack2(Player * pPlayer) : PlayerState(pPlayer), m_fTimer(0.0f)
+PlayerAttack2::PlayerAttack2(Player * pPlayer) : PlayerState(pPlayer)
 {
 	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
 	m_pPlayer->addState(std::string("Attack2"), this);
@@ -73,7 +73,7 @@ PlayerAttack2::PlayerAttack2(Player * pPlayer) : PlayerState(pPlayer), m_fTimer(
 bool PlayerAttack2::Init()
 {
 	setSprite(L"Kaho", L"Attack2");
-	m_pSprite->setDivideTime(0.7f);
+	m_pSprite->setDivideTime(0.9f);
 	m_pEffectObj->LoadFile(L"PLAYER", L"../02_data/bmp/KahoColor.bmp", L"../02_data/bmp/KahoMask.bmp");
 	m_pEffectObj->Init();
 	m_pEffectObj->setRendering(2.8f, INVERSE::DEFAULT);
@@ -82,7 +82,7 @@ bool PlayerAttack2::Init()
 bool PlayerAttack2::Frame()
 {
 	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
-	m_CenterPos.x += m_pPlayer->getDir() * g_fPerSecFrame * 50.0f;
+	m_CenterPos->x += m_pPlayer->getDir() * g_fPerSecFrame * 30.0f;
 
 	m_pEffectObj->setDebugmode(m_pObject->getDebugmode());
 	m_fTimer += g_fPerSecFrame;
@@ -90,21 +90,21 @@ bool PlayerAttack2::Frame()
 	if (m_pPlayer->getDir() == -1)
 	{
 		m_pEffectObj->setRendering(2.8f, INVERSE::LR_ROTATION);
-		pt.x = m_CenterPos.x - 75.0f;
-		pt.y = m_CenterPos.y;
+		pt.x = m_CenterPos->x - 75.0f;
+		pt.y = m_CenterPos->y;
 	}
 	else
 	{
 		m_pEffectObj->setRendering(2.8f, INVERSE::DEFAULT);
-		pt.x = m_CenterPos.x + 75.0f;
-		pt.y = m_CenterPos.y;
+		pt.x = m_CenterPos->x + 75.0f;
+		pt.y = m_CenterPos->y;
 	}
-	if (m_fTimer >= 0.4f && S_Input.GetKey('S') == KEYSTATE::KEY_PUSH)
+	if (m_fTimer >= 0.5f && S_Input.GetKey('S') == KEYSTATE::KEY_PUSH)
 	{
 		m_pSprite->setIndex(0);
 		m_pEffectObj->setIndex(0);
-		m_pPlayer->setState(L"Attack3");
 		m_fTimer = 0.0f;
+		m_pPlayer->setState(L"Attack3");
 	}
 	m_pEffectObj->Frame();
 	m_pEffectObj->setDrawPos(pt);
@@ -112,10 +112,11 @@ bool PlayerAttack2::Frame()
 	{
 		m_pSprite->setIndex(0);
 		m_pEffectObj->setIndex(0);
+		m_fTimer = 0.0f;
 		m_pPlayer->setState(L"Idle");
 		return true;
 	}
-	m_rtDraw = m_pSprite->getSpriteRt();
+	*m_rtDraw = m_pSprite->getSpriteRt();
 	return true;
 }
 bool PlayerAttack2::Render()
@@ -126,7 +127,7 @@ bool PlayerAttack2::Render()
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-PlayerAttack3::PlayerAttack3(Player * pPlayer) : PlayerState(pPlayer), m_fTimer(0.0f)
+PlayerAttack3::PlayerAttack3(Player * pPlayer) : PlayerState(pPlayer)
 {
 	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
 	m_pPlayer->addState(std::string("Attack3"), this);
@@ -135,7 +136,7 @@ PlayerAttack3::PlayerAttack3(Player * pPlayer) : PlayerState(pPlayer), m_fTimer(
 bool PlayerAttack3::Init()
 {
 	setSprite(L"Kaho", L"Attack3");
-	m_pSprite->setDivideTime(0.7f);
+	m_pSprite->setDivideTime(0.9f);
 	m_pEffectObj->LoadFile(L"PLAYER", L"../02_data/bmp/KahoColor.bmp", L"../02_data/bmp/KahoMask.bmp");
 	m_pEffectObj->Init();
 	m_pEffectObj->setRendering(2.8f, INVERSE::DEFAULT);
@@ -144,21 +145,21 @@ bool PlayerAttack3::Init()
 bool PlayerAttack3::Frame()
 {
 	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
-	m_CenterPos.x += m_pPlayer->getDir() * g_fPerSecFrame * 50.0f;
+	m_CenterPos->x += m_pPlayer->getDir() * g_fPerSecFrame * 30.0f;
 
 	m_pEffectObj->setDebugmode(m_pObject->getDebugmode());
 	FloatPoint pt;
 	if (m_pPlayer->getDir() == -1)
 	{
 		m_pEffectObj->setRendering(2.8f, INVERSE::LR_ROTATION);
-		pt.x = m_CenterPos.x - 75.0f;
-		pt.y = m_CenterPos.y;
+		pt.x = m_CenterPos->x - 75.0f;
+		pt.y = m_CenterPos->y;
 	}
 	else
 	{
 		m_pEffectObj->setRendering(2.8f, INVERSE::DEFAULT);
-		pt.x = m_CenterPos.x + 75.0f;
-		pt.y = m_CenterPos.y;
+		pt.x = m_CenterPos->x + 75.0f;
+		pt.y = m_CenterPos->y;
 	}
 
 	m_pEffectObj->Frame();
@@ -170,10 +171,71 @@ bool PlayerAttack3::Frame()
 		m_pPlayer->setState(L"Idle");
 		return true;
 	}
-	m_rtDraw = m_pSprite->getSpriteRt();
+	*m_rtDraw = m_pSprite->getSpriteRt();
 	return true;
 }
 bool PlayerAttack3::Render()
+{
+	m_pEffectObj->Render();
+	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
+AirAttack::AirAttack(Player * pPlayer) : PlayerState(pPlayer), m_fAcceleration(0.5f)
+{
+	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
+	m_pPlayer->addState(std::string("AirAttack"), this);
+	m_pEffectObj = New KahoAirAttack;
+}
+bool AirAttack::Init()
+{
+	setSprite(L"Kaho", L"AirAttack");
+	m_pSprite->setDivideTime(0.8f);
+	m_pEffectObj->LoadFile(L"PLAYER", L"../02_data/bmp/KahoColor.bmp", L"../02_data/bmp/KahoMask.bmp");
+	m_pEffectObj->Init();
+	m_pEffectObj->setRendering(2.8f, INVERSE::DEFAULT);
+	return true;
+}
+bool AirAttack::Frame()
+{
+	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
+	m_CenterPos->y += g_fPerSecFrame + m_fAcceleration;
+	if (m_pPlayer->getLanding())
+	{
+		m_pSprite->setIndex(0);
+		m_pEffectObj->setIndex(0);
+		m_pPlayer->setState(L"Idle");
+		return true;
+	}
+	m_pEffectObj->setDebugmode(m_pObject->getDebugmode());
+	FloatPoint pt;
+	if (m_pPlayer->getDir() == -1)
+	{
+		m_pEffectObj->setRendering(2.8f, INVERSE::LR_ROTATION);
+		pt.x = m_CenterPos->x - 75.0f;
+		pt.y = m_CenterPos->y;
+	}
+	else
+	{
+		m_pEffectObj->setRendering(2.8f, INVERSE::DEFAULT);
+		pt.x = m_CenterPos->x + 75.0f;
+		pt.y = m_CenterPos->y;
+	}
+
+	m_pEffectObj->Frame();
+	m_pEffectObj->setDrawPos(pt);
+	if (!m_pSprite->Frame())
+	{
+		m_pSprite->setIndex(0);
+		m_pEffectObj->setIndex(0);
+		m_pPlayer->setState(L"Fall");
+		return true;
+	}
+	*m_rtDraw = m_pSprite->getSpriteRt();
+	return true;
+}
+bool AirAttack::Render()
 {
 	m_pEffectObj->Render();
 	return true;

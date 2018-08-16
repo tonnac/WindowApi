@@ -10,15 +10,14 @@ public:
 	bool				Frame		();
 	bool				Render		();
 	bool				Release		();
-	bool				Set			(const RECT&);
-	void				MoveCamera	(SCROLL);
+	bool				MoveCamera	(SCROLL, const LONG& size);
 private:
-	SCROLL				Collision	(const RECT&);
+	bool				Collision	(const RECT&);
 private:
 	Object*				m_pPlayer;
 	Object*				m_pBkObj;
-	RECT&				m_PlayerCollisionRt;
-	RECT&				m_BkRtDraw;
+	RECT*				m_PlayerCollisionRt;
+	RECT*				m_BkRtDraw;
 	FloatPoint			m_CenterPos[2];
 	RECT				m_rtCollision[2];
 };

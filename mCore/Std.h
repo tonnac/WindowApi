@@ -23,7 +23,7 @@
 struct MEMINFO
 {
 	std::string  filename;
-	int			 line;
+	INT			 line;
 	DWORD		 dwAllocateTime;
 	void*		 addr;
 };
@@ -91,8 +91,10 @@ extern HDC					g_hScreenDC;
 extern RECT					g_rtClient;
 extern float				g_fSpeed;
 extern float				g_fPerSecFrame;
+extern bool					g_bActiveApp;
 
-extern int					g_iNewCount;
+
+extern INT					g_iNewCount;
 extern MEM_MAP				MemoryMap;
 
 

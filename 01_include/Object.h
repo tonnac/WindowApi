@@ -18,30 +18,33 @@ public:
 	virtual bool		Render			();
 	virtual bool		Release			();
 public:
-	RECT&				getrtDraw		();
-	RECT&				getCollisionRt	();
-	FloatPoint&			getCenterPos	();
-	FloatPoint&			getDrawPos		();
+	RECT*				getrtDraw		();
+	RECT*				getCollisionRt	();
+	FloatPoint*			getCenterPos	();
+	FloatPoint*			getDrawPos		();
 	HDC					getColorDC		() const;
 	HDC					getMaskDC		() const;
-	void				DebugMode		();
-public:
-	bool				getDebugmode	();
-	void				setDebugmode	(const bool&);
-public:
-	bool				LoadFile		(T_STR, T_STR, T_STR = std::basic_string<TCHAR>());
-	void				Set				(const FLOAT&, const FLOAT&,
-										const DWORD& = 0, const DWORD& = 0, const DWORD& = 0, const DWORD& = 0);
-	void				Set				(const RECT&);
+	FLOAT				getSpeed		() const;
+	bool				getDebugmode	() const;
+	bool				getLanding		() const;
 public:
 	void				setRendering	(const FLOAT&, const INVERSE&);
 	void				setRendering	(const FLOAT&);
 	void				setRendering	(const INVERSE&);
+	void				setDebugmode	(const bool&);
+	void				setSpeed		(const FLOAT&);
+	void				setCenterPos_x	(const FLOAT&);
+	void				setCenterPos_y	(const FLOAT&);
+	void				setLanding		(const bool&);
+public:
+	void				DebugMode();
+public:
+	bool				LoadFile		(T_STR, T_STR, T_STR = std::basic_string<TCHAR>());
+	void				Set				(const FLOAT&, const FLOAT&,
+										const DWORD& = 0, const DWORD& = 0, const DWORD& = 0, const DWORD& = 0);
 public:
 	virtual void		MoveScrollBk	(const bool& = false);
 	virtual void		MoveScrollObj	(const bool& = false);
-public:
-	void				setCenterPos_x(const FLOAT&);
 protected:
 	FLOAT				m_fScroll;
 	FloatPoint			m_CenterPos;
@@ -53,5 +56,6 @@ protected:
 	Bitmap *			m_MaskBitmap;
 	bool				isDebugMode;
 	bool				isDead;
+	bool				isLanding;
 	Rendering*			m_pRendering;
 };

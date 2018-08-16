@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\PlayerState">
-      <UniqueIdentifier>{040669d6-02fc-4cd1-95a0-25717172d197}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\PlayerState">
-      <UniqueIdentifier>{9e24bfd0-a5cb-4137-b895-b034bc81576a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Rendering">
       <UniqueIdentifier>{7af11ee7-0b59-47d6-ab66-cb3537008287}</UniqueIdentifier>
     </Filter>
@@ -43,20 +37,29 @@
     <Filter Include="헤더 파일\Object\EffectObj">
       <UniqueIdentifier>{3fad93e0-2585-45c6-aa8a-58e4d16f9451}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\BasicStructure">
+      <UniqueIdentifier>{8754f2ee-bc86-4af8-a547-42e8fe8c61aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\BasicStructure">
+      <UniqueIdentifier>{a60f7b5d-f61f-44e9-99eb-87e050f07ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\State">
+      <UniqueIdentifier>{f59322c1-4746-47cf-a3b4-c3078f8544f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\State\PlayerState">
+      <UniqueIdentifier>{9e24bfd0-a5cb-4137-b895-b034bc81576a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\State">
+      <UniqueIdentifier>{95e5dae7-a097-41dd-b555-24beda25d044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\State\PlayerState">
+      <UniqueIdentifier>{040669d6-02fc-4cd1-95a0-25717172d197}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Kaho.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Std.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="wClass.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Bitmap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -64,12 +67,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Core.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
@@ -103,13 +100,10 @@
       <Filter>헤더 파일\Object\EffectObj</Filter>
     </ClInclude>
     <ClInclude Include="PlayerAttack.h">
-      <Filter>헤더 파일\PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\State\PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="PlayerBasicState.h">
-      <Filter>헤더 파일\PlayerState</Filter>
+      <Filter>헤더 파일\State\PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="KahoAttack.h">
       <Filter>헤더 파일\Object\EffectObj</Filter>
@@ -118,6 +112,30 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Scroll.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="wClass.h">
+      <Filter>헤더 파일\BasicStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>헤더 파일\BasicStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="Std.h">
+      <Filter>헤더 파일\BasicStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>헤더 파일\BasicStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>헤더 파일\BasicStructure</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>헤더 파일\State</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainObject.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GroundObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -131,18 +149,6 @@
     <ClCompile Include="Collision.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Core.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="wClass.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="NPC.cpp">
       <Filter>소스 파일\Object</Filter>
     </ClCompile>
@@ -150,9 +156,6 @@
       <Filter>소스 파일\Object</Filter>
     </ClCompile>
     <ClCompile Include="RotateRendering.cpp">
-      <Filter>소스 파일\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="InversionRenderingcpp.cpp">
       <Filter>소스 파일\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Rendering.cpp">
@@ -170,17 +173,14 @@
     <ClCompile Include="Button.cpp">
       <Filter>소스 파일\Object</Filter>
     </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="EffectObj.cpp">
       <Filter>소스 파일\Object\EffectObj</Filter>
     </ClCompile>
     <ClCompile Include="PlayerAttack.cpp">
-      <Filter>소스 파일\PlayerState</Filter>
+      <Filter>소스 파일\State\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBasicState.cpp">
-      <Filter>소스 파일\PlayerState</Filter>
+      <Filter>소스 파일\State\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="KahoAttack.cpp">
       <Filter>소스 파일\Object\EffectObj</Filter>
@@ -189,6 +189,30 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scroll.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="wClass.cpp">
+      <Filter>소스 파일\BasicStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>소스 파일\BasicStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>소스 파일\BasicStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>소스 파일\BasicStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>소스 파일\State</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainObject.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InversionRendering.cpp">
+      <Filter>소스 파일\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,4 +1,5 @@
 #include "Scroll.h"
+#include "Player.h"
 
 Scroll::Scroll(Object * pPlayer, Object * pBkObj) : m_pPlayer(pPlayer),
 		m_PlayerCollisionRt(pPlayer->getCollisionRt()), m_pBkObj(pBkObj),
@@ -8,17 +9,26 @@ Scroll::Scroll(Object * pPlayer, Object * pBkObj) : m_pPlayer(pPlayer),
 
 bool Scroll::Init()
 {
-	Set(g_rtClient);
+	m_rtCollision[0].left = g_rtClient.left;
+	m_rtCollision[0].top = g_rtClient.top;
+	m_rtCollision[0].right = g_rtClient.left + 225;
+	m_rtCollision[0].bottom = g_rtClient.bottom;
+
+	m_CenterPos[0].x = static_cast<FLOAT>((m_rtCollision[0].left + m_rtCollision[0].right) / 2);
+	m_CenterPos[0].y = static_cast<FLOAT>((m_rtCollision[0].top + m_rtCollision[0].bottom) / 2);
+
+	m_rtCollision[1].left = g_rtClient.right - 225;
+	m_rtCollision[1].top = g_rtClient.top;
+	m_rtCollision[1].right = g_rtClient.right;
+	m_rtCollision[1].bottom = g_rtClient.bottom;
+
+	m_CenterPos[1].x = static_cast<FLOAT>((m_rtCollision[1].left + m_rtCollision[1].right) / 2);
+	m_CenterPos[1].y = static_cast<FLOAT>((m_rtCollision[1].top + m_rtCollision[1].bottom) / 2);
 	return true;
 }
 bool Scroll::Frame()
 {
-	SCROLL type = Collision(m_PlayerCollisionRt);
-	if (type == SCROLL::STOP)
-	{
-		return true;
-	}
-	MoveCamera(type);
+	Collision(*m_PlayerCollisionRt);
 	return true;
 }
 bool Scroll::Render()
@@ -38,76 +48,78 @@ bool Scroll::Release()
 {
 	return true;
 }
-bool Scroll::Set(const RECT& rt)
-{
-	m_rtCollision[0].left = rt.left;
-	m_rtCollision[0].top = rt.top;
-	m_rtCollision[0].right = rt.left + 300;
-	m_rtCollision[0].bottom = rt.bottom;
-
-	m_CenterPos[0].x = (m_rtCollision[0].left + m_rtCollision[0].right) / 2;
-	m_CenterPos[0].y = (m_rtCollision[0].top + m_rtCollision[0].bottom)/ 2;
-
-	m_rtCollision[1].left = rt.right - 300;
-	m_rtCollision[1].top = rt.top;
-	m_rtCollision[1].right = rt.right;
-	m_rtCollision[1].bottom = rt.bottom;
-
-	m_CenterPos[1].x = (m_rtCollision[1].left + m_rtCollision[1].right) / 2;
-	m_CenterPos[1].y = (m_rtCollision[1].top + m_rtCollision[1].bottom) / 2;
-
-	return true;
-}
-SCROLL Scroll::Collision(const RECT& rt)
+bool Scroll::Collision(const RECT& rt)
 {
 	POINT A_Center;
 	A_Center.x = (rt.right + rt.left) / 2;
 	A_Center.y = (rt.bottom + rt.top) / 2;
 
+	LONG size = rt.right - rt.left;
 
-	LONG xDiff = abs(A_Center.x - m_CenterPos[1].x);
-	LONG yDiff = abs(A_Center.y - m_CenterPos[1].y);
+	LONG xDiff = static_cast<LONG>(abs(A_Center.x - m_CenterPos[1].x));
+	LONG yDiff = static_cast<LONG>(abs(A_Center.y - m_CenterPos[1].y));
 
 	if (xDiff < (rt.right - A_Center.x) + ((m_rtCollision[1].right - m_CenterPos[1].x)) &&
 		yDiff < (rt.bottom - A_Center.y) + ((m_rtCollision[1].bottom - m_CenterPos[1].y)))
 	{
-		if (m_BkRtDraw.right - m_BkRtDraw.left == g_rtClient.right)  // 화면 끝 도달
+		if (m_BkRtDraw->right - m_BkRtDraw->left <= g_rtClient.right)  // 화면 끝 도달
 		{
-			return SCROLL::STOP;
+			return MoveCamera(SCROLL::STOP,size);
 		}
-		return SCROLL::MOVE_RIGHT;
+		return MoveCamera(SCROLL::MOVE_RIGHT, size);
 	}
 
-	xDiff = abs(A_Center.x - m_CenterPos[0].x);
-	yDiff = abs(A_Center.y - m_CenterPos[0].y);
+	xDiff = static_cast<LONG>(abs(A_Center.x - m_CenterPos[0].x));
+	yDiff = static_cast<LONG>(abs(A_Center.y - m_CenterPos[0].y));
 
 	if (xDiff < (rt.right - A_Center.x) + ((m_rtCollision[0].right - m_CenterPos[0].x)) &&
 		yDiff < (rt.bottom - A_Center.y) + ((m_rtCollision[0].bottom - m_CenterPos[0].y)))
 	{
-		if (m_BkRtDraw.left == g_rtClient.left)  // 화면 끝 도달
+		if (m_BkRtDraw->left == g_rtClient.left)  // 화면 끝 도달
 		{
-			return SCROLL::STOP;
+			return MoveCamera(SCROLL::STOP, size);
 		}
-		return SCROLL::MOVE_LEFT;
+		Player * pl = dynamic_cast<Player*>(m_pPlayer);
+		if (pl->getDir() == -1)
+		{
+			return MoveCamera(SCROLL::MOVE_LEFT, size);
+		}
 	}
-
-	return SCROLL::STOP;
+	return MoveCamera(SCROLL::STOP, size);
 }
 
 
-void Scroll::MoveCamera(SCROLL type)
+bool Scroll::MoveCamera(SCROLL type, const LONG& size)
 {
-	switch (type)
+	if (type == SCROLL::STOP)
+	{
+		return true;
+	}
+	switch (type)									// 38.0f , 38.7f
 	{
 	case SCROLL::MOVE_RIGHT:
 		m_pBkObj->MoveScrollBk(true);
-		m_pPlayer->setCenterPos_x(m_rtCollision[1].left - 38.0f);
-		break;
+		if (size > 79)
+		{
+			m_pPlayer->setCenterPos_x(m_rtCollision[1].left - (size / 2.0f + 5.0f));
+		}
+		else
+		{
+			m_pPlayer->setCenterPos_x(m_rtCollision[1].left - (size / 2.0f + 1.0f));
+		}
+		return true;
 	case SCROLL::MOVE_LEFT:
 		m_pBkObj->MoveScrollBk(false);
-		m_pPlayer->setCenterPos_x(m_rtCollision[0].right + 38.7f);
-		break;
+		if (size > 78)
+		{
+			m_pPlayer->setCenterPos_x(m_rtCollision[0].right + (size / 2.0f) + 3.0f);
+		}
+		else
+		{
+			m_pPlayer->setCenterPos_x(m_rtCollision[0].right + (size / 2.0f));
+		}
+		return true;
 	default:
-		break;
+		return true;
 	}
 }

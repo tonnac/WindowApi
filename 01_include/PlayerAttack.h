@@ -9,8 +9,6 @@ public:
 	bool		Init() override;
 	bool		Frame() override;
 	bool		Render() override;
-private:
-	FLOAT		m_fTimer;
 };
 
 class PlayerAttack2 : public PlayerState
@@ -21,8 +19,6 @@ public:
 	bool		Init() override;
 	bool		Frame() override;
 	bool		Render() override;
-private:
-	FLOAT		m_fTimer;
 };
 
 class PlayerAttack3 : public PlayerState
@@ -33,6 +29,16 @@ public:
 	bool		Init() override;
 	bool		Frame() override;
 	bool		Render() override;
+};
+
+class AirAttack : public PlayerState
+{
+public:
+	AirAttack(Player*);
+public:
+	bool		Init() override;
+	bool		Frame() override;
+	bool		Render() override;
 private:
-	FLOAT		m_fTimer;
+	FLOAT		m_fAcceleration;
 };

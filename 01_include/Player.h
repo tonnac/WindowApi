@@ -16,6 +16,9 @@ public:
 	bool			Release		() override;
 public:
 	void			setState	(T_STR);
+	void			setJumpNum	(const INT&);
+public:
+	INT				getJumpNum	();
 public:
 	INT				getDir		();
 	void			setDir		(const INT&);
@@ -23,6 +26,7 @@ public:
 	void			addState(std::string, State*);
 private:
 	INT				m_iCurrentDir;
+	INT				m_iJumpNumber;
 	StateMap		m_pStateList;
 	State *			m_pCurrentState;
 };
