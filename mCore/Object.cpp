@@ -4,8 +4,13 @@
 #include "RotateRendering.h"
 
 Object::Object() : m_ColorBitmap(nullptr), m_MaskBitmap(nullptr), isDebugMode(false),
-					isDead(false), m_fSpeed(0.0f), m_pRendering(nullptr)
-{}
+					isDead(false), m_fSpeed(0.0f), m_pRendering(nullptr), m_fScroll(0.0f)
+{
+	ZeroMemory(&m_CenterPos,sizeof(FloatPoint));
+	ZeroMemory(&m_DrawPos, sizeof(FloatPoint));
+	ZeroMemory(&m_rtDraw, sizeof(RECT));
+	ZeroMemory(&m_rtCollision, sizeof(RECT));
+}
 bool Object::Init()
 {
 	m_pRendering = New Rendering(this);
@@ -14,19 +19,6 @@ bool Object::Init()
 }
 bool Object::Frame()
 {
-	/*m_DrawPos.x = m_CenterPos.x - (m_rtDraw.right / 2);
-	m_DrawPos.y = m_CenterPos.y - (m_rtDraw.bottom / 2);*/
-
-	if (m_pRendering == nullptr)
-	{
-		m_CenterPos.x = m_DrawPos.x + (m_rtDraw.right / 2);
-		m_CenterPos.y = m_DrawPos.y + (m_rtDraw.bottom / 2);
-
-		m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
-		m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
-		m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
-		m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
-	}
 	m_pRendering->Frame();
 	return true;
 }
@@ -34,11 +26,12 @@ bool Object::Render()
 {
 	DebugMode();
 
-	m_pRendering->Render();
+	if(m_pRendering)
+		m_pRendering->Render();
 
 	if (isDebugMode)
 	{
-		int iPrev = SetROP2(g_hOffScreenDC, R2_MASKPEN);
+		int iPrev = SetROP2(g_hOffScreenDC, R2_NOTXORPEN);
 
 		//원충돌크기
 		//LONG dwX = m_rtCollision.right - m_rtCollision.left;						
@@ -138,8 +131,20 @@ void Object::Set(const FLOAT& x, const FLOAT& y,
 	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
 	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
 	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
-}
 
+	m_fScroll = m_rtDraw.left;
+
+}
+void Object::Set(const RECT& rt)
+{
+	m_rtDraw.left = rt.left;
+	m_rtDraw.top = rt.top;
+	m_rtDraw.right = rt.right;
+	m_rtDraw.bottom = rt.bottom;
+
+	m_CenterPos.x = (m_rtCollision.left + m_rtCollision.right) / 2;
+	m_CenterPos.y = (m_rtCollision.top + m_rtCollision.bottom) / 2;
+}
 
 void Object::setRendering(const FLOAT& zoom, const INVERSE& type)
 {
@@ -165,7 +170,37 @@ void Object::setRendering(const INVERSE& type)
 {
 	m_pRendering->setInverse(type);
 }
-void Object::MoveScroll(const INT& scroll)
+void Object::MoveScrollBk(const bool& bflag)
 {
-	m_rtDraw.left += g_fPerSecFrame * scroll * 5.0f;
+	if (bflag)
+	{
+		m_fScroll += (g_fPerSecFrame * g_fSpeed);
+		m_rtDraw.left = m_fScroll;
+	}
+	else
+	{
+		m_fScroll += -(g_fPerSecFrame * g_fSpeed);
+		m_rtDraw.left = m_fScroll;
+	}
+}
+void Object::MoveScrollObj(const bool& bflag)
+{
+	if (bflag)
+	{
+		m_DrawPos.x += -(g_fPerSecFrame * g_fSpeed);
+	}
+	else
+	{
+		m_DrawPos.x += (g_fPerSecFrame * g_fSpeed);
+	}
+}
+void Object::setCenterPos_x(const FLOAT& ft)
+{
+	m_CenterPos.x = ft;
+	m_DrawPos.x = ft + m_rtDraw.right / 2;
+
+	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
+	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
+	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
+	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
 }

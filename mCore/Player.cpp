@@ -2,6 +2,8 @@
 #include "PlayerAttack.h"
 #include "PlayerBasicState.h"
 
+float g_fSpeed = 0.0f;
+
 Player::Player() : m_pCurrentState(nullptr), m_iCurrentDir(1)
 {
 	State * state = New PlayerState(this);
@@ -11,7 +13,7 @@ Player::Player() : m_pCurrentState(nullptr), m_iCurrentDir(1)
 	state = New PlayerAttack(this);
 	state = New PlayerAttack2(this);
 	state = New PlayerAttack3(this);
-	m_fSpeed = 100.0f;
+	m_fSpeed = 150.0f;
 }
 
 bool Player::Init()
@@ -20,6 +22,7 @@ bool Player::Init()
 	{
 		it.second->Init();
 	}
+	g_fSpeed = m_fSpeed;
 	m_pCurrentState = m_pStateList["Idle"];
 	Object::Init();
 	return true;

@@ -1,6 +1,6 @@
 #pragma once
 #include <windows.h>
-#include <assert.h>
+#include <cassert>
 #include <tchar.h>
 #include <string>
 #include <list>
@@ -32,25 +32,31 @@ using T_STR = std::basic_string<TCHAR>;
 using MEM_MAP = std::map<void *, MEMINFO>;
 using RECT_VECTOR = std::vector<RECT>;
 
-enum class KEYSTATE
+enum class KEYSTATE : unsigned char
 {
 	KEY_FREE,
 	KEY_PUSH,
 	KEY_HOLD,
 	KEY_UP
 };
-enum class SCENE
+enum class SCENE : unsigned char
 {
 	LOBBY,
 	GAME,
 	END
 };
-enum class INVERSE
+enum class INVERSE : unsigned char
 {
 	LR_ROTATION,
 	TB_ROTATION,
 	LRTB_ROTATION,
 	DEFAULT
+};
+enum class SCROLL : unsigned char
+{
+	STOP,
+	MOVE_RIGHT,
+	MOVE_LEFT
 };
 
 template <typename K>
@@ -83,6 +89,7 @@ extern HINSTANCE            g_hInstance;
 extern HDC					g_hOffScreenDC;
 extern HDC					g_hScreenDC;
 extern RECT					g_rtClient;
+extern float				g_fSpeed;
 extern float				g_fPerSecFrame;
 
 extern int					g_iNewCount;

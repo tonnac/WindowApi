@@ -57,6 +57,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "16_Scroll", "Scroll\Scroll.
 		{5DAE0B07-DBCE-42B7-BBA3-DD1929D17688} = {5DAE0B07-DBCE-42B7-BBA3-DD1929D17688}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "17_TerrainObject", "TerrainObject\TerrainObject.vcxproj", "{0737D5D8-87BC-485D-BBC0-CDE9DA6409D4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5DAE0B07-DBCE-42B7-BBA3-DD1929D17688} = {5DAE0B07-DBCE-42B7-BBA3-DD1929D17688}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -209,6 +214,14 @@ Global
 		{D3221825-C1F4-4004-847F-4D69AC68EB96}.Release|x64.Build.0 = Release|x64
 		{D3221825-C1F4-4004-847F-4D69AC68EB96}.Release|x86.ActiveCfg = Release|Win32
 		{D3221825-C1F4-4004-847F-4D69AC68EB96}.Release|x86.Build.0 = Release|Win32
+		{0737D5D8-87BC-485D-BBC0-CDE9DA6409D4}.Debug|x64.ActiveCfg = Debug|x64
+		{0737D5D8-87BC-485D-BBC0-CDE9DA6409D4}.Debug|x64.Build.0 = Debug|x64
+		{0737D5D8-87BC-485D-BBC0-CDE9DA6409D4}.Debug|x86.ActiveCfg = Debug|Win32
+		{0737D5D8-87BC-485D-BBC0-CDE9DA6409D4}.Debug|x86.Build.0 = Debug|Win32
+		{0737D5D8-87BC-485D-BBC0-CDE9DA6409D4}.Release|x64.ActiveCfg = Release|x64
+		{0737D5D8-87BC-485D-BBC0-CDE9DA6409D4}.Release|x64.Build.0 = Release|x64
+		{0737D5D8-87BC-485D-BBC0-CDE9DA6409D4}.Release|x86.ActiveCfg = Release|Win32
+		{0737D5D8-87BC-485D-BBC0-CDE9DA6409D4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
