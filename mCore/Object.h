@@ -43,8 +43,13 @@ public:
 	void				Set				(const FLOAT&, const FLOAT&,
 										const DWORD& = 0, const DWORD& = 0, const DWORD& = 0, const DWORD& = 0);
 public:
-	virtual void		MoveScrollBk	(const FLOAT& = false);
-	virtual void		MoveScrollObj	(const bool& = false);
+	virtual bool		MoveScrollBk	(const LONG&);
+	virtual bool		MoveScrollObj	(const LONG&);
+public:
+	virtual	bool		Collision		(Object *);
+public:
+	void * operator new(size_t sz, const char* FileName, int iLine);
+	void operator delete(void * p);
 protected:
 	FLOAT				m_fScroll;
 	FloatPoint			m_CenterPos;

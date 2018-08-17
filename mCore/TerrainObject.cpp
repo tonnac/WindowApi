@@ -31,27 +31,56 @@ bool TerrainObject::Release()
 }
 bool TerrainObject::Collision(Object* pObject)
 {
-	RECT ColiisionRT = *(pObject->getCollisionRt());
-	POINT A_Center;
-	A_Center.x = (ColiisionRT.right + ColiisionRT.left) / 2;
-	A_Center.y = (ColiisionRT.bottom + ColiisionRT.top) / 2;
+	RECT CollisionArea;
+	RECT ObjRT = *(pObject->getCollisionRt());
+	POINT Center;
+	Center.x = (ObjRT.right + ObjRT.left) / 2;
+	Center.y = (ObjRT.bottom + ObjRT.top) / 2;
 
 
-	LONG xDiff = static_cast<LONG>(abs(A_Center.x - m_CenterPos.x));
-	LONG yDiff = static_cast<LONG>(abs(A_Center.y - m_CenterPos.y));
+	LONG xDiff = static_cast<LONG>(abs(Center.x - m_CenterPos.x));
+	LONG yDiff = static_cast<LONG>(abs(Center.y - m_CenterPos.y));
 
-	if (xDiff <= (ColiisionRT.right - A_Center.x) + ((m_rtCollision.right - m_CenterPos.x)) &&
-		yDiff <= (ColiisionRT.bottom - A_Center.y) + ((m_rtCollision.bottom - m_CenterPos.y)))
+	if (xDiff < (ObjRT.right - Center.x) + ((m_rtCollision.right - m_CenterPos.x)) &&
+		yDiff < (ObjRT.bottom - Center.y) + ((m_rtCollision.bottom - m_CenterPos.y)))
 	{
-		return MoveObject(pObject);
+		CollisionArea.left = (ObjRT.left < m_rtCollision.left) ? m_rtCollision.left : ObjRT.left;
+		CollisionArea.right = (ObjRT.right > m_rtCollision.right) ? m_rtCollision.right : ObjRT.right;
+		CollisionArea.top = (ObjRT.top < m_rtCollision.top) ? m_rtCollision.top : ObjRT.top;
+		CollisionArea.bottom = (ObjRT.bottom > m_rtCollision.bottom) ? m_rtCollision.bottom : ObjRT.bottom;
+
+		return MoveObject(pObject, CollisionArea);
 	}
+//	pObject->setLanding(false);
 	return false;
 }
-bool TerrainObject::MoveObject(Object* pObject)
+bool TerrainObject::MoveObject(Object* pObject, const RECT& CollisionArea)
 {
+	LONG lWidth = CollisionArea.right - CollisionArea.left;
+	LONG lHeight = CollisionArea.bottom - CollisionArea.top;
 	FloatPoint pObjCenterPos = *(pObject->getCenterPos());
-	FLOAT ypos = pObjCenterPos.y - 0.5f;
-	pObject->setCenterPos_y(ypos);
+	if (lWidth > lHeight)
+	{
+		if (CollisionArea.top == m_rtCollision.top)					//	위에서 충돌
+		{
+			pObject->setCenterPos_y(pObjCenterPos.y - lHeight);
+		}
+		else if (CollisionArea.bottom == m_rtCollision.bottom)		// 아래에서 충돌
+		{
+			pObject->setCenterPos_y(pObjCenterPos.y + lHeight);
+		}
+	}
+	else
+	{
+		if (CollisionArea.left == m_rtCollision.left)				// 왼쪽에서 충돌
+		{
+			pObject->setCenterPos_x(pObjCenterPos.x - lWidth);
+		}
+		else if (CollisionArea.right == m_rtCollision.right)		// 오른쪽에서 충돌
+		{
+			pObject->setCenterPos_x(pObjCenterPos.x + lWidth);
+		}
+	}
 	pObject->setLanding(true);
 	return true;
 }

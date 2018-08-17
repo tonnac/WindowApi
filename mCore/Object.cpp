@@ -199,22 +199,13 @@ void Object::Set(const FLOAT& x, const FLOAT& y,
 
 }
 
-void Object::MoveScrollBk(const FLOAT& fsize)
+bool Object::MoveScrollBk(const LONG& fsize)
+{
+	return true;
+}
+bool Object::MoveScrollObj(const LONG& fsize)
 {
 	if (fsize < 0)
-	{
-		m_fScroll += (g_fPerSecFrame * g_fSpeed);
-		m_rtDraw.left = static_cast<LONG>(m_fScroll);
-	}
-	else
-	{
-		m_fScroll += -(g_fPerSecFrame * g_fSpeed);
-		m_rtDraw.left = static_cast<LONG>(m_fScroll);
-	}
-}
-void Object::MoveScrollObj(const bool& bflag)
-{
-	if (bflag)
 	{
 		m_DrawPos.x += -(g_fPerSecFrame * g_fSpeed);
 	}
@@ -222,4 +213,31 @@ void Object::MoveScrollObj(const bool& bflag)
 	{
 		m_DrawPos.x += (g_fPerSecFrame * g_fSpeed);
 	}
+	return true;
+}
+bool Object::Collision(Object * pObject)
+{
+	return true;
+}
+
+void * Object::operator new(size_t sz, const char* FileName, int iLine)
+{
+	std::string ad = FileName;
+	MEMINFO mem;
+	void* pfs = new char[sz];
+	mem.addr = pfs;
+	mem.filename = ad.substr(ad.find_last_of('\\') + 1, ad.length() - (ad.find_last_of(".cpp") + 4));
+	mem.line = iLine;
+	mem.dwAllocateTime = timeGetTime();
+	MemoryMap.insert(std::make_pair(pfs, mem));
+	++::g_iNewCount;
+	return pfs;
+}
+void Object::operator delete(void * p)
+{
+	std::map<void*, MEMINFO>::iterator it;
+	it = MemoryMap.find(p);
+	MemoryMap.erase(it);
+	--::g_iNewCount;
+	delete p;
 }

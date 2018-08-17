@@ -8,7 +8,7 @@ public:
 	virtual bool		Frame			() override;
 	bool				Render			() override;
 	bool				Release			() override;
-	virtual	bool		MoveObject		(Object*);
-	bool				Collision		(Object*);
+	virtual	bool		MoveObject		(Object*, const RECT&);
+	bool				Collision		(Object*) override;
 private:
 };

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "00_WindowApi", "WindowApi\WindowApi.vcxproj", "{8CCE5BE0-05EC-4011-94CD-948F730BEFA1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5DAE0B07-DBCE-42B7-BBA3-DD1929D17688} = {5DAE0B07-DBCE-42B7-BBA3-DD1929D17688}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01_WindowClass", "WindowClass\WindowClass.vcxproj", "{DBE42AFB-F220-42D4-B82C-BCFDB6580FCD}"
 EndProject
@@ -62,7 +65,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "17_TerrainObject", "Terrain
 		{5DAE0B07-DBCE-42B7-BBA3-DD1929D17688} = {5DAE0B07-DBCE-42B7-BBA3-DD1929D17688}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "18_PlayerJumb", "PlayerJumb\PlayerJumb.vcxproj", "{9FC9ED1F-6C83-4EC2-8764-91448D9B0657}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "18_PlayerJump", "PlayerJumb\PlayerJumb.vcxproj", "{9FC9ED1F-6C83-4EC2-8764-91448D9B0657}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5DAE0B07-DBCE-42B7-BBA3-DD1929D17688} = {5DAE0B07-DBCE-42B7-BBA3-DD1929D17688}
 	EndProjectSection

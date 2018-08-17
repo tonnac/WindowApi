@@ -10,7 +10,7 @@ public:
 	bool				Frame		();
 	bool				Render		();
 	bool				Release		();
-	bool				MoveCamera	(const FLOAT& size);
+	bool				MoveCamera	(const LONG& size);
 private:
 	bool				Collision	(const RECT&);
 private:

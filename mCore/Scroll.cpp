@@ -33,15 +33,15 @@ bool Scroll::Frame()
 }
 bool Scroll::Render()
 {
-	int prevpen = SetROP2(g_hOffScreenDC, R2_NOTXORPEN);
+	//int prevpen = SetROP2(g_hOffScreenDC, R2_NOTXORPEN);
 
-	for (int i = 0; i < 2; ++i)
-	{
-		Rectangle(g_hOffScreenDC, m_rtCollision[i].left, m_rtCollision[i].top,
-			m_rtCollision[i].right, m_rtCollision[i].bottom);
-	}
+	//for (int i = 0; i < 2; ++i)
+	//{
+	//	Rectangle(g_hOffScreenDC, m_rtCollision[i].left, m_rtCollision[i].top,
+	//		m_rtCollision[i].right, m_rtCollision[i].bottom);
+	//}
 
-	SetROP2(g_hOffScreenDC, prevpen);
+	//SetROP2(g_hOffScreenDC, prevpen);
 	return true;
 }
 bool Scroll::Release()
@@ -50,8 +50,9 @@ bool Scroll::Release()
 }
 bool Scroll::Collision(const RECT& rt)
 {
-	FloatPoint rat;						//충돌영역 계산
-	ZeroMemory(&rat, sizeof(FloatPoint));
+	LONG x1;
+	LONG x2;			//충돌영역 계산
+	
 
 	POINT A_Center;
 	A_Center.x = (rt.right + rt.left) / 2;
@@ -65,13 +66,13 @@ bool Scroll::Collision(const RECT& rt)
 	if (xDiff < (rt.right - A_Center.x) + ((m_rtCollision[1].right - m_CenterPos[1].x)) &&
 		yDiff < (rt.bottom - A_Center.y) + ((m_rtCollision[1].bottom - m_CenterPos[1].y)))
 	{
-		rat.x = (m_rtCollision[1].left < rt.left) ? rt.left : m_rtCollision[1].left;
-		rat.y = (m_rtCollision[1].right > rt.right) ? rt.right : m_rtCollision[1].right;
+		x1 = (m_rtCollision[1].left < rt.left) ? rt.left : m_rtCollision[1].left;
+		x2 = (m_rtCollision[1].right > rt.right) ? rt.right : m_rtCollision[1].right;
 		if (m_BkRtDraw->right - m_BkRtDraw->left <= g_rtClient.right)  // 화면 끝 도달
 		{
 			return true;
 		}
-		return MoveCamera(rat.x - rat.y);
+		return MoveCamera(x1 - x2 - 2);
 	}
 
 	xDiff = static_cast<LONG>(abs(A_Center.x - m_CenterPos[0].x));
@@ -80,8 +81,8 @@ bool Scroll::Collision(const RECT& rt)
 	if (xDiff < (rt.right - A_Center.x) + ((m_rtCollision[0].right - m_CenterPos[0].x)) &&
 		yDiff < (rt.bottom - A_Center.y) + ((m_rtCollision[0].bottom - m_CenterPos[0].y)))
 	{
-		rat.x = (m_rtCollision[0].left < rt.left) ? rt.left : m_rtCollision[0].left;
-		rat.y = (m_rtCollision[0].right > rt.right) ? rt.right : m_rtCollision[0].right;
+		x1 = (m_rtCollision[0].left < rt.left) ? rt.left : m_rtCollision[0].left;
+		x2 = (m_rtCollision[0].right > rt.right) ? rt.right : m_rtCollision[0].right;
 		if (m_BkRtDraw->left == g_rtClient.left)  // 화면 끝 도달
 		{
 			return true;
@@ -89,14 +90,14 @@ bool Scroll::Collision(const RECT& rt)
 		Player * pl = dynamic_cast<Player*>(m_pPlayer);
 		if (pl->getDir() == -1)
 		{
-			return MoveCamera(rat.y - rat.x);
+			return MoveCamera(x2 - x1 + 1);
 		}
 	}
 	return true;
 }
 
 
-bool Scroll::MoveCamera(const FLOAT& size)
+bool Scroll::MoveCamera(const LONG& size)
 {
 	FLOAT x = (*m_pPlayer->getCenterPos()).x;
 	m_pPlayer->setCenterPos_x(x + size);
