@@ -52,12 +52,6 @@ enum class INVERSE : unsigned char
 	LRTB_ROTATION,
 	DEFAULT
 };
-enum class SCROLL : unsigned char
-{
-	STOP,
-	MOVE_RIGHT,
-	MOVE_LEFT
-};
 
 template <typename K>
 class Singleton

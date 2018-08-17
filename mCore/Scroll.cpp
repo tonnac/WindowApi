@@ -50,6 +50,9 @@ bool Scroll::Release()
 }
 bool Scroll::Collision(const RECT& rt)
 {
+	FloatPoint rat;						//충돌영역 계산
+	ZeroMemory(&rat, sizeof(FloatPoint));
+
 	POINT A_Center;
 	A_Center.x = (rt.right + rt.left) / 2;
 	A_Center.y = (rt.bottom + rt.top) / 2;
@@ -62,11 +65,13 @@ bool Scroll::Collision(const RECT& rt)
 	if (xDiff < (rt.right - A_Center.x) + ((m_rtCollision[1].right - m_CenterPos[1].x)) &&
 		yDiff < (rt.bottom - A_Center.y) + ((m_rtCollision[1].bottom - m_CenterPos[1].y)))
 	{
+		rat.x = (m_rtCollision[1].left < rt.left) ? rt.left : m_rtCollision[1].left;
+		rat.y = (m_rtCollision[1].right > rt.right) ? rt.right : m_rtCollision[1].right;
 		if (m_BkRtDraw->right - m_BkRtDraw->left <= g_rtClient.right)  // 화면 끝 도달
 		{
-			return MoveCamera(SCROLL::STOP,size);
+			return true;
 		}
-		return MoveCamera(SCROLL::MOVE_RIGHT, size);
+		return MoveCamera(rat.x - rat.y);
 	}
 
 	xDiff = static_cast<LONG>(abs(A_Center.x - m_CenterPos[0].x));
@@ -75,51 +80,26 @@ bool Scroll::Collision(const RECT& rt)
 	if (xDiff < (rt.right - A_Center.x) + ((m_rtCollision[0].right - m_CenterPos[0].x)) &&
 		yDiff < (rt.bottom - A_Center.y) + ((m_rtCollision[0].bottom - m_CenterPos[0].y)))
 	{
+		rat.x = (m_rtCollision[0].left < rt.left) ? rt.left : m_rtCollision[0].left;
+		rat.y = (m_rtCollision[0].right > rt.right) ? rt.right : m_rtCollision[0].right;
 		if (m_BkRtDraw->left == g_rtClient.left)  // 화면 끝 도달
 		{
-			return MoveCamera(SCROLL::STOP, size);
+			return true;
 		}
 		Player * pl = dynamic_cast<Player*>(m_pPlayer);
 		if (pl->getDir() == -1)
 		{
-			return MoveCamera(SCROLL::MOVE_LEFT, size);
+			return MoveCamera(rat.y - rat.x);
 		}
 	}
-	return MoveCamera(SCROLL::STOP, size);
+	return true;
 }
 
 
-bool Scroll::MoveCamera(SCROLL type, const LONG& size)
+bool Scroll::MoveCamera(const FLOAT& size)
 {
-	if (type == SCROLL::STOP)
-	{
-		return true;
-	}
-	switch (type)									// 38.0f , 38.7f
-	{
-	case SCROLL::MOVE_RIGHT:
-		m_pBkObj->MoveScrollBk(true);
-		if (size > 79)
-		{
-			m_pPlayer->setCenterPos_x(m_rtCollision[1].left - (size / 2.0f + 5.0f));
-		}
-		else
-		{
-			m_pPlayer->setCenterPos_x(m_rtCollision[1].left - (size / 2.0f + 1.0f));
-		}
-		return true;
-	case SCROLL::MOVE_LEFT:
-		m_pBkObj->MoveScrollBk(false);
-		if (size > 78)
-		{
-			m_pPlayer->setCenterPos_x(m_rtCollision[0].right + (size / 2.0f) + 3.0f);
-		}
-		else
-		{
-			m_pPlayer->setCenterPos_x(m_rtCollision[0].right + (size / 2.0f));
-		}
-		return true;
-	default:
-		return true;
-	}
+	FLOAT x = (*m_pPlayer->getCenterPos()).x;
+	m_pPlayer->setCenterPos_x(x + size);
+	m_pBkObj->MoveScrollBk(size);
+	return true;
 }

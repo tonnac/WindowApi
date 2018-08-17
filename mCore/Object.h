@@ -43,7 +43,7 @@ public:
 	void				Set				(const FLOAT&, const FLOAT&,
 										const DWORD& = 0, const DWORD& = 0, const DWORD& = 0, const DWORD& = 0);
 public:
-	virtual void		MoveScrollBk	(const bool& = false);
+	virtual void		MoveScrollBk	(const FLOAT& = false);
 	virtual void		MoveScrollObj	(const bool& = false);
 protected:
 	FLOAT				m_fScroll;

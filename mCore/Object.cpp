@@ -199,9 +199,9 @@ void Object::Set(const FLOAT& x, const FLOAT& y,
 
 }
 
-void Object::MoveScrollBk(const bool& bflag)
+void Object::MoveScrollBk(const FLOAT& fsize)
 {
-	if (bflag)
+	if (fsize < 0)
 	{
 		m_fScroll += (g_fPerSecFrame * g_fSpeed);
 		m_rtDraw.left = static_cast<LONG>(m_fScroll);
