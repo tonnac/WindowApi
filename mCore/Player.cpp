@@ -17,6 +17,7 @@ Player::Player() : m_pCurrentState(nullptr), m_iCurrentDir(1), m_iJumpNumber(0)
 	state = New PlayerJump2(this);
 	state = New PlayerFall(this);
 	state = New AirAttack(this);
+	state = New PlayerRise(this);
 	m_fSpeed = 150.0f;
 }
 
@@ -27,7 +28,7 @@ bool Player::Init()
 		it.second->Init();
 	}
 	g_fSpeed = m_fSpeed;
-	m_pCurrentState = m_pStateList["Idle"];
+	m_pCurrentState = m_pStateList["Fall"];
 	Object::Init();
 	return true;
 }
@@ -77,6 +78,17 @@ INT	Player::getDir()
 void Player::setDir(const INT& dir)
 {
 	m_iCurrentDir *= dir;
+}
+std::string	Player::getCurrentState()
+{
+	for (auto it : m_pStateList)
+	{
+		if (it.first == "Fall")
+		{
+			return "Fall";
+		}
+	}
+	return std::string();
 }
 void Player::addState(std::string Name, State* state)
 {

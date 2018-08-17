@@ -101,7 +101,7 @@ POINT Input::GetMousePos()
 }
 void Input::setKey(DWORD dwKey)
 {
-	m_KeyState[dwKey] = KEYSTATE::KEY_FREE;
+	m_KeyState[dwKey] = KEYSTATE::KEY_PUSH;
 }
 KEYSTATE Input::KeyCheck(DWORD dwKey)
 {

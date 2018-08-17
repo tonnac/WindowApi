@@ -201,13 +201,7 @@ bool AirAttack::Frame()
 {
 	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
 	m_CenterPos->y += g_fPerSecFrame + m_fAcceleration;
-	if (m_pPlayer->getLanding())
-	{
-		m_pSprite->setIndex(0);
-		m_pEffectObj->setIndex(0);
-		m_pPlayer->setState(L"Idle");
-		return true;
-	}
+
 	m_pEffectObj->setDebugmode(m_pObject->getDebugmode());
 	FloatPoint pt;
 	if (m_pPlayer->getDir() == -1)

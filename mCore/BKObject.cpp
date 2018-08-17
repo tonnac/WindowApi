@@ -1,6 +1,7 @@
 #include "BKObject.h"
 #include "InversionRendering.h"
 #include "TerrainObject.h"
+#include "Collision.h"
 
 //bool BKObject::Init()
 //{
@@ -54,9 +55,21 @@ void BKObject::AddTerrain(TerrainObject * m_ptObject)
 }
 bool BKObject::Collision(Object* pObject)
 {
+	bool isLanding = false;
 	for (auto it : m_pObjList)
 	{
-		it->Collision(pObject);
+		if (it->Collision(pObject))
+		{
+			isLanding = true;
+		}
+		RECT ObjRT = *pObject->getCollisionRt();
+		RECT rtrt = *it->getCollisionRt();
+		RECT faRT = { ObjRT.left + 27, ObjRT.top, ObjRT.right - 27, ObjRT.bottom + 10 };
+		if (CollisionClass::RectInRect(faRT, rtrt))
+		{
+			isLanding = true;
+		}
 	}
+	pObject->setLanding(isLanding);
 	return Frame();
 }

@@ -135,6 +135,13 @@ void Object::setCenterPos_x(const FLOAT& ft)
 	m_CenterPos.x = ft;
 	m_DrawPos.x = ft + m_rtDraw.right / 2;
 
+	InversionRendering * ir = dynamic_cast<InversionRendering*>(m_pRendering);
+	if (ir)
+	{
+		m_pRendering->Frame();
+		return;
+	}
+
 	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
 	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
 	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
@@ -144,6 +151,13 @@ void Object::setCenterPos_y(const FLOAT& ft)
 {
 	m_CenterPos.y = ft;
 	m_DrawPos.y = ft + m_rtDraw.bottom / 2;
+
+	InversionRendering * ir = dynamic_cast<InversionRendering*>(m_pRendering);
+	if (ir)
+	{
+		m_pRendering->Frame();
+		return;
+	}
 
 	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
 	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);

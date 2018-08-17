@@ -23,6 +23,8 @@ public:
 	INT				getDir		();
 	void			setDir		(const INT&);
 public:
+	std::string		getCurrentState();
+public:
 	void			addState(std::string, State*);
 private:
 	INT				m_iCurrentDir;

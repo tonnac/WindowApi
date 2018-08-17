@@ -1,9 +1,10 @@
 #include "PlayerBasicState.h"
 #include "EffectObj.h"
 
+#include "TerrainObject.h"
+
 PlayerState::PlayerState(Player * pPlayer) : State(pPlayer), m_pEffectObj(nullptr), m_fTimer(0.0f)
 {}
-
 bool PlayerState::Render()
 {
 	return true;
@@ -17,6 +18,8 @@ bool PlayerState::Release()
 	}
 	return true;
 }
+
+//////////////////////////////////////////////////////////////////////////
 
 PlayerIdle::PlayerIdle(Player * pPlayer) : PlayerState(pPlayer)
 {
@@ -32,10 +35,7 @@ bool PlayerIdle::Init()
 bool PlayerIdle::Frame()
 {
 	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
-	if (!m_pPlayer->getLanding())
-	{
-		m_CenterPos->y += g_fPerSecFrame * 100.0f;
-	}
+
 	if (S_Input.GetKey('A') == KEYSTATE::KEY_PUSH)
 	{
 		m_pPlayer->setState(L"Jump");
@@ -96,12 +96,25 @@ bool PlayerRun::Init()
 bool PlayerRun::Frame()
 {
 	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
+
+	FLOAT fSpeed = m_pPlayer->getSpeed();
+
+	if (!m_pPlayer->getLanding())
+	{
+		m_pSprite->setIndex(0);
+		m_pPlayer->setState(L"Fall");
+		return true;
+	}
+
 	if (S_Input.GetKey('S') == KEYSTATE::KEY_PUSH)
 	{
+		m_pSprite->setIndex(0);
 		m_pPlayer->setState(L"Attack1");
+		return true;
 	}
 	if (S_Input.GetKey('A') == KEYSTATE::KEY_PUSH || S_Input.GetKey('A') == KEYSTATE::KEY_HOLD)
 	{
+		m_pSprite->setIndex(0);
 		m_pPlayer->setState(L"Jump");
 		return true;
 	}
@@ -212,6 +225,8 @@ bool PlayerJump::Frame()
 
 	m_pPlayer->setLanding(false);
 
+	m_fTimer += g_fPerSecFrame;
+
 	m_fJumpSpeed -= m_fAcceleration;
 	if (S_Input.GetKey('S') == KEYSTATE::KEY_PUSH)
 	{
@@ -253,8 +268,7 @@ bool PlayerJump::Frame()
 
 //////////////////////////////////////////////////////////////////////////
 
-
-PlayerJump2::PlayerJump2(Player * pPlayer) : PlayerState(pPlayer), m_fJumpSpeed(150.0f), m_fAcceleration(3.5f)
+PlayerJump2::PlayerJump2(Player * pPlayer) : PlayerState(pPlayer), m_fJumpSpeed(200.0f), m_fAcceleration(3.5f)
 {
 	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
 	m_pPlayer->addState(std::string("Jump2"), this);
@@ -272,18 +286,16 @@ bool PlayerJump2::Frame()
 
 	m_CenterPos->y -= g_fPerSecFrame * m_fJumpSpeed;
 
-	m_pPlayer->setLanding(false);
-
 	m_fJumpSpeed -= m_fAcceleration;
 	if (S_Input.GetKey('S') == KEYSTATE::KEY_PUSH)
 	{
-		m_fJumpSpeed = 150.0f;
+		m_fJumpSpeed = 200.0f;
 		m_pPlayer->setState(L"AirAttack");
 		return true;
 	}
 	if (m_fJumpSpeed < 0.0f)
 	{
-		m_fJumpSpeed = 150.0f;
+		m_fJumpSpeed = 200.0f;
 		m_pPlayer->setState(L"Fall");
 		return true;
 	}
@@ -303,7 +315,6 @@ bool PlayerJump2::Frame()
 	*m_rtDraw = m_pSprite->getSpriteRt();
 	return true;
 }
-
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -349,17 +360,59 @@ bool PlayerFall::Frame()
 	{
 		m_pPlayer->setJumpNum(1);
 		m_pSprite->setIndex(0);
-		m_pPlayer->setState(L"Jump");
 		m_fTimer = 0.0f;
+		m_pPlayer->setState(L"Jump");
 		return true;
 	}
 	if (m_pPlayer->getLanding())
 	{
 		m_pPlayer->setJumpNum(0);
 		m_pSprite->setIndex(0);
-		m_pPlayer->setState(L"Idle");
 		m_fTimer = 0.0f;
+		m_pPlayer->setState(L"Rise");
 		return true;
+	}
+	*m_rtDraw = m_pSprite->getSpriteRt();
+	return true;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+PlayerRise::PlayerRise(Player * pPlayer) : PlayerState(pPlayer)
+{
+	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
+	m_pPlayer->addState(std::string("Rise"), this);
+}
+bool PlayerRise::Init()
+{
+	setSprite(L"Kaho", L"Rise");
+	m_pSprite->setDivideTime(0.3f);
+	return true;
+}
+bool PlayerRise::Frame()
+{
+	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
+	if (!m_pSprite->Frame())
+	{
+		m_pSprite->setIndex(0);
+		m_pPlayer->setState(L"Idle");
+		return true;
+	}
+	if (S_Input.GetKey(VK_LEFT) == KEYSTATE::KEY_PUSH || S_Input.GetKey(VK_LEFT) == KEYSTATE::KEY_HOLD)
+	{
+		if (m_pPlayer->getDir() == -1)		// 방향 같으면
+		{
+			m_pPlayer->setState(L"Run");
+			return true;
+		}
+	}
+	if (S_Input.GetKey(VK_RIGHT) == KEYSTATE::KEY_PUSH || S_Input.GetKey(VK_RIGHT) == KEYSTATE::KEY_HOLD)
+	{
+		if (m_pPlayer->getDir() == 1)
+		{
+			m_pPlayer->setState(L"Run");
+			return true;
+		}
 	}
 	*m_rtDraw = m_pSprite->getSpriteRt();
 	return true;

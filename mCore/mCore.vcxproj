@@ -208,9 +208,6 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="wClass.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

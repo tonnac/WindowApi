@@ -1,7 +1,10 @@
 #include "TerrainObject.h"
+#include "Player.h"
+#include "Collision.h"
 
 bool TerrainObject::Init()
 {
+	m_fTimer = 0.0f;
 	return true;
 }
 bool TerrainObject::Frame()
@@ -38,6 +41,7 @@ bool TerrainObject::Collision(Object* pObject)
 	Center.y = (ObjRT.bottom + ObjRT.top) / 2;
 
 
+
 	LONG xDiff = static_cast<LONG>(abs(Center.x - m_CenterPos.x));
 	LONG yDiff = static_cast<LONG>(abs(Center.y - m_CenterPos.y));
 
@@ -48,10 +52,8 @@ bool TerrainObject::Collision(Object* pObject)
 		CollisionArea.right = (ObjRT.right > m_rtCollision.right) ? m_rtCollision.right : ObjRT.right;
 		CollisionArea.top = (ObjRT.top < m_rtCollision.top) ? m_rtCollision.top : ObjRT.top;
 		CollisionArea.bottom = (ObjRT.bottom > m_rtCollision.bottom) ? m_rtCollision.bottom : ObjRT.bottom;
-
 		return MoveObject(pObject, CollisionArea);
 	}
-//	pObject->setLanding(false);
 	return false;
 }
 bool TerrainObject::MoveObject(Object* pObject, const RECT& CollisionArea)
@@ -63,7 +65,17 @@ bool TerrainObject::MoveObject(Object* pObject, const RECT& CollisionArea)
 	{
 		if (CollisionArea.top == m_rtCollision.top)					//	위에서 충돌
 		{
-			pObject->setCenterPos_y(pObjCenterPos.y - lHeight);
+			Player * pl = dynamic_cast<Player*>(pObject);
+			std::string cstate = pl->getCurrentState();
+			if (cstate.empty())
+			{
+				pObject->setCenterPos_y(pObjCenterPos.y - lHeight);
+			}
+			else
+			{
+				pObject->setCenterPos_y(pObjCenterPos.y - lHeight);
+			}
+			pObject->setLanding(true);
 		}
 		else if (CollisionArea.bottom == m_rtCollision.bottom)		// 아래에서 충돌
 		{
@@ -74,13 +86,14 @@ bool TerrainObject::MoveObject(Object* pObject, const RECT& CollisionArea)
 	{
 		if (CollisionArea.left == m_rtCollision.left)				// 왼쪽에서 충돌
 		{
-			pObject->setCenterPos_x(pObjCenterPos.x - lWidth);
+			pObject->setCenterPos_x(pObjCenterPos.x - (lWidth + 2));
+			pObject->setLanding(false);
 		}
 		else if (CollisionArea.right == m_rtCollision.right)		// 오른쪽에서 충돌
 		{
-			pObject->setCenterPos_x(pObjCenterPos.x + lWidth);
+			pObject->setCenterPos_x(pObjCenterPos.x + lWidth + 2);
+			pObject->setLanding(false);
 		}
 	}
-	pObject->setLanding(true);
 	return true;
 }
