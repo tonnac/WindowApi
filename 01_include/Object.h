@@ -28,9 +28,11 @@ public:
 	bool				getDebugmode	() const;
 	bool				getLanding		() const;
 public:
+	void				setRendering	();
 	void				setRendering	(const FLOAT&, const INVERSE&);
 	void				setRendering	(const FLOAT&);
 	void				setRendering	(const INVERSE&);
+	void				setFadeRender	(const FLOAT&, const FLOAT&);
 	void				setDebugmode	(const bool&);
 	void				setSpeed		(const FLOAT&);
 	void				setCenterPos_x	(const FLOAT&);
@@ -42,6 +44,7 @@ public:
 	bool				LoadFile		(T_STR, T_STR, T_STR = std::basic_string<TCHAR>());
 	void				Set				(const FLOAT&, const FLOAT&,
 										const DWORD& = 0, const DWORD& = 0, const DWORD& = 0, const DWORD& = 0);
+	void				Set				(const FloatPoint&, const RECT&);
 public:
 	virtual bool		MoveScrollBk	(const LONG&);
 	virtual bool		MoveScrollObj	(const LONG&);

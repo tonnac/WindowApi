@@ -161,9 +161,10 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="EffectObj.h" />
+    <ClInclude Include="FadeObject.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="GroundObject.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="InversionRendering.h" />
     <ClInclude Include="KahoAttack.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Object.h" />
@@ -171,7 +172,7 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClInclude Include="PlayerAttack.h" />
     <ClInclude Include="PlayerBasicState.h" />
     <ClInclude Include="Rendering.h" />
-    <ClInclude Include="RotateRendering.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Scroll.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteMgr.h" />
@@ -189,9 +190,10 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="EffectObj.cpp" />
+    <ClCompile Include="FadeObject.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GroundObject.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="InversionRendering.cpp" />
     <ClCompile Include="KahoAttack.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -199,7 +201,7 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClCompile Include="PlayerAttack.cpp" />
     <ClCompile Include="PlayerBasicState.cpp" />
     <ClCompile Include="Rendering.cpp" />
-    <ClCompile Include="RotateRendering.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scroll.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteMgr.cpp" />

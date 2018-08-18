@@ -33,7 +33,7 @@ bool Window::SetWindow(HINSTANCE hinst, LONG lWidth, LONG lHeight)
 	wndclass.lpfnWndProc = WndProc;
 	wndclass.hInstance = g_hInstance = hinst;
 	wndclass.lpszClassName = L"Class";
-	wndclass.lpszMenuName = L"Window";
+	wndclass.lpszMenuName = L"Momodora: Reverie Under the Moonlight";
 
 	if (!RegisterClassEx(&wndclass))
 	{

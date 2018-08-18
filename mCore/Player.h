@@ -23,10 +23,12 @@ public:
 	INT				getDir		();
 	void			setDir		(const INT&);
 public:
-	std::string		getCurrentState();
+	bool			isFallState();
 public:
 	void			addState(std::string, State*);
 private:
+	bool			isPrevScene;
+	bool			isNextScene;
 	INT				m_iCurrentDir;
 	INT				m_iJumpNumber;
 	StateMap		m_pStateList;

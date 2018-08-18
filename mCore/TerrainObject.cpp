@@ -66,10 +66,10 @@ bool TerrainObject::MoveObject(Object* pObject, const RECT& CollisionArea)
 		if (CollisionArea.top == m_rtCollision.top)					//	위에서 충돌
 		{
 			Player * pl = dynamic_cast<Player*>(pObject);
-			std::string cstate = pl->getCurrentState();
-			if (cstate.empty())
+			bool flag = pl->isFallState();
+			if (flag == true)
 			{
-				pObject->setCenterPos_y(pObjCenterPos.y - lHeight);
+				pObject->setCenterPos_y(pObjCenterPos.y - lHeight + 7);
 			}
 			else
 			{

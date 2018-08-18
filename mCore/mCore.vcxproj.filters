@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\Rendering">
-      <UniqueIdentifier>{7af11ee7-0b59-47d6-ab66-cb3537008287}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Rendering">
-      <UniqueIdentifier>{95e5f09e-7766-4d80-b496-3cd5e512c65c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="헤더 파일\Sprite">
       <UniqueIdentifier>{57dac625-9584-4020-a2b5-47bda9235f47}</UniqueIdentifier>
     </Filter>
@@ -75,15 +69,6 @@
     <ClInclude Include="SpriteMgr.h">
       <Filter>헤더 파일\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="RotateRendering.h">
-      <Filter>헤더 파일\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="InversionRendering.h">
-      <Filter>헤더 파일\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering.h">
-      <Filter>헤더 파일\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="NPC.h">
       <Filter>헤더 파일\Object</Filter>
     </ClInclude>
@@ -138,6 +123,18 @@
     <ClInclude Include="GroundObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeObject.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bitmap.cpp">
@@ -154,12 +151,6 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>소스 파일\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="RotateRendering.cpp">
-      <Filter>소스 파일\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering.cpp">
-      <Filter>소스 파일\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="SpriteMgr.cpp">
       <Filter>소스 파일\Sprite</Filter>
@@ -209,10 +200,19 @@
     <ClCompile Include="TerrainObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="InversionRendering.cpp">
-      <Filter>소스 파일\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="GroundObject.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

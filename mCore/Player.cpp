@@ -4,8 +4,8 @@
 
 float g_fSpeed = 0.0f;
 
-Player::Player() : m_pCurrentState(nullptr), m_iCurrentDir(1), m_iJumpNumber(0)
-{
+Player::Player() : m_pCurrentState(nullptr), m_iCurrentDir(1), m_iJumpNumber(0), isPrevScene(false), isNextScene(false)
+{ 
 	State * state = New PlayerIdle(this);
 	state = New PlayerRun(this);
 	state = New PlayerBrake(this);
@@ -79,16 +79,14 @@ void Player::setDir(const INT& dir)
 {
 	m_iCurrentDir *= dir;
 }
-std::string	Player::getCurrentState()
+bool Player::isFallState()
 {
-	for (auto it : m_pStateList)
+	auto it = m_pStateList.find("Fall");
+	if (it->second == m_pCurrentState)
 	{
-		if (it.first == "Fall")
-		{
-			return "Fall";
-		}
+		return true;
 	}
-	return std::string();
+	return false;
 }
 void Player::addState(std::string Name, State* state)
 {

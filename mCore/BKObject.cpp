@@ -1,7 +1,13 @@
 #include "BKObject.h"
-#include "InversionRendering.h"
+#include "Rendering.h"
 #include "TerrainObject.h"
 #include "Collision.h"
+#include "Player.h"
+
+BKObject::BKObject()
+{
+	m_pObjList.clear();
+}
 
 //bool BKObject::Init()
 //{
@@ -14,8 +20,7 @@ bool BKObject::Frame()
 	{
 		it->Frame();
 	}
-	Object::Frame();
-	return true;
+	return Object::Frame();
 }
 
 bool BKObject::Render()
@@ -30,7 +35,17 @@ bool BKObject::Render()
 	}
 	return true;
 }
-
+bool BKObject::Release()
+{
+	for (auto it : m_pObjList)
+	{
+		it->Release();
+		delete it;
+	}
+	m_pObjList.clear();
+	Object::Release();
+	return true;
+}
 bool BKObject::MoveScrollBk(const LONG& fsize)
 {
 	for (auto it : m_pObjList)
@@ -61,13 +76,18 @@ bool BKObject::Collision(Object* pObject)
 		if (it->Collision(pObject))
 		{
 			isLanding = true;
-		}
-		RECT ObjRT = *pObject->getCollisionRt();
-		RECT rtrt = *it->getCollisionRt();
-		RECT faRT = { ObjRT.left + 27, ObjRT.top, ObjRT.right - 27, ObjRT.bottom + 10 };
-		if (CollisionClass::RectInRect(faRT, rtrt))
+		}		
+		Player * pl = dynamic_cast<Player*> (pObject);
+		bool flag = pl->isFallState();
+		if (flag == false)
 		{
-			isLanding = true;
+			RECT ObjRT = *pObject->getCollisionRt();
+			RECT rtrt = *it->getCollisionRt();
+			RECT faRT = { ObjRT.left + 27, ObjRT.top, ObjRT.right - 27, ObjRT.bottom + 10 };
+			if (CollisionClass::RectInRect(faRT, rtrt))
+			{
+				isLanding = true;
+			}
 		}
 	}
 	pObject->setLanding(isLanding);

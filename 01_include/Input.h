@@ -14,6 +14,8 @@ public:
 public:
 	void					MSGEvent(MSG);
 public:
+	bool					isPressAnyKey();
+public:
 	KEYSTATE				GetKey(DWORD);
 	KEYSTATE				GetMouse(DWORD);
 	POINT					GetMousePos();

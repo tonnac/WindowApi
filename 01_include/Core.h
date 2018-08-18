@@ -17,6 +17,7 @@ private:
 	bool					GamePreRender();
 	bool					GamePostRender();
 private:
+	bool					FrameShow;
 	HDC						m_hOffScreenDC;
 	HDC						m_hScreenDC;
 	Timer					m_Timer;

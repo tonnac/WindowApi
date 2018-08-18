@@ -35,7 +35,8 @@ bool PlayerIdle::Init()
 bool PlayerIdle::Frame()
 {
 	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
-
+	FLOAT fSPeed = m_pPlayer->getSpeed();
+	m_CenterPos->y += g_fPerSecFrame * 30.0f;
 	if (S_Input.GetKey('A') == KEYSTATE::KEY_PUSH)
 	{
 		m_pPlayer->setState(L"Jump");
@@ -98,7 +99,7 @@ bool PlayerRun::Frame()
 	Player * m_pPlayer = dynamic_cast<Player*>(m_pObject);
 
 	FLOAT fSpeed = m_pPlayer->getSpeed();
-
+	m_CenterPos->y += g_fPerSecFrame * 2.0f;
 	if (!m_pPlayer->getLanding())
 	{
 		m_pSprite->setIndex(0);
