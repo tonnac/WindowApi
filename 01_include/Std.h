@@ -52,6 +52,15 @@ enum class INVERSE : unsigned char
 	LRTB_ROTATION,
 	DEFAULT
 };
+enum class LOBBYSTATE : unsigned char
+{
+	DEFAULT,
+	START,
+	MAINMENU,
+	SETTING,
+	KEYSETTING,
+	SELECT
+};
 
 template <typename K>
 class Singleton

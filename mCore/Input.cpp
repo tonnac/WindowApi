@@ -75,6 +75,17 @@ void Input::MSGEvent(MSG msg)
 		m_CurrentMouseState[2] = KEYSTATE::KEY_UP;
 	}
 }
+bool Input::isPressAnyKey()
+{
+	for (int i = 0; i < 256; ++i)
+	{
+		if (m_KeyState[i] == KEYSTATE::KEY_PUSH)
+		{
+			return true;
+		}
+	}
+	return false;
+}
 KEYSTATE Input::GetKey(DWORD dwKey)
 {
 	return m_KeyState[dwKey];
@@ -101,7 +112,7 @@ POINT Input::GetMousePos()
 }
 void Input::setKey(DWORD dwKey)
 {
-	m_KeyState[dwKey] = KEYSTATE::KEY_PUSH;
+	m_KeyState[dwKey] = KEYSTATE::KEY_FREE;
 }
 KEYSTATE Input::KeyCheck(DWORD dwKey)
 {

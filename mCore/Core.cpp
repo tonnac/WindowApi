@@ -7,7 +7,8 @@ MEM_MAP		MemoryMap;
 
 bool Core::GameInit()
 {
-	HBRUSH bkBrush = CreateSolidBrush(RGB(255, 255, 255));
+	FrameShow = false;
+	HBRUSH bkBrush = CreateSolidBrush(RGB(0, 0, 0));
 //	HBRUSH old = HBRUSH(SelectObject(m_hOffScreenDC, bkBrush));
 	m_hScreenDC = g_hScreenDC = GetDC(g_hWnd);
 	m_hOffScreenDC = g_hOffScreenDC = CreateCompatibleDC(m_hScreenDC);
@@ -22,6 +23,10 @@ bool Core::GameInit()
 }
 bool Core::GameFrame()
 {
+	if (S_Input.GetKey(VK_LCONTROL) == KEYSTATE::KEY_HOLD && S_Input.GetKey('F') == KEYSTATE::KEY_PUSH)
+	{
+		FrameShow = !FrameShow;
+	}
 	m_Timer.Frame();
 	S_Input.Frame();
 	Frame();
@@ -32,8 +37,11 @@ bool Core::GameRender()
 	if (GamePreRender())
 	{
 		Render();
-		m_Timer.Render();
-		S_Input.Render();
+		if (FrameShow)
+		{
+			m_Timer.Render();
+			S_Input.Render();
+		}
 	}
 	GamePostRender();
 	return true;

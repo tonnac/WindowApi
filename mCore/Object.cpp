@@ -1,7 +1,6 @@
 #pragma once
 #include "Object.h"
-#include "InversionRendering.h"
-#include "RotateRendering.h"
+#include "Rendering.h"
 
 Object::Object() : m_ColorBitmap(nullptr), m_MaskBitmap(nullptr), isDebugMode(false),
 					isDead(false), m_fSpeed(0.0f), m_pRendering(nullptr), m_fScroll(0.0f),
@@ -21,8 +20,7 @@ bool Object::Init()
 }
 bool Object::Frame()
 {
-	m_pRendering->Frame();
-	return true;
+	return m_pRendering->Frame();
 }
 bool Object::Render()
 {
@@ -33,7 +31,7 @@ bool Object::Render()
 
 	if (isDebugMode)
 	{
-		int iPrev = SetROP2(g_hOffScreenDC, R2_NOTXORPEN);
+		int iPrev = SetROP2(g_hOffScreenDC, R2_MASKNOTPEN);
 
 		//원충돌크기
 		//LONG dwX = m_rtCollision.right - m_rtCollision.left;						
@@ -52,8 +50,12 @@ bool Object::Render()
 }
 bool Object::Release()
 {
-	m_pRendering->Release();
-	delete m_pRendering;
+	if (m_pRendering)
+	{
+		m_pRendering->Release();
+		delete m_pRendering;
+	}
+	m_pRendering = nullptr;
 	return true;
 }
 
@@ -98,6 +100,16 @@ bool Object::getLanding() const
 	return isLanding;
 }
 
+void Object::setRendering()
+{
+	if (m_pRendering)
+	{
+		m_pRendering->Release();
+		delete m_pRendering;
+	}
+	m_pRendering = New Rendering(this);
+	m_pRendering->Init();
+}
 void Object::setRendering(const FLOAT& zoom, const INVERSE& type)
 {
 	if (m_pRendering)
@@ -122,6 +134,17 @@ void Object::setRendering(const INVERSE& type)
 {
 	m_pRendering->setInverse(type);
 }
+void Object::setFadeRender(const FLOAT& alpha, const FLOAT& speed)
+{
+	if (m_pRendering)
+	{
+		m_pRendering->Release();
+		delete m_pRendering;
+	}
+	m_pRendering = New AlphaRendering(this);
+	m_pRendering->setFade(alpha, speed);
+	m_pRendering->Init();
+}
 void Object::setDebugmode(const bool& bflag)
 {
 	isDebugMode = bflag;
@@ -135,13 +158,6 @@ void Object::setCenterPos_x(const FLOAT& ft)
 	m_CenterPos.x = ft;
 	m_DrawPos.x = ft + m_rtDraw.right / 2;
 
-	InversionRendering * ir = dynamic_cast<InversionRendering*>(m_pRendering);
-	if (ir)
-	{
-		m_pRendering->Frame();
-		return;
-	}
-
 	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
 	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
 	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
@@ -151,13 +167,6 @@ void Object::setCenterPos_y(const FLOAT& ft)
 {
 	m_CenterPos.y = ft;
 	m_DrawPos.y = ft + m_rtDraw.bottom / 2;
-
-	InversionRendering * ir = dynamic_cast<InversionRendering*>(m_pRendering);
-	if (ir)
-	{
-		m_pRendering->Frame();
-		return;
-	}
 
 	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
 	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
@@ -211,6 +220,21 @@ void Object::Set(const FLOAT& x, const FLOAT& y,
 
 	m_fScroll = static_cast<FLOAT>(m_rtDraw.left);
 
+}
+void Object::Set(const FloatPoint& fpoint, const RECT& drawrt)
+{
+	m_DrawPos = fpoint;
+	m_rtDraw = drawrt;
+
+	m_CenterPos.x = m_DrawPos.x + (m_rtDraw.right / 2);
+	m_CenterPos.y = m_DrawPos.y + (m_rtDraw.bottom / 2);
+
+	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
+	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
+	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
+	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
+
+	m_fScroll = static_cast<FLOAT>(m_rtDraw.left);
 }
 
 bool Object::MoveScrollBk(const LONG& fsize)

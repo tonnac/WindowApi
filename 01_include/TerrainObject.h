@@ -11,5 +11,4 @@ public:
 	virtual	bool		MoveObject		(Object*, const RECT&);
 	bool				Collision		(Object*) override;
 private:
-	float				m_fTimer;
 };

@@ -1,4 +1,4 @@
-#include "InversionRendering.h"
+#include "Rendering.h"
 
 InversionRendering::InversionRendering(Object* ob, const FLOAT& zoom, const SHORT& inverse) : Rendering(ob),
 																		 m_sInverse(inverse), m_fZoom(zoom)

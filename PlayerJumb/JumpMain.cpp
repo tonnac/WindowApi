@@ -24,15 +24,7 @@ public:
 		bk.AddTerrain(t1);
 
 		t1 = New TerrainObject;
-		t1->Set(1251, 565, 1251, 565, 103, 212);
-		bk.AddTerrain(t1);
-
-		t1 = New TerrainObject;
-		t1->Set(1354, 465, 1354, 465, 131, 380);
-		bk.AddTerrain(t1);
-
-		t1 = New TerrainObject;
-		t1->Set(1485, 621, 1485, 621, 115, 153);
+		t1->Set(1251, 561, 1251, 561, 103, 212);
 		bk.AddTerrain(t1);
 
 		p2.Set(130, 540, 10, 87, 25, 36);
@@ -45,9 +37,9 @@ public:
 	}
 	bool Frame()
 	{
+		Scroll1.Frame();
 		bk.Collision(&p2);
 		p2.Frame();
-		Scroll1.Frame();
 
 		return true;
 	}

@@ -88,12 +88,3 @@ public:
 private:
 	FLOAT		m_fAcceleration;
 };
-
-class PlayerRise : public PlayerState
-{
-public:
-	PlayerRise(Player*);
-public:
-	bool		Init() override;
-	bool		Frame() override;
-};

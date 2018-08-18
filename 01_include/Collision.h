@@ -1,7 +1,7 @@
 #pragma once
 #include "Std.h"
 
-class CollisionClass
+class Collision
 {
 public:
 	static bool					RectInPt(RECT, POINT);

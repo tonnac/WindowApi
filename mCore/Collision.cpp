@@ -1,7 +1,7 @@
 #include "Collision.h"
 
 
-bool CollisionClass::RectInPt(RECT rt, POINT pt)
+bool Collision::RectInPt(RECT rt, POINT pt)
 {
 	if (pt.x <= rt.right && pt.x >= rt.left)
 	{
@@ -12,7 +12,7 @@ bool CollisionClass::RectInPt(RECT rt, POINT pt)
 	}
 	return false;
 }
-bool CollisionClass::RectInRect(RECT A_rt, RECT B_rt)
+bool Collision::RectInRect(RECT A_rt, RECT B_rt)
 {
 	POINT A_Center, B_Center;
 	A_Center.x = (A_rt.right + A_rt.left) / 2;
@@ -30,7 +30,7 @@ bool CollisionClass::RectInRect(RECT A_rt, RECT B_rt)
 
 	return false;
 }
-bool CollisionClass::SphereInPt(RECT rt, POINT pt)
+bool Collision::SphereInPt(RECT rt, POINT pt)
 {
 	Sphere rtSphere;
 	rtSphere.CenterPos.x = (rt.right + rt.left) / 2;
@@ -50,7 +50,7 @@ bool CollisionClass::SphereInPt(RECT rt, POINT pt)
 	}
 	return false;
 }
-bool CollisionClass::SphereInSphere(RECT A_rt, RECT B_rt)
+bool Collision::SphereInSphere(RECT A_rt, RECT B_rt)
 {
 	Sphere A_Sphere, B_Sphere;
 
