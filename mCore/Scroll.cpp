@@ -17,7 +17,7 @@ bool Scroll::Init()
 	m_CenterPos.y = static_cast<FLOAT>((m_rtCollision.top + m_rtCollision.bottom) / 2);
 
 	m_nInitValue.at(0) = m_BkRtDraw->left;
-	m_nInitValue.at(1) = m_BkRtDraw->right;
+	m_nInitValue.at(1) = m_BkRtDraw->left + m_BkRtDraw->right;
 	return true;
 }
 bool Scroll::Frame()
@@ -27,11 +27,11 @@ bool Scroll::Frame()
 }
 bool Scroll::Render()
 {
-	//int prevpen = SetROP2(g_hOffScreenDC, R2_NOTXORPEN);
-	//Rectangle(g_hOffScreenDC, m_rtCollision.left, m_rtCollision.top,
-	//	m_rtCollision.right, m_rtCollision.bottom);
+	int prevpen = SetROP2(g_hOffScreenDC, R2_NOTXORPEN);
+	Rectangle(g_hOffScreenDC, m_rtCollision.left, m_rtCollision.top,
+		m_rtCollision.right, m_rtCollision.bottom);
 
-	//SetROP2(g_hOffScreenDC, prevpen);
+	SetROP2(g_hOffScreenDC, prevpen);
 	return true;
 }
 bool Scroll::Release()
@@ -54,7 +54,7 @@ bool Scroll::Collision(const RECT& rt)
 	if (rt.right >= m_rtCollision.right)
 	{
 		x1 = rt.right - m_rtCollision.right;
-		if ((m_BkRtDraw->right - m_BkRtDraw->left)
+		if ((m_nInitValue[1] - m_BkRtDraw->left)
 			<= g_rtClient.right)  // 화면 끝 도달
 		{
 			return true;

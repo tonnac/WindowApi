@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "Rendering.h"
+#include "DownableObject.h"
 
 GameScene::GameScene() : m_pScroll(&m_pPlayer,&m_BKObject), m_pFadeObject(nullptr)
 {}
@@ -105,20 +106,20 @@ bool GameScene2::Init()
 	S_SpriteMgr.SpriteSet(L"../02_data/txt/Kaho.txt");
 	m_pPlayer.LoadFile(L"PLAYER", L"../02_data/bmp/KahoColor.bmp", L"../02_data/bmp/KahoMask.bmp");
 	m_BKObject.LoadFile(L"BACKGROUND", L"../02_data/bmp/Map.bmp");
-	m_BKObject.Set(0, 0, 2072, 0, 2231, 768);
+	m_BKObject.Set(0, 0, 2072, 0, 2206, 769);
 	m_BKObject.Init();
 
 	TerrainObject * t1 = New TerrainObject;
-	t1->Set(0, 620, 0, 620, 725, 148);
+	t1->Set(0, 620, 0, 620, 740, 148);
 	m_BKObject.AddTerrain(t1);
 
-	//t1 = New TerrainObject;
-	//t1->Set(1560, 568, 1560, 568, 103, 204);
-	//m_BKObject.AddTerrain(t1);
+	t1 = New TerrainObject;
+	t1->Set(728, 414, 728, 414, 106, 355);
+	m_BKObject.AddTerrain(t1);
 
-	//t1 = New TerrainObject;
-	//t1->Set(1663, 468, 1663, 468, 155, 304);
-	//m_BKObject.AddTerrain(t1);
+	t1 = New DownableObject;
+	t1->Set(627, 467, 627, 467, 101, 21);
+	m_BKObject.AddTerrain(t1);
 
 	//t1 = New TerrainObject;
 	//t1->Set(1818, 623, 1818, 623, 335, 151);

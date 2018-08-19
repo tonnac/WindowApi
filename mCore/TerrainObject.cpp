@@ -1,10 +1,8 @@
 #include "TerrainObject.h"
-#include "Player.h"
-#include "Collision.h"
+
 
 bool TerrainObject::Init()
 {
-	m_fTimer = 0.0f;
 	return true;
 }
 bool TerrainObject::Frame()
@@ -20,7 +18,7 @@ bool TerrainObject::Frame()
 }
 bool TerrainObject::Render()
 {
-	int prevpen = SetROP2(g_hOffScreenDC, R2_XORPEN);
+	int prevpen = SetROP2(g_hOffScreenDC, R2_MASKPEN);
 
 	Rectangle(g_hOffScreenDC, m_rtCollision.left, m_rtCollision.top,
 		m_rtCollision.right, m_rtCollision.bottom);

@@ -31,7 +31,7 @@ bool Object::Render()
 
 	if (isDebugMode)
 	{
-		int iPrev = SetROP2(g_hOffScreenDC, R2_XORPEN);
+		int iPrev = SetROP2(g_hOffScreenDC, R2_MASKPEN);
 
 		//원충돌크기
 		//LONG dwX = m_rtCollision.right - m_rtCollision.left;						

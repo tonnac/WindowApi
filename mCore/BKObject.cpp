@@ -86,7 +86,7 @@ bool BKObject::Collision(Object* pObject)
 		{
 			RECT ObjRT = *pObject->getCollisionRt();
 			RECT rtrt = *it->getCollisionRt();
-			RECT faRT = { ObjRT.left + 27, ObjRT.top, ObjRT.right - 27, ObjRT.bottom + 10 };
+			RECT faRT = { ObjRT.left + 27, ObjRT.bottom, ObjRT.right - 27, ObjRT.bottom + 10 };
 			if (CollisionClass::RectInRect(faRT, rtrt))
 			{
 				isLanding = true;

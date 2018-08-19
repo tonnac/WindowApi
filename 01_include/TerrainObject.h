@@ -1,5 +1,7 @@
 #pragma once
 #include "Object.h"
+#include "Player.h"
+#include "Collision.h"
 
 class TerrainObject : public Object
 {
@@ -9,8 +11,6 @@ public:
 	bool				Render			() override;
 	bool				Release			() override;
 	virtual	bool		MoveObject		(Object*, const RECT&);
-	bool				Collision		(Object*) override;
+	virtual bool		Collision		(Object*) override;
 	void				ReverseSet		(const LONG&);
-private:
-	float				m_fTimer;
 };
