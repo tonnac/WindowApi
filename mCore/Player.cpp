@@ -4,7 +4,7 @@
 
 float g_fSpeed = 0.0f;
 
-Player::Player() : m_pCurrentState(nullptr), m_iCurrentDir(1), m_iJumpNumber(0), isPrevScene(false), isNextScene(false)
+Player::Player() : m_pCurrentState(nullptr), m_iCurrentDir(1), m_iJumpNumber(0)
 { 
 	State * state = New PlayerIdle(this);
 	state = New PlayerRun(this);
@@ -32,7 +32,6 @@ bool Player::Init()
 	Object::Init();
 	return true;
 }
-
 bool Player::Frame()
 {
 	m_pCurrentState->Frame();
@@ -40,7 +39,6 @@ bool Player::Frame()
 	Object::Frame();
 	return true;
 }
-
 bool Player::Release()
 {
 	for (auto it : m_pStateList)
@@ -67,17 +65,17 @@ void Player::setJumpNum(const INT& Num)
 {
 	m_iJumpNumber = Num;
 }
-INT Player::getJumpNum()
+void Player::setDir(const INT& dir)
 {
-	return m_iJumpNumber;
+	m_iCurrentDir *= dir;
 }
 INT	Player::getDir()
 {
 	return m_iCurrentDir;
 }
-void Player::setDir(const INT& dir)
+INT Player::getJumpNum()
 {
-	m_iCurrentDir *= dir;
+	return m_iJumpNumber;
 }
 bool Player::isFallState()
 {

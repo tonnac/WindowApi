@@ -10,25 +10,21 @@ class Player : public Object
 public:
 	Player();
 public:
-	bool			Init		() override;
-	bool			Frame		() override;
-	bool			Render		() override;
-	bool			Release		() override;
+	bool			Init			() override;
+	bool			Frame			() override;
+	bool			Render			() override;
+	bool			Release			() override;
 public:
-	void			setState	(T_STR);
-	void			setJumpNum	(const INT&);
+	void			setState		(T_STR);
+	void			setJumpNum		(const INT&);
+	void			setDir			(const INT&);
 public:
-	INT				getJumpNum	();
+	INT				getDir			();
+	INT				getJumpNum		();
+	bool			isFallState		();
 public:
-	INT				getDir		();
-	void			setDir		(const INT&);
-public:
-	bool			isFallState();
-public:
-	void			addState(std::string, State*);
+	void			addState		(std::string, State*);
 private:
-	bool			isPrevScene;
-	bool			isNextScene;
 	INT				m_iCurrentDir;
 	INT				m_iJumpNumber;
 	StateMap		m_pStateList;

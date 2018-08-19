@@ -12,10 +12,10 @@ bool TerrainObject::Frame()
 	m_CenterPos.x = m_DrawPos.x + (m_rtDraw.right /2);
 	m_CenterPos.y = m_DrawPos.y + (m_rtDraw.bottom / 2);
 
-	m_rtCollision.left = static_cast<LONG>(m_CenterPos.x - m_rtDraw.right / 2);
-	m_rtCollision.top = static_cast<LONG>(m_CenterPos.y - m_rtDraw.bottom / 2);
-	m_rtCollision.right = static_cast<LONG>(m_CenterPos.x + m_rtDraw.right / 2);
-	m_rtCollision.bottom = static_cast<LONG>(m_CenterPos.y + m_rtDraw.bottom / 2);
+	m_rtCollision.left = static_cast<LONG>(m_DrawPos.x);
+	m_rtCollision.top = static_cast<LONG>(m_DrawPos.y);
+	m_rtCollision.right = static_cast<LONG>(m_DrawPos.x + m_rtDraw.right);
+	m_rtCollision.bottom = static_cast<LONG>(m_DrawPos.y + m_rtDraw.bottom);
 	return true;
 }
 bool TerrainObject::Render()
@@ -96,4 +96,9 @@ bool TerrainObject::MoveObject(Object* pObject, const RECT& CollisionArea)
 		}
 	}
 	return true;
+}
+
+void TerrainObject::ReverseSet(const LONG& drawright)
+{
+	m_DrawPos.x -= drawright;
 }

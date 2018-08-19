@@ -14,10 +14,11 @@ public:
 private:
 	bool				Collision	(const RECT&);
 private:
+	std::array<INT,2>	m_nInitValue;
 	Object*				m_pPlayer;
 	Object*				m_pBkObj;
 	RECT*				m_PlayerCollisionRt;
 	RECT*				m_BkRtDraw;
-	FloatPoint			m_CenterPos[2];
-	RECT				m_rtCollision[2];
+	FloatPoint			m_CenterPos;
+	RECT				m_rtCollision;
 };

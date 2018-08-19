@@ -35,6 +35,7 @@ public:
 	void				setFadeRender	(const FLOAT&, const FLOAT&);
 	void				setDebugmode	(const bool&);
 	void				setSpeed		(const FLOAT&);
+	void				setDraw_x		(const FLOAT&);
 	void				setCenterPos_x	(const FLOAT&);
 	void				setCenterPos_y	(const FLOAT&);
 	void				setLanding		(const bool&);
@@ -42,7 +43,7 @@ public:
 	void				DebugMode();
 public:
 	bool				LoadFile		(T_STR, T_STR, T_STR = std::basic_string<TCHAR>());
-	void				Set				(const FLOAT&, const FLOAT&,
+	virtual void		Set				(const FLOAT&, const FLOAT&,
 										const DWORD& = 0, const DWORD& = 0, const DWORD& = 0, const DWORD& = 0);
 	void				Set				(const FloatPoint&, const RECT&);
 public:

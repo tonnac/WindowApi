@@ -48,18 +48,19 @@ bool BKObject::Release()
 }
 bool BKObject::MoveScrollBk(const LONG& fsize)
 {
+//	m_fScroll = m_rtDraw.left;
 	for (auto it : m_pObjList)
 	{
 		it->MoveScrollObj(fsize);
 	}
 	if (fsize < 0)
 	{
-		m_fScroll += (g_fPerSecFrame * g_fSpeed);
+		m_fScroll += -(g_fPerSecFrame * g_fSpeed);
 		m_rtDraw.left = static_cast<LONG>(m_fScroll);
 	}
 	else
 	{
-		m_fScroll += -(g_fPerSecFrame * g_fSpeed);
+		m_fScroll += (g_fPerSecFrame * g_fSpeed);
 		m_rtDraw.left = static_cast<LONG>(m_fScroll);
 	}
 	return true;
@@ -92,4 +93,13 @@ bool BKObject::Collision(Object* pObject)
 	}
 	pObject->setLanding(isLanding);
 	return Frame();
+}
+void BKObject::ReveseSet()
+{
+	for (auto it : m_pObjList)
+	{
+		it->ReverseSet(m_rtDraw.right - g_rtClient.right);
+	}
+	m_rtDraw.left = m_rtDraw.right - g_rtClient.right;
+	m_fScroll = m_rtDraw.left;
 }

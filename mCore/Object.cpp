@@ -153,6 +153,10 @@ void Object::setSpeed(const FLOAT& speed)
 {
 	m_fSpeed = speed;
 }
+void Object::setDraw_x(const FLOAT& xpos)
+{
+	m_DrawPos.x = xpos;
+}
 void Object::setCenterPos_x(const FLOAT& ft)
 {
 	m_CenterPos.x = ft;
@@ -259,11 +263,12 @@ bool Object::MoveScrollObj(const LONG& fsize)
 {
 	if (fsize < 0)
 	{
-		m_DrawPos.x += -(g_fPerSecFrame * g_fSpeed);
+		
+		m_DrawPos.x += (g_fPerSecFrame * g_fSpeed);
 	}
 	else
 	{
-		m_DrawPos.x += (g_fPerSecFrame * g_fSpeed);
+		m_DrawPos.x -= (g_fPerSecFrame * g_fSpeed);
 	}
 	return true;
 }

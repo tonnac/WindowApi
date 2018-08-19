@@ -10,6 +10,7 @@ public:
 	bool				Release			() override;
 	virtual	bool		MoveObject		(Object*, const RECT&);
 	bool				Collision		(Object*) override;
+	void				ReverseSet		(const LONG&);
 private:
 	float				m_fTimer;
 };
