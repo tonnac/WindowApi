@@ -56,7 +56,7 @@ bool Sprite::setDivideTime(const FLOAT& offset)
 }
 bool Sprite::setIndex(const INT& rindex)
 {
-	if (rindex < 0 || rindex > m_spritelist.size())
+	if (rindex < 0 || rindex > m_spritelist.size() - 1)
 	{
 		return false;
 	}

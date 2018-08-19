@@ -12,15 +12,12 @@ class Scene
 public:
 	Scene();
 public:
-	virtual bool	Init	() = 0;
-	virtual bool	Frame	() = 0;
-	virtual bool	Render	() = 0;
-	virtual bool	Release	() = 0;
+	virtual bool	Init		() = 0;
+	virtual bool	Frame		() = 0;
+	virtual bool	Render		() = 0;
+	virtual bool	Release		() = 0;
+	virtual bool	inverseSet	();
 	bool			getNextScene();
-	virtual bool	ChangeScene(Scene *)
-	{
-		return true;
-	}
 public:
 	void * operator new(size_t sz, const char* FileName, int iLine);
 	void operator delete(void * p);

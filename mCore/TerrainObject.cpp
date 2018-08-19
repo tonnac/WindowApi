@@ -20,7 +20,7 @@ bool TerrainObject::Frame()
 }
 bool TerrainObject::Render()
 {
-	int prevpen = SetROP2(g_hOffScreenDC, R2_NOTXORPEN);
+	int prevpen = SetROP2(g_hOffScreenDC, R2_XORPEN);
 
 	Rectangle(g_hOffScreenDC, m_rtCollision.left, m_rtCollision.top,
 		m_rtCollision.right, m_rtCollision.bottom);

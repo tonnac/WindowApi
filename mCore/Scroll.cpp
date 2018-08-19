@@ -8,9 +8,9 @@ Scroll::Scroll(Object * pPlayer, Object * pBkObj) : m_pPlayer(pPlayer),
 
 bool Scroll::Init()
 {
-	m_rtCollision.left = g_rtClient.left + 280;
+	m_rtCollision.left = g_rtClient.left + 200;
 	m_rtCollision.top = g_rtClient.top;
-	m_rtCollision.right = (g_rtClient.left + 280 + g_rtClient.right) / 2;
+	m_rtCollision.right = (g_rtClient.left + 520 + g_rtClient.right) / 2;
 	m_rtCollision.bottom = g_rtClient.bottom;
 
 	m_CenterPos.x = static_cast<FLOAT>((m_rtCollision.left + m_rtCollision.right) / 2);
@@ -27,11 +27,11 @@ bool Scroll::Frame()
 }
 bool Scroll::Render()
 {
-	int prevpen = SetROP2(g_hOffScreenDC, R2_NOTXORPEN);
-	Rectangle(g_hOffScreenDC, m_rtCollision.left, m_rtCollision.top,
-		m_rtCollision.right, m_rtCollision.bottom);
+	//int prevpen = SetROP2(g_hOffScreenDC, R2_NOTXORPEN);
+	//Rectangle(g_hOffScreenDC, m_rtCollision.left, m_rtCollision.top,
+	//	m_rtCollision.right, m_rtCollision.bottom);
 
-	SetROP2(g_hOffScreenDC, prevpen);
+	//SetROP2(g_hOffScreenDC, prevpen);
 	return true;
 }
 bool Scroll::Release()
@@ -73,7 +73,6 @@ bool Scroll::Collision(const RECT& rt)
 		if (pl->getDir() == -1)
 		{
 			return MoveCamera(x1);
-			//MoveCamera(x2 - x1 + 1);
 		}
 	}
 	return true;

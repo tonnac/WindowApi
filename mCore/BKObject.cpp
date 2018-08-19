@@ -21,11 +21,13 @@ bool BKObject::Frame()
 		it->Frame();
 	}
 	return Object::Frame();
+
 }
 
 bool BKObject::Render()
 {
 	Object::Render();
+
 	if (isDebugMode)
 	{
 		for (auto it : m_pObjList)
@@ -94,7 +96,7 @@ bool BKObject::Collision(Object* pObject)
 	pObject->setLanding(isLanding);
 	return Frame();
 }
-void BKObject::ReveseSet()
+void BKObject::ReverseSet()
 {
 	for (auto it : m_pObjList)
 	{

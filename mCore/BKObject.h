@@ -15,7 +15,7 @@ public:
 	bool		MoveScrollBk	(const LONG&) override;
 	void		AddTerrain		(TerrainObject *);
 	bool		Collision		(Object* ) override;
-	void		ReveseSet		();
+	void		ReverseSet		();
 private:
 	std::vector<TerrainObject*> m_pObjList;
 };

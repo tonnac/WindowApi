@@ -25,7 +25,7 @@ bool KahoAttack2::Init()
 {
 	m_pEffectSprite = S_SpriteMgr.LoadSprite(L"Kaho", L"Leaf2");
 	m_pEffectSprite->setIndex(0);
-	m_pEffectSprite->setDivideTime(0.9f);
+	m_pEffectSprite->setDivideTime(1.0f);
 	Object::Init();
 	return true;
 }
@@ -46,7 +46,7 @@ bool KahoAttack3::Init()
 {
 	m_pEffectSprite = S_SpriteMgr.LoadSprite(L"Kaho", L"Leaf3");
 	m_pEffectSprite->setIndex(0);
-	m_pEffectSprite->setDivideTime(0.9f);
+	m_pEffectSprite->setDivideTime(1.2f);
 	Object::Init();
 	return true;
 }

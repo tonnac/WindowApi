@@ -11,7 +11,7 @@ public:
 	bool		Frame		() override;
 	bool		Render		() override;
 	bool		Release		() override;
-	bool		inverseset	();
+	bool		inverseSet	() override;
 private:
 	Player		m_pPlayer;
 	Scroll		m_pScroll;
@@ -27,6 +27,7 @@ public:
 	bool		Frame		() override;
 	bool		Render		() override;
 	bool		Release		() override;
+	bool		inverseSet	() override;
 private:
 	Player		m_pPlayer;
 	Scroll		m_pScroll;

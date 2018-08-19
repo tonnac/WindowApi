@@ -2,6 +2,10 @@
 
 Scene::Scene() : m_bNextSceneStart(false)
 {}
+bool Scene::inverseSet()
+{
+	return true;
+}
 bool Scene::getNextScene()
 {
 	return m_bNextSceneStart;
@@ -54,6 +58,7 @@ bool LobbyScene::Frame()
 		if (m_state == LOBBYSTATE::SELECT)
 		{
 			m_bNextSceneStart = true;
+			return false;
 		}
 		m_state = LOBBYSTATE::START;
 		m_BKObject.setRendering();

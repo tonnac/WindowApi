@@ -45,6 +45,7 @@ bool GameScene::Frame()
 	if (px.x >= 900)
 	{
 		m_bNextSceneStart = true;
+		return false;
 	}
 	if (m_BKObject.Collision(&m_pPlayer) == false)
 	{
@@ -66,8 +67,8 @@ bool GameScene::Frame()
 bool GameScene::Render()
 {
 	m_BKObject.Render();
-	m_pPlayer.Render();
 	m_pScroll.Render();
+	m_pPlayer.Render();
 	if (m_pFadeObject)
 	{
 		m_pFadeObject->Render();
@@ -80,18 +81,16 @@ bool GameScene::Release()
 	m_BKObject.Release();
 	return true;
 }
-bool GameScene::inverseset()
+bool GameScene::inverseSet()
 {
 	m_pFadeObject = New FadeObject;
 	m_pFadeObject->Set(0, 0, 0, 0, g_rtClient.right, g_rtClient.bottom);
 	m_pFadeObject->Init();
 
-	m_BKObject.ReveseSet();
+	m_BKObject.ReverseSet();
 
 	m_pPlayer.Set(800, 580, 10, 87, 25, 36);
 	m_pPlayer.setRendering(2.8f, INVERSE::LR_ROTATION);
-
-
 
 	return true;
 }
@@ -138,8 +137,13 @@ bool GameScene2::Frame()
 	const FloatPoint px = *m_pPlayer.getDrawPos();
 	if (px.x <= 20)
 	{
+		m_bNextSceneStart = false;
+		return false;
+	}
+	if (px.x >= 900)
+	{
 		m_bNextSceneStart = true;
-
+		return false;
 	}
 	if (m_BKObject.Collision(&m_pPlayer) == false)
 	{
@@ -172,5 +176,18 @@ bool GameScene2::Release()
 {
 	m_pPlayer.Release();
 	m_BKObject.Release();
+	return true;
+}
+bool GameScene2::inverseSet()
+{
+	m_pFadeObject = New FadeObject;
+	m_pFadeObject->Set(0, 0, 0, 0, g_rtClient.right, g_rtClient.bottom);
+	m_pFadeObject->Init();
+
+	m_BKObject.ReverseSet();
+
+	m_pPlayer.Set(800, 580, 10, 87, 25, 36);
+	m_pPlayer.setRendering(2.8f, INVERSE::LR_ROTATION);
+
 	return true;
 }

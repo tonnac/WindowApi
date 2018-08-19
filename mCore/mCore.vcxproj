@@ -173,6 +173,7 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClInclude Include="PlayerBasicState.h" />
     <ClInclude Include="Rendering.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="Scroll.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteMgr.h" />
@@ -202,6 +203,7 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClCompile Include="PlayerBasicState.cpp" />
     <ClCompile Include="Rendering.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="Scroll.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteMgr.cpp" />

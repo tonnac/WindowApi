@@ -73,7 +73,7 @@ PlayerAttack2::PlayerAttack2(Player * pPlayer) : PlayerState(pPlayer)
 bool PlayerAttack2::Init()
 {
 	setSprite(L"Kaho", L"Attack2");
-	m_pSprite->setDivideTime(0.9f);
+	m_pSprite->setDivideTime(1.0f);
 	m_pEffectObj->LoadFile(L"PLAYER", L"../02_data/bmp/KahoColor.bmp", L"../02_data/bmp/KahoMask.bmp");
 	m_pEffectObj->Init();
 	m_pEffectObj->setRendering(2.8f, INVERSE::DEFAULT);
@@ -136,7 +136,7 @@ PlayerAttack3::PlayerAttack3(Player * pPlayer) : PlayerState(pPlayer)
 bool PlayerAttack3::Init()
 {
 	setSprite(L"Kaho", L"Attack3");
-	m_pSprite->setDivideTime(0.9f);
+	m_pSprite->setDivideTime(1.2f);
 	m_pEffectObj->LoadFile(L"PLAYER", L"../02_data/bmp/KahoColor.bmp", L"../02_data/bmp/KahoMask.bmp");
 	m_pEffectObj->Init();
 	m_pEffectObj->setRendering(2.8f, INVERSE::DEFAULT);
