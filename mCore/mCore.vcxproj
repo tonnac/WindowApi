@@ -100,7 +100,7 @@
     <PostBuildEvent>
       <Command>copy "$(ProjectDir)*.h" "$(SolutionDir)01_include"
 copy "$(TargetDir)$(TargetName).lib" "$(SolutionDir)00_lib"
-copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
+copy "$(ProjectDir)*.txt" "$(SolutionDir)02_data/txt"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -158,15 +158,16 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClInclude Include="BitmapMgr.h" />
     <ClInclude Include="BKObject.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="CharacterObject.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="DownableObject.h" />
     <ClInclude Include="EffectObj.h" />
     <ClInclude Include="FadeObject.h" />
     <ClInclude Include="GameScene.h" />
-    <ClInclude Include="GroundObject.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="KahoAttack.h" />
+    <ClInclude Include="LadderObject.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
@@ -189,15 +190,16 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)/02_data/txt"</Command>
     <ClCompile Include="BitmapMgr.cpp" />
     <ClCompile Include="BKObject.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CharacterObject.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DownableObject.cpp" />
     <ClCompile Include="EffectObj.cpp" />
     <ClCompile Include="FadeObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="GroundObject.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="KahoAttack.cpp" />
+    <ClCompile Include="LadderObject.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />

@@ -61,9 +61,9 @@ bool TerrainObject::MoveObject(Object* pObject, const RECT& CollisionArea)
 	FloatPoint pObjCenterPos = *(pObject->getCenterPos());
 	if (lWidth > lHeight)
 	{
+		CharacterObject * pl = dynamic_cast<CharacterObject*>(pObject);
 		if (CollisionArea.top == m_rtCollision.top)					//	위에서 충돌
 		{
-			Player * pl = dynamic_cast<Player*>(pObject);
 			bool flag = pl->isFallState();
 			if (flag == true)
 			{
@@ -78,6 +78,9 @@ bool TerrainObject::MoveObject(Object* pObject, const RECT& CollisionArea)
 		else if (CollisionArea.bottom == m_rtCollision.bottom)		// 아래에서 충돌
 		{
 			pObject->setCenterPos_y(pObjCenterPos.y + lHeight);
+			pl->setState(L"Fall");
+			pObject->setLanding(false);
+			return false;
 		}
 	}
 	else

@@ -1,7 +1,7 @@
 #pragma once
-#include "Object.h"
+#include "CharacterObject.h"
 
-class NPC : public Object
+class NPC : public CharacterObject
 {
 public:
 	NPC();
@@ -9,5 +9,4 @@ public:
 public:
 	bool		Frame() override;
 private:
-	int			m_iDirection[2];
 };
