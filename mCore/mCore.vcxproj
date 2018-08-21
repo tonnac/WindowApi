@@ -152,6 +152,7 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)02_data/txt"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Kaho.txt" />
+    <Text Include="Monkey.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bitmap.h" />
@@ -168,7 +169,7 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)02_data/txt"</Command>
     <ClInclude Include="Input.h" />
     <ClInclude Include="KahoAttack.h" />
     <ClInclude Include="LadderObject.h" />
-    <ClInclude Include="NPC.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAttack.h" />
@@ -200,7 +201,7 @@ copy "$(ProjectDir)*.txt" "$(SolutionDir)02_data/txt"</Command>
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="KahoAttack.cpp" />
     <ClCompile Include="LadderObject.cpp" />
-    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerAttack.cpp" />

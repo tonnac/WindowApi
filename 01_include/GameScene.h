@@ -14,7 +14,7 @@ public:
 protected:
 	Player				m_pPlayer;
 	Scroll				m_pScroll;
-	std::list<NPC*>		m_NPCList;
+	std::list<Enemy*>		m_NPCList;
 };
 
 class GameScene1 : public GameScene

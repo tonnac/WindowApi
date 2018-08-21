@@ -4,7 +4,7 @@
 #include "SpriteMgr.h"
 #include "Player.h"
 #include "Scroll.h"
-#include "NPC.h"
+#include "Enemy.h"
 #include "TerrainObject.h"
 #include "Button.h"
 #include "FadeObject.h"
